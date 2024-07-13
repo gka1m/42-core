@@ -10,7 +10,7 @@ Libft (done)
 
 ft_printf (done)
 get_next_line (done)
-born2beroot
+born2beroot (done)
 
 ## Milestone 2
 
