@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_printchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/05 17:11:56 by kagoh            ###   ########.fr       */
+/*   Created: 2024/06/19 12:15:06 by kagoh             #+#    #+#             */
+/*   Updated: 2024/06/19 16:07:54 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "ft_printf.h"
 
-typedef struct s_node
-{
-    int value;
-    struct s_node *next;
-} t_node;
+/* print a single character; handles %c specifier */
 
-typedef struct s_stack
+int	ft_printchar(char c)
 {
-    t_node *top;
-    int size;
-} t_stack;
+	write(1, &c, 1);
+	return (1);
+}

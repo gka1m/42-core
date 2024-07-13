@@ -16,11 +16,13 @@ CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= 
+SRC		= ft_printchar.c ft_printf.c ft_printhexadec.c ft_printnumber.c \
+		  ft_printptr.c ft_printstr.c ft_printunsigned_num.c ft_strchr.c \
+		  ft_strlen.c
 
 OBJ		= $(SRC:.c=.o)
 
-INCLUDES = push_swap.h
+INCLUDES = push_swap.h ft_printf.h
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)

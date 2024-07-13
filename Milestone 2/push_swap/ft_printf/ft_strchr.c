@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/05 17:11:56 by kagoh            ###   ########.fr       */
+/*   Created: 2024/06/24 15:58:02 by kagoh             #+#    #+#             */
+/*   Updated: 2024/06/24 16:35:32 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "ft_printf.h"
 
-typedef struct s_node
+char	*ft_strchr(const char *str, int c)
 {
-    int value;
-    struct s_node *next;
-} t_node;
+	int				i;
+	unsigned char	chr;
 
-typedef struct s_stack
-{
-    t_node *top;
-    int size;
-} t_stack;
+	i = 0;
+	chr = (unsigned char)c;
+	if (chr == '\0')
+	{
+		while (str[i] != '\0')
+			i++;
+		return ((char *)(str + i));
+	}
+	while (str[i] != '\0')
+	{
+		if (str[i] == chr)
+			return ((char *)(str + i));
+		else
+			i++;
+	}
+	return (NULL);
+}

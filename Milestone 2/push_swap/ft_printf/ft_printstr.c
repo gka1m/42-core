@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/05 17:11:56 by kagoh            ###   ########.fr       */
+/*   Created: 2024/06/19 12:15:16 by kagoh             #+#    #+#             */
+/*   Updated: 2024/06/24 16:50:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "ft_printf.h"
 
-typedef struct s_node
-{
-    int value;
-    struct s_node *next;
-} t_node;
+/* print a string; handles %s specifier */
 
-typedef struct s_stack
+int	ft_printstr(char *s)
 {
-    t_node *top;
-    int size;
-} t_stack;
+	int		i;
+	int		count;
+	char	*nullstr;
+
+	i = 0;
+	count = 0;
+	nullstr = "(null)";
+	if (s == NULL)
+	{
+		while (*nullstr)
+		{
+			write(1, nullstr, 1);
+			nullstr++;
+			count++;
+		}
+		return (count);
+	}
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+		count++;
+	}
+	return (count);
+}

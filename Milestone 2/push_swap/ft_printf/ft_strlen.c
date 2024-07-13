@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/05 17:11:56 by kagoh            ###   ########.fr       */
+/*   Created: 2024/05/17 13:29:40 by kagoh             #+#    #+#             */
+/*   Updated: 2024/06/19 14:58:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "ft_printf.h"
 
-typedef struct s_node
+int	ft_strlen(const char *str)
 {
-    int value;
-    struct s_node *next;
-} t_node;
+	int	count;
 
-typedef struct s_stack
-{
-    t_node *top;
-    int size;
-} t_stack;
+	count = 0;
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return (count);
+}
