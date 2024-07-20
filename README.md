@@ -1,7 +1,5 @@
 # 42 Project List
 
----
-
 My own repo of projects completed in 42 Core Program
 
 ## Milestone 1
