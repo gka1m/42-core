@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-char **parse_command(che *cmd, char **env)
+char **parse_command(char *cmd, char **env)
 {
     char **args;
 
