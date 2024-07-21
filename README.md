@@ -2,7 +2,7 @@
 
 My own repo of projects completed in 42 Core Program
 
-## Milestone 1
+## Milestone 0
 
 - Libft (done)
 
