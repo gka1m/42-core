@@ -18,7 +18,10 @@ char **parse_command(char *cmd, char **env)
 
     args = ft_split(cmd, ' ');
     if (args == NULL || args[0] == NULL)
+    {
+        ft_printf("Syntax error: Invalid command\n");
         return (NULL);
+    }
 }
 
 char **get_path(char **env)
