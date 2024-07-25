@@ -6,31 +6,23 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:04:23 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/17 17:04:32 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:10:39 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char **parse_command(char *cmd, char **env)
+int	check_input_file(char *file)
 {
-    char **args;
-
-    args = ft_split(cmd, ' ');
-    if (args == NULL || args[0] == NULL)
-    {
-        ft_printf("Syntax error: Invalid command\n");
-        return (NULL);
-    }
-}
-
-char **get_path(char **env)
-{
-    while (*env)
-    {
-        if (ft_strncmp(*env, "PATH", 4) == 0)
-            break;
-        env++;
-    }
-    return (ft_split(*env + 5, ':'));
+	if (access(file, F_OK) != 0)
+	{
+		ft_printf("Error: Input file %s not found.\n", file);
+		return (-1);
+	}
+	if (access(file, R_OK) != 0)
+	{
+		ft_printf("Error: Input file %s not found.\n", file);
+		return (-1);
+	}
+	return (0);
 }

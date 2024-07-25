@@ -6,17 +6,17 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:45:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/05/20 17:45:50 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/07/25 12:03:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-size_t ft_strlcat(char *dest, const char *src, size_t dest_len)
+size_t	ft_strlcat(char *dest, const char *src, size_t dest_len)
 {
-	size_t dest_size;
-	size_t src_size;
-	size_t i;
+	size_t	dest_size;
+	size_t	src_size;
+	size_t	i;
 
 	dest_size = 0;
 	src_size = 0;

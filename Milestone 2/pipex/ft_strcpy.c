@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 18:02:42 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/25 12:02:43 by kagoh            ###   ########.fr       */
+/*   Created: 2024/07/25 14:47:13 by kagoh             #+#    #+#             */
+/*   Updated: 2024/07/25 14:58:43 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *string)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	int			i;
-	int			len;
-	char		*result;
-	const char	*temp;
+	int	i;
 
-	len = 0;
 	i = 0;
-	temp = string;
-	while (*temp)
+	while (src[i] != '\0')
 	{
-		len++;
-		temp++;
-	}
-	result = (char *)malloc((len + 1) * sizeof(char));
-	if (result == NULL)
-		return (NULL);
-	while (i <= len)
-	{
-		result[i] = string[i];
+		dest[i] = src[i];
 		i++;
 	}
-	return (result);
+	dest[i] = '\0';
+	return (dest);
 }

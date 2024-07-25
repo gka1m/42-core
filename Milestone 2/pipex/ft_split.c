@@ -6,16 +6,16 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:13:59 by kagoh             #+#    #+#             */
-/*   Updated: 2024/05/27 11:13:59 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/07/25 12:02:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static size_t count_words(char const *s, char c)
+static size_t	count_words(char const *s, char c)
 {
-	size_t wordcount;
-	int i;
+	size_t	wordcount;
+	int		i;
 
 	i = 0;
 	wordcount = 0;
@@ -31,10 +31,10 @@ static size_t count_words(char const *s, char c)
 	return (wordcount);
 }
 
-static char *create_word(const char *s, size_t start, size_t end)
+static char	*create_word(const char *s, size_t start, size_t end)
 {
-	char *word;
-	size_t i;
+	char	*word;
+	size_t	i;
 
 	i = 0;
 	word = malloc((end - start + 1) * sizeof(char));
@@ -49,9 +49,9 @@ static char *create_word(const char *s, size_t start, size_t end)
 	return (word);
 }
 
-void free_word(char **split_arr)
+void	free_word(char **split_arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split_arr[i] != NULL)
@@ -62,12 +62,12 @@ void free_word(char **split_arr)
 	free(split_arr);
 }
 
-char **split_string(char const *s, char c, char **result, size_t wordcount)
+char	**split_string(char const *s, char c, char **result, size_t wordcount)
 {
-	size_t i;
-	size_t j;
-	size_t start;
-	size_t k;
+	size_t	i;
+	size_t	j;
+	size_t	start;
+	size_t	k;
 
 	i = 0;
 	j = 0;
@@ -91,10 +91,10 @@ char **split_string(char const *s, char c, char **result, size_t wordcount)
 	return (result);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	size_t wordcount;
-	char **result;
+	size_t	wordcount;
+	char	**result;
 
 	if (s == NULL)
 		return (NULL);
