@@ -19,7 +19,7 @@ CFLAGS	= -Wall -Wextra -Werror
 SRC		= ft_split.c ft_strdup.c ft_strlcat.c ft_strncmp.c \
 		  ft_printchar.c ft_printf.c ft_printhexadec.c ft_printnumber.c \
 		  ft_printptr.c ft_printstr.c ft_printunsigned_num.c ft_strchr.c \
-		  ft_strlen.c ft_strcpy.c utils.c
+		  ft_strlen.c ft_strcpy.c utils.c utils2.c
 
 OBJ		= $(SRC:.c=.o)
 

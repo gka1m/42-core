@@ -35,3 +35,12 @@ char    *get_path(char *cmd, char **env)
     return (execpath);
 }
 
+void    set_pipes(int *pipe1[2], int *pipe2[2])
+{
+    if (pipe(*pipe1) == -1 || pipe(*pipe2) == -1)
+    {
+        perror("pipe");
+        exit(EXIT_FAILURE);
+    }
+}
+
