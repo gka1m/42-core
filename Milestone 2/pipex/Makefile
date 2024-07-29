@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 22:27:06 by kagoh             #+#    #+#              #
-#    Updated: 2024/07/25 14:53:07 by kagoh            ###   ########.fr        #
+#    Updated: 2024/07/29 15:57:35 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,20 @@ CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= ft_split.c ft_strdup.c ft_strlcat.c ft_strncmp.c \
-		  ft_printchar.c ft_printf.c ft_printhexadec.c ft_printnumber.c \
-		  ft_printptr.c ft_printstr.c ft_printunsigned_num.c ft_strchr.c \
-		  ft_strlen.c ft_strcpy.c utils.c utils2.c
+PRINTF_DIR = ft_printf
+
+SRC		= $(PRINTF_DIR)/ft_printchar.c $(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_printhexadec.c \
+		  $(PRINTF_DIR)/ft_printnumber.c $(PRINTF_DIR)/ft_printptr.c $(PRINTF_DIR)/ft_printstr.c \
+		  $(PRINTF_DIR)/ft_printunsigned_num.c $(PRINTF_DIR)/ft_strchr.c \
+		  $(PRINTF_DIR)/ft_strlen.c ft_split.c ft_strdup.c ft_strlcat.c ft_strncmp.c \
+		  ft_strcpy.c utils.c utils2.c pipex.c
 
 OBJ		= $(SRC:.c=.o)
 
-INCLUDES = pipex.h ft_printf.h
+INCLUDES = pipex.h $(PRINTF_DIR)/ft_printf.h
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.c $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@

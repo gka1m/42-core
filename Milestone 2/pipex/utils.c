@@ -6,13 +6,14 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:04:23 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/25 15:10:39 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:06:27 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf/ft_printf.h"
 #include "pipex.h"
 
-int check_input_file(char *file)
+int	check_input_file(char *file)
 {
 	if (access(file, F_OK) != 0)
 	{
@@ -27,25 +28,25 @@ int check_input_file(char *file)
 	return (0);
 }
 
-char *check_cmd(char *cmd)
+char	*check_cmd(char *cmd)
 {
 	if (ft_strncmp(cmd, "./", 2) == 0 && access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	return (NULL);
 }
 
-char **extract_var(char **env)
+char	**extract_var(char **env)
 {
 	while (*env)
 	{
-		if (ft_strncmp(*env, "PATH=", 5) == 0)
-			return (ft_split(*env + 6, ':'));
+		if (ft_strncmp(*env, "PATH", 4) == 0)
+			return (ft_split(*env + 5, ':'));
 		env++;
 	}
 	return (NULL);
 }
 
-char *join_paths(const char *dir, const char *cmd)
+char	*join_paths(const char *dir, const char *cmd)
 {
 	size_t	dir_len;
 	size_t	cmd_len;
@@ -59,7 +60,7 @@ char *join_paths(const char *dir, const char *cmd)
 	if (full_path == NULL)
 	{
 		perror("malloc failed");
-		exit(EXIT_FAILURE);
+		exit(1);
 	}
 	ft_strcpy(full_path, dir);
 	ft_strcpy(full_path, "/");
@@ -67,7 +68,7 @@ char *join_paths(const char *dir, const char *cmd)
 	return (full_path);
 }
 
-char *search_paths(char *cmd, char **paths)
+char	*search_paths(char *cmd, char **paths)
 {
 	char	*full_path;
 
