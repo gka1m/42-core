@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:07:17 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/29 16:57:37 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/08/01 14:08:03 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ char	*get_path(char *cmd, char **env)
 	return (execpath);
 }
 
-void	set_pipes(int (*pipe1)[2], int (*pipe2)[2])
-{
-	if (pipe(*pipe1) == -1 || pipe(*pipe2) == -1)
-	{
-		perror("pipe");
-		exit(1);
-	}
-}
-
 void	first_fork(char *cmd, char **env, int in_fd, int (*pipe1)[2])
 {
 	pid_t	pid;
@@ -65,7 +56,7 @@ void	first_fork(char *cmd, char **env, int in_fd, int (*pipe1)[2])
 		exec_path = get_path(cmd, env);
 		if (exec_path == NULL)
 		{
-			ft_printf("Error: Command  %s not found\n", cmd);
+			ft_printf("Error: Command %s not found\n", cmd);
 			exit(1);
 		}
 		execve(exec_path, ft_split(cmd, ' '), env);
@@ -94,7 +85,7 @@ void	second_fork(char *cmd, char **env, int out_fd, int (*pipe1)[2])
 		exec_path = get_path(cmd, env);
 		if (exec_path == NULL)
 		{
-			ft_printf("Error: Command  %s not found\n", cmd);
+			ft_printf("Error: Command %s not found\n", cmd);
 			exit(1);
 		}
 		execve(exec_path, ft_split(cmd, ' '), env);

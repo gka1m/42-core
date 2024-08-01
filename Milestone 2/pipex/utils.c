@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:04:23 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/29 17:06:27 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/08/01 14:17:52 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_input_file(char *file)
 
 char	*check_cmd(char *cmd)
 {
-	if (ft_strncmp(cmd, "./", 2) == 0 && access(cmd, X_OK) == 0)
+	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	return (NULL);
 }
@@ -39,7 +39,7 @@ char	**extract_var(char **env)
 {
 	while (*env)
 	{
-		if (ft_strncmp(*env, "PATH", 4) == 0)
+		if (ft_strncmp(*env, "PATH=", 5) == 0)
 			return (ft_split(*env + 5, ':'));
 		env++;
 	}
@@ -55,16 +55,16 @@ char	*join_paths(const char *dir, const char *cmd)
 
 	dir_len = ft_strlen(dir);
 	cmd_len = ft_strlen(cmd);
-	full_len = dir_len + cmd_len;
+	full_len = dir_len + cmd_len + 2;
 	full_path = malloc(full_len * sizeof(char));
 	if (full_path == NULL)
 	{
 		perror("malloc failed");
 		exit(1);
 	}
-	ft_strcpy(full_path, dir);
-	ft_strcpy(full_path, "/");
-	ft_strcpy(full_path, cmd);
+	ft_strlcpy(full_path, dir, full_len);
+	ft_strlcat(full_path, "/", full_len);
+	ft_strlcat(full_path, cmd, full_len);
 	return (full_path);
 }
 
