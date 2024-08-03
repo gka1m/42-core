@@ -16,16 +16,19 @@ CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= ft_printchar.c ft_printf.c ft_printhexadec.c ft_printnumber.c \
-		  ft_printptr.c ft_printstr.c ft_printunsigned_num.c ft_strchr.c \
-		  ft_strlen.c swap_ops.c push_ops.c push_swap.c
+PRINTF_DIR = ft_printf
+
+SRC		= $(PRINTF_DIR)/ft_printchar.c $(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_printhexadec.c \
+		  $(PRINTF_DIR)/ft_printnumber.c $(PRINTF_DIR)/ft_printptr.c $(PRINTF_DIR)/ft_printstr.c \
+		  $(PRINTF_DIR)/ft_printunsigned_num.c $(PRINTF_DIR)/ft_strchr.c \
+		  $(PRINTF_DIR)/ft_strlen.c swap_ops.c push_ops.c push_swap.c stack_ops.c
 
 OBJ		= $(SRC:.c=.o)
 
-INCLUDES = push_swap.h ft_printf.h
+INCLUDES = push_swap.h $(PRINTF_DIR)/ft_printf.h
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.c $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@

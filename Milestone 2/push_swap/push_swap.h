@@ -15,7 +15,7 @@
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "ft_printf/ft_printf.h"
 
 typedef struct s_node
 {
@@ -29,8 +29,10 @@ typedef struct s_stack
     int size;
 } t_stack;
 
-void sa(t_stack *a);
-void sb(t_stack *b);
-void ss(t_stack *a, t_stack *b);
+void push(t_stack *stack, int value);
+int pop(t_stack *stack);
+void swap(t_stack *stack);
+void rotate(t_stack *stack);
+void rev_rotate(t_stack *stack);
 
 #endif
