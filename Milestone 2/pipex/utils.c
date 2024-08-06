@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:04:23 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/01 14:17:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/08/06 15:36:16 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,17 @@ char	*check_cmd(char *cmd)
 
 char	**extract_var(char **env)
 {
+	char	*path;
+
 	while (*env)
 	{
 		if (ft_strncmp(*env, "PATH=", 5) == 0)
-			return (ft_split(*env + 5, ':'));
+		{
+			path = *env + 5;
+			if (*path == '\0')
+				return (NULL);
+			return (ft_split(path, ':'));
+		}
 		env++;
 	}
 	return (NULL);
