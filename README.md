@@ -16,4 +16,4 @@ My own repo of projects completed in 42 Core Program
 
 - push_swap
 - pipex
-- fractol
+- so_long
