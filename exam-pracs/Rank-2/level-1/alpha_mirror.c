@@ -1,11 +1,39 @@
+/*Assignment name  : alpha_mirror
+Expected files   : alpha_mirror.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+ 
+Write a program called alpha_mirror that takes a string and displays this string
+after replacing each alphabetical character by the opposite alphabetical
+character, followed by a newline.
+ 
+'a' becomes 'z', 'Z' becomes 'A'
+'d' becomes 'w', 'M' becomes 'N'
+ 
+and so on.
+ 
+Case is not changed.
+ 
+If the number of arguments is not 1, display only a newline.
+ 
+Examples:
+ 
+$>./alpha_mirror "abc"
+zyx
+$>./alpha_mirror "My horse is Amazing." | cat -e
+Nb slihv rh Znzarmt.$
+$>./alpha_mirror | cat -e
+$
+$>*/
+
 #include <unistd.h>
 
 char alpha_mirror(char c)
 {
+	if (c >= 'a' && c <= 'z')
+		return ('z'- (c - 'a'));
 	if (c >= 'A' && c <= 'Z')
 		return ('Z' - (c - 'A'));
-	if (c >= 'a' && c <= 'z')
-		return ('z' - (c - 'a'));
 	return c;
 }
 
@@ -14,13 +42,13 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		write(1, "\n", 1);
-		return 0;
+		return 1;
 	}
-
 	for (int i = 0; argv[1][i] != '\0'; i++)
 	{
-		char mirrored = alpha_mirror(argv[1][i]);
-		write(1, &mirrored, 1);
+		if ((argv[1][i] >= 'a' && argv[1][i] <= 'z') || (argv[1][i] >= 'A' && argv[1][i] <= 'Z'))
+			argv[1][i] = alpha_mirror(argv[1][i]);
+		write(1, &argv[1][i], 1);
 	}
 	write(1, "\n", 1);
 	return 0;
