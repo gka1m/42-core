@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/07 16:13:12 by kagoh            ###   ########.fr       */
+/*   Created: 2024/08/15 00:24:28 by kagoh             #+#    #+#             */
+/*   Updated: 2024/08/17 14:24:07 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-#define SO_LONG_H
-
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <math.h>
-#include <X11/x.h>
-#include <X11/keysym.h>
-#include "minilibx/mlx.h"
-#include "minilibx/mlx_int.h"
+#include "so_long.h"
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-#endif
+void *init_window(void *mlx_ptr, int width, int height)
+{
+    void *win_ptr;
+
+    win_ptr = mlx_new_window(mlx_ptr, width, height, "Gkaim");
+    if (!win_ptr)
+        exit(1);
+    return (win_ptr);
+}
