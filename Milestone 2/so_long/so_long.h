@@ -27,4 +27,20 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+#define WALL '1'
+#define FLOOR '0'
+#define PLAYER 'P'
+#define EXIT 'E'
+#define COIN 'C'
+
+#define W_KEY 119
+#define A_KEY 97
+#define S_KEY 115
+#define D_KEY 100
+
+#define UP 65362
+#define DOWN 65364
+#define LEFT 65361
+#define RIGHT 65363
+
 #endif
