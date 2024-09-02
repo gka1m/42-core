@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:21:10 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/06 16:13:41 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/02 14:32:55 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	prelim_pipex(char **argv, int *in_fd, int *out_fd, int (*pipe1)[2])
 {
 	if (check_input_file(argv[1]) == -1)
-		exit(1);
+		exit(127);
 	*in_fd = open(argv[1], O_RDONLY);
 	if (*in_fd == -1)
 	{

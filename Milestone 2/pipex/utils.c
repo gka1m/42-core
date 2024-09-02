@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:04:23 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/06 15:36:16 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/02 14:57:44 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_input_file(char *file)
 {
 	if (access(file, F_OK) != 0)
 	{
-		ft_printf("Error: Input file %s not found.\n", file);
+		ft_printf("no such file or directory: %s\n", file);
 		return (-1);
 	}
 	if (access(file, R_OK) != 0)
