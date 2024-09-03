@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 22:27:06 by kagoh             #+#    #+#              #
-#    Updated: 2024/08/01 14:18:43 by kagoh            ###   ########.fr        #
+#    Updated: 2024/09/03 16:45:33 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ OBJ		= $(SRC:.c=.o)
 INCLUDES = pipex.h $(PRINTF_DIR)/ft_printf.h
 
 $(NAME): $(OBJ)
+	@echo "Linking..."
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.c $(INCLUDES)
@@ -40,8 +41,9 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
 
-all: $(NAME)
+all: $(OBJ)
+	@make -s $(NAME)
 
 .PHONY: clean fclean re all
