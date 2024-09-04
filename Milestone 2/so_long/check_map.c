@@ -6,115 +6,126 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/28 16:00:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/04 13:44:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf/ft_printf.h"
 #include "so_long.h"
 
-char *read_file(char *mapfile)
+char	*read_file(char *mapfile)
 {
-	int fd;
-	char buffer[1024];
-	int bytes_read;
-	char *content;
+	ssize_t	bytes_read;
+	int		fd;
+	char	buffer[700];
 
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("Error opening file");
-		exit(1);
+		perror("Failed to open map file");
+		return (NULL);
 	}
-	bytes_read = read(fd, buffer, 1024);
-	if (bytes_read == -1)
+	bytes_read = read(fd, buffer, 700);
+	if (bytes_read < 0)
 	{
-		perror("Error reading file");
-		exit(1);
+		perror("Failed to read map file");
+		close(fd);
+		return (NULL);
 	}
 	close(fd);
-	content = malloc((bytes_read + 1) * sizeof(char));
-	if (content == NULL)
+	if (bytes_read >= 700)
+	{
+		ft_printf("Map exceeds allowed size limit\n");
 		return (NULL);
-	ft_strlcpy(mapfile, buffer, 1024);
-	mapfile[bytes_read] = '\0';
-	return (mapfile);
+	}
+	return (ft_split(buffer, '\n'));
 }
 
-int validate_shape(char **lines)
+void	error_msg(t_map *map, const char *message)
 {
-	int width;
-	int i;
+	int	i;
 
-	width = ft_strlen(lines[0]);
 	i = 0;
-	while (lines[i] != NULL)
+	ft_printf("%s\n", message);
+	while (i < map->height)
 	{
-		if (ft_strlen(lines[i]) != width)
-			return (0);
+		free(map->map_array[i]);
 		i++;
 	}
-	return (1);
+	free(map->map_array);
 }
 
-void count_elements(char **lines, int *exit, int *collectibles, int *start)
+void	check_structure(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	j = 0;
-	while (lines[i] != NULL)
+	map->map_array = read_map(map);
+	map->width = ft_strlen(map->map_array[0]);
+	map->height = 0;
+	while (map->map_array[map->height])
+		map->height++;
+	while (i < map->height)
 	{
-		while (lines[i][j] != '\0')
+		if (ft_strlen(map->map_array[i]) != map->width)
+			error_msg(map, "Map is not rectangular");
+		j = 0;
+		while (j < map->width)
 		{
-			if (lines[i][j] == 'E')
-				*exit++;
-			if (lines[i][j] == 'C')
-				*collectibles++;
-			if (lines[i][j] == 'P')
-				*start++;
+			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width
+					- 1) && map->map_array[i][i] != '1')
+				error_msg(map, "Map not surrounded by walls");
 			j++;
 		}
 		i++;
 	}
 }
 
-int check_closure(char **lines, int width)
+void	check_elements(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	j = 0;
-	while (lines[i] != NULL)
+	map->player = 0;
+	map->collectibles = 0;
+	map->exit = 0;
+	while (i < map->height)
 	{
-		if (lines[i][0] != '1' || lines[i][width - 1] != '1')
-			return (0);
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->map_array[i][j] == 'C')
+				map->collectibles++;
+			else if (map ->map_array[i][j] == 'E')
+				map->exit++;
+			else if (map->map_array[i][j] == 'P')
+				map->player++;
+			j++;
+		}
 		i++;
 	}
-	while (j < width)
-	{
-		if (lines[0][j] != '1' || lines[i - 1][j] != '1')
-			return (0);
-		j++;
-	}
-	return (1);
 }
 
-int validate_map(char **lines)
+int	check_map(t_map *map)
 {
-	int exits;
-	int start;
-	int collectibles;
-	int width;
-
-	width = ft_strlen(lines[0]);
-	if (!validate_shape(lines))
-		return (0);
-	count_elements(lines, &exits, &collectibles, &start);
-	if (exits != 1 || collectibles < 1 || start != 1)
-		return (0);
-	if (!check_closure(lines, width))
-		return (0);
-	return (1);
+	check_structure(map);
+	check_elements(map);
+	if (map->collectibles < 1)
+	{
+		error_msg(map, "Map needs at least 1 collectible");
+		return (1);
+	}
+	else if (map->exit != 1)
+	{
+		error_msg(map, "Map has no exit");
+		return (1);
+	}
+	else if (map->player != 1)
+	{
+		error_msg(map, "Map has no player");
+		return (1);
+	}
+	return (0);
 }

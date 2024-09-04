@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/08/28 13:19:09 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/04 12:57:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_map
 	int		height;
 	int		collectibles;
 	int		exit;
+	int		player;
 }	t_map;
 
 typedef struct s_game
