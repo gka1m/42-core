@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/04 13:44:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/04 17:24:30 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	error_msg(t_map *map, const char *message)
 	int	i;
 
 	i = 0;
+	ft_printf("Error\n");
 	ft_printf("%s\n", message);
 	while (i < map->height)
 	{
