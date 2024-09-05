@@ -6,14 +6,14 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/04 17:24:30 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/05 14:40:06 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "so_long.h"
 
-char	*read_file(char *mapfile)
+char	**read_file(char *mapfile)
 {
 	ssize_t	bytes_read;
 	int		fd;
@@ -21,23 +21,14 @@ char	*read_file(char *mapfile)
 
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Failed to open map file");
-		return (NULL);
-	}
+		return (perror("Failed to open map file"), NULL);
 	bytes_read = read(fd, buffer, 700);
 	if (bytes_read < 0)
-	{
-		perror("Failed to read map file");
-		close(fd);
-		return (NULL);
-	}
+		return (perror("Failed to read map file"), close(fd), NULL);
+	buffer[bytes_read] = '\0';
 	close(fd);
-	if (bytes_read >= 700)
-	{
-		ft_printf("Map exceeds allowed size limit\n");
-		return (NULL);
-	}
+	if (bytes_read >= 650)
+		return (ft_printf("Map exceeds allowed size limit\n"), NULL);
 	return (ft_split(buffer, '\n'));
 }
 
@@ -56,13 +47,13 @@ void	error_msg(t_map *map, const char *message)
 	free(map->map_array);
 }
 
-void	check_structure(t_map *map)
+void	check_structure(t_map *map, char *mapfile)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	map->map_array = read_map(map);
+	map->map_array = read_file(mapfile);
 	map->width = ft_strlen(map->map_array[0]);
 	map->height = 0;
 	while (map->map_array[map->height])
@@ -75,7 +66,7 @@ void	check_structure(t_map *map)
 		while (j < map->width)
 		{
 			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width
-					- 1) && map->map_array[i][i] != '1')
+					- 1) && map->map_array[i][j] != '1')
 				error_msg(map, "Map not surrounded by walls");
 			j++;
 		}
@@ -109,9 +100,9 @@ void	check_elements(t_map *map)
 	}
 }
 
-int	check_map(t_map *map)
+int	check_map(t_map *map, char *mapfile)
 {
-	check_structure(map);
+	check_structure(map, mapfile);
 	check_elements(map);
 	if (map->collectibles < 1)
 	{

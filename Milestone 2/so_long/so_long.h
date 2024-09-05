@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/04 12:57:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/05 14:13:54 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,14 @@ typedef struct s_game
 	int			width;
 	int			height;
 }	t_game;
+
+char	**read_file(char *mapfile);
+void	error_msg(t_map *map, const char *message);
+void	check_structure(t_map *map, char *mapfile);
+void	check_elements(t_map *map);
+int		check_map(t_map *map, char *mapfile);
+void	dfs(t_map *map, int i, int j, char old);
+int		find_valid_path(t_map *map, t_player *player);
+char	**ft_split(char const *s, char c);
 
 #endif
