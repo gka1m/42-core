@@ -4,16 +4,16 @@ My own repo of projects completed in 42 Core Program
 
 ## Milestone 0
 
-- Libft (done)
+- [x] Libft
 
 ## Milestone 1
 
-- ft_printf (done)
-- get_next_line (done)
-- born2beroot (done)
+- [x] ft_printf
+- [x] get_next_line
+- [x] born2beroot
 
 ## Milestone 2
 
-- push_swap
-- pipex
-- so_long
+- [ ] push_swap
+- [x] pipex
+- [ ] so_long
