@@ -6,62 +6,77 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:23:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/05 15:41:17 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:14:44 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "so_long.h"
 
-void	dfs(t_map *map, int i, int j, char old)
+void	dfs(char **map, int i, int j)
 {
-	if (i < 0 || i >= map->height || j < 0 || j >= map->width
-		|| map->map_array[i][j] == 'V' || (map->map_array[i][j] != old
-			&& map->map_array[i][j] != 'C' && map->map_array[i][j] != 'E'))
-		return ;
-	if (map->map_array[i][j] == 'C')
-		map->collectibles--;
-	else if (map->map_array[i][j] == 'E' && map->collectibles == 0)
-		map->exit--;
-	map->map_array[i][j] = 'V';
-	dfs(map, i + 1, j, old);
-	dfs(map, i - 1, j, old);
-	dfs(map, i, j + 1, old);
-	dfs(map, i, j - 1, old);
-}
+	int	arrlen;
 
-int	find_valid_path(t_map *map, t_player *player)
+	arrlen = 0;
+	while (map[arrlen])
+		arrlen++;
+	if (i < 0 || i >= arrlen || j < 0 || j >= ft_strlen(map[0])
+		|| map[i][j] == '1' || map[i][j] == 'V')
+		return ;
+	map[i][j] = 'V';
+	dfs(map, i + 1, j);
+	dfs(map, i - 1, j);
+	dfs(map, i, j + 1);
+	dfs(map, i, j - 1);
+}
+// update to take char **map not struct
+void	floodfill(char **map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	map->height = 0;
-	while (map->map_array[map->height])
-		map->height++;
-	map->width = ft_strlen(map->map_array[0]);
-	map->collectibles = 0;
-	map->exit = 0;
-	while (i < map->height)
+	while (map[i])
 	{
 		j = 0;
-		while (j < map->width)
+		while (map[i][j])
 		{
-			if (map->map_array[i][j] == 'C')
-				map->collectibles++;
-			if (map->map_array[i][j] == 'E')
-				map->exit++;
-			if (map->map_array[i][j] == 'P')
+			if (map[i][j] == 'P')
 			{
-				player->x = j;
-				player->y = i;
+				dfs(map, i, j);
+				break;
 			}
 			j++;
 		}
 		i++;
 	}
-	dfs(map, player->y, player->x, '0');
-	if (map->collectibles == 0 && map->exit == 0)
-		return (1);
+}
+
+int	check_map(t_map *map, char *mapfile)
+{
+	check_structure(map, mapfile);
+	check_elements(map);
+	if (map->collectibles < 1)
+		error_msg(map, "Map needs at least 1 collectible");
+	else if (map->exit != 1)
+		error_msg(map, "Map has no exit");
+	else if (map->player != 1)
+		error_msg(map, "Map has no player");
 	return (0);
+}
+
+char	**validate_map(t_map *map, char *mapfile)
+{
+	char	**copy;
+	int		i;
+
+	i = 0;
+	if (check_map(map, mapfile))
+	{
+		// call copy of map here
+		copy = read_file(mapfile);
+		floodfill(copy);
+		return (copy);
+	}
+	return (NULL);
 }

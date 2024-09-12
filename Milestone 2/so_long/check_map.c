@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/05 14:40:06 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/12 16:49:33 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	error_msg(t_map *map, const char *message)
 
 void	check_structure(t_map *map, char *mapfile)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	map->map_array = read_file(mapfile);
@@ -98,26 +98,4 @@ void	check_elements(t_map *map)
 		}
 		i++;
 	}
-}
-
-int	check_map(t_map *map, char *mapfile)
-{
-	check_structure(map, mapfile);
-	check_elements(map);
-	if (map->collectibles < 1)
-	{
-		error_msg(map, "Map needs at least 1 collectible");
-		return (1);
-	}
-	else if (map->exit != 1)
-	{
-		error_msg(map, "Map has no exit");
-		return (1);
-	}
-	else if (map->player != 1)
-	{
-		error_msg(map, "Map has no player");
-		return (1);
-	}
-	return (0);
 }
