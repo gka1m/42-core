@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/05 14:13:54 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:15:15 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-
-# define WALL '1'
-# define FLOOR '0'
-# define PLAYER 'P'
-# define EXIT 'E'
-# define COIN 'C'
-
-# define W_KEY 119
-# define A_KEY 97
-# define S_KEY 115
-# define D_KEY 100
-
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
-
-# define ESC 65307
 
 typedef struct s_player
 {
@@ -77,8 +56,9 @@ void	error_msg(t_map *map, const char *message);
 void	check_structure(t_map *map, char *mapfile);
 void	check_elements(t_map *map);
 int		check_map(t_map *map, char *mapfile);
-void	dfs(t_map *map, int i, int j, char old);
-int		find_valid_path(t_map *map, t_player *player);
+void	dfs(char **map, int i, int j);
+void	floodfill(char **map);
 char	**ft_split(char const *s, char c);
+char	**validate_map(t_map *map, char *mapfile);
 
 #endif

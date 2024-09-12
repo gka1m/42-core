@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:42:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/05 15:17:26 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:17:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+// Print the final state of the map after floodfill
+void print_map(char **map)
 {
-    t_map map;
-    t_player player;
+	int i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
 
-    // Initialize player position (you can hardcode it for testing)
-    player.x = 0;
-    player.y = 0;
+// Test function for maps
+void test_map(char *mapfile)
+{
+	t_map map;
+	char **copy;
 
-    // Load the map from file
-    if (check_map(&map, "map1.ber") == 1)
-    {
-        error_msg(&map, "Invalid map");
-        return 1;
-    }
+	// Validate the map (reading file, checking structure, and floodfill)
+	copy = validate_map(&map, mapfile);
 
-    // Test the find_valid_path function
-    int valid_path = find_valid_path(&map, &player);
-    if (valid_path == 1)
-        printf("Valid path found!\n");
-    else
-        printf("No valid path found.\n");
+	if (copy)
+		printf("Map %s is valid.\n", mapfile);
+	else
+	{
+		printf("Map %s is invalid.\n", mapfile);
+		return;
+	}
 
-    // Free the map memory
-    for (int i = 0; i < map.height; i++)
-        free(map.map_array[i]);
-    free(map.map_array);
+	// Print the final state of the map copy after floodfill
+	printf("Final map state after floodfill:\n");
+	print_map(copy);
+
+	// Free the copy after printing
+	// int i = 0;
+	// while (copy[i])
+	// 	free(copy[i]);
+	// free(copy);
+}
+
+int main(void)
+{
+    // Test the valid map
+    printf("Testing map1 (valid):\n");
+    test_map("map1.ber");
+
+    // Test the invalid map
+    printf("\nTesting map2 (invalid):\n");
+    test_map("map2.ber");
 
     return 0;
 }
