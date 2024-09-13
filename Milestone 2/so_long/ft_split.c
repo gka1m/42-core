@@ -6,19 +6,21 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:13:59 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/04 13:33:14 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/13 17:04:41 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static size_t	count_words(char const *s, char c)
+static size_t count_words(char const *s, char c)
 {
-	size_t	wordcount;
-	int		i;
+	size_t wordcount;
+	int i;
 
 	i = 0;
 	wordcount = 0;
+	if (!s || s[0] == '\0')
+		return (0);
 	while (s[i] != '\0')
 	{
 		while (s[i] == c)
@@ -31,10 +33,10 @@ static size_t	count_words(char const *s, char c)
 	return (wordcount);
 }
 
-static char	*create_word(const char *s, size_t start, size_t end)
+static char *create_word(const char *s, size_t start, size_t end)
 {
-	char	*word;
-	size_t	i;
+	char *word;
+	size_t i;
 
 	i = 0;
 	word = malloc((end - start + 1) * sizeof(char));
@@ -45,13 +47,13 @@ static char	*create_word(const char *s, size_t start, size_t end)
 		word[i] = s[start + i];
 		i++;
 	}
-	word[end - start] = '\0';
+	word[i] = '\0';
 	return (word);
 }
 
-void	free_word(char **split_arr)
+void free_word(char **split_arr)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (split_arr[i] != NULL)
@@ -62,12 +64,12 @@ void	free_word(char **split_arr)
 	free(split_arr);
 }
 
-char	**split_string(char const *s, char c, char **result, size_t wordcount)
+char **split_string(char const *s, char c, char **result, size_t wordcount)
 {
-	size_t	i;
-	size_t	j;
-	size_t	start;
-	size_t	k;
+	size_t i;
+	size_t j;
+	size_t start;
+	size_t k;
 
 	i = 0;
 	j = 0;
@@ -80,23 +82,21 @@ char	**split_string(char const *s, char c, char **result, size_t wordcount)
 		while (s[j] != '\0' && s[j] != c)
 			j++;
 		result[i] = create_word(s, start, j);
-		if (result[i++] == NULL)
-		{
-			free_word(result);
-			return (NULL);
-		}
+		if (result[i] == NULL)
+			return (free_word(result), NULL);
+		i++;
 		k++;
 	}
 	result[i] = NULL;
 	return (result);
 }
 
-char	**ft_split(char const *s, char c)
+char **ft_split(char const *s, char c)
 {
-	size_t	wordcount;
-	char	**result;
+	size_t wordcount;
+	char **result;
 
-	if (s == NULL)
+	if (s == NULL || s[0] == '\0')
 		return (NULL);
 	wordcount = count_words(s, c);
 	result = malloc((wordcount + 1) * sizeof(char *));

@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/07 14:46:59 by kagoh             #+#    #+#              #
-#    Updated: 2024/09/05 14:21:54 by kagoh            ###   ########.fr        #
+#    Updated: 2024/09/13 17:26:44 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC		= $(PRINTF_DIR)/ft_printchar.c $(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_p
 
 OBJ		= $(SRC:.c=.o)
 
-INCLUDES = so_long.h 
+INCLUDES = so_long.h $(PRINTF_DIR)/ft_printf.h
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)

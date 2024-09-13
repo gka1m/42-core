@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:42:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/12 17:17:01 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/13 17:30:51 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Print the final state of the map after floodfill
-void print_map(char **map)
-{
-	int i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
-
-// Test function for maps
-void test_map(char *mapfile)
+int main(int argc, char *argv[])
 {
 	t_map map;
-	char **copy;
+	char **validated_map;
+	int error;
 
-	// Validate the map (reading file, checking structure, and floodfill)
-	copy = validate_map(&map, mapfile);
-
-	if (copy)
-		printf("Map %s is valid.\n", mapfile);
-	else
+	if (argc != 2)
 	{
-		printf("Map %s is invalid.\n", mapfile);
-		return;
+		printf("Usage: %s <map_file>\n", argv[0]);
+		return (1);
 	}
 
-	// Print the final state of the map copy after floodfill
-	printf("Final map state after floodfill:\n");
-	print_map(copy);
+	error = check_map(&map, argv[1]);
+	if (error)
+		return (1);
 
-	// Free the copy after printing
-	// int i = 0;
-	// while (copy[i])
-	// 	free(copy[i]);
-	// free(copy);
-}
+	printf("Map elements are present\n");
 
-int main(void)
-{
-    // Test the valid map
-    printf("Testing map1 (valid):\n");
-    test_map("map1.ber");
+	validated_map = validate_map(&map, argv[1]);
+	if (validated_map == NULL)
+	{
+		printf("Error validating map\n");
+		return (1);
+	}
 
-    // Test the invalid map
-    printf("\nTesting map2 (invalid):\n");
-    test_map("map2.ber");
+	// Print out the result of the map after it has been floodfilled
+	for (int i = 0; validated_map[i]; i++)
+	{
+		printf("%s\n", validated_map[i]);
+	}
 
-    return 0;
+	// Don't forget to free the validated_map
+	for (int i = 0; validated_map[i]; i++)
+		free(validated_map[i]);
+	free(validated_map);
+
+	for (int j = 0; j < map.height; j++)
+		free(map.map_array[j]);
+	free(map.map_array);
+	return 0;
 }

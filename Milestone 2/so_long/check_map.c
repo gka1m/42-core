@@ -6,18 +6,18 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/12 16:49:33 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/13 16:57:59 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "so_long.h"
 
-char	**read_file(char *mapfile)
+char **read_file(char *mapfile)
 {
-	ssize_t	bytes_read;
-	int		fd;
-	char	buffer[700];
+	ssize_t bytes_read;
+	int fd;
+	char buffer[700];
 
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
@@ -32,9 +32,9 @@ char	**read_file(char *mapfile)
 	return (ft_split(buffer, '\n'));
 }
 
-void	error_msg(t_map *map, const char *message)
+void error_msg(t_map *map, const char *message)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	ft_printf("Error\n");
@@ -47,10 +47,10 @@ void	error_msg(t_map *map, const char *message)
 	free(map->map_array);
 }
 
-void	check_structure(t_map *map, char *mapfile)
+void check_structure(t_map *map, char *mapfile)
 {
-	int		i;
-	int		j;
+	int i;
+	int j;
 
 	i = 0;
 	map->map_array = read_file(mapfile);
@@ -65,8 +65,7 @@ void	check_structure(t_map *map, char *mapfile)
 		j = 0;
 		while (j < map->width)
 		{
-			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width
-					- 1) && map->map_array[i][j] != '1')
+			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1) && map->map_array[i][j] != '1')
 				error_msg(map, "Map not surrounded by walls");
 			j++;
 		}
@@ -74,10 +73,10 @@ void	check_structure(t_map *map, char *mapfile)
 	}
 }
 
-void	check_elements(t_map *map)
+void check_elements(t_map *map)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	map->player = 0;
@@ -90,7 +89,7 @@ void	check_elements(t_map *map)
 		{
 			if (map->map_array[i][j] == 'C')
 				map->collectibles++;
-			else if (map ->map_array[i][j] == 'E')
+			else if (map->map_array[i][j] == 'E')
 				map->exit++;
 			else if (map->map_array[i][j] == 'P')
 				map->player++;
@@ -98,4 +97,26 @@ void	check_elements(t_map *map)
 		}
 		i++;
 	}
+}
+
+int check_map(t_map *map, char *mapfile)
+{
+	check_structure(map, mapfile);
+	check_elements(map);
+	if (map->collectibles < 1)
+	{
+		error_msg(map, "Map needs at least 1 collectible");
+		return (1);
+	}
+	else if (map->exit != 1)
+	{
+		error_msg(map, "Map has no exit");
+		return (1);
+	}
+	else if (map->player != 1)
+	{
+		error_msg(map, "Map has no player");
+		return (1);
+	}
+	return (0);
 }
