@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:23:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/13 17:40:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/14 15:26:47 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char **validate_map(t_map *map, char *mapfile)
 	int j;
 
 	i = 0;
-	j = 0;
 	if (check_map(map, mapfile) == 0)
 	{
 		// call copy of map here
@@ -66,6 +65,7 @@ char **validate_map(t_map *map, char *mapfile)
 		floodfill(copy);
 		while (copy[i])
 		{
+			j = 0;
 			while (copy[j])
 			{
 				if (copy[i][j] == '0' || copy[i][j] == 'C' || copy[i][j] == 'E')

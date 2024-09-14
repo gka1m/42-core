@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:32:09 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/13 16:57:59 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/14 15:28:51 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void error_msg(t_map *map, const char *message)
 		i++;
 	}
 	free(map->map_array);
+	exit(1);
 }
 
 void check_structure(t_map *map, char *mapfile)
