@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/07 14:46:59 by kagoh             #+#    #+#              #
-#    Updated: 2024/09/13 17:26:44 by kagoh            ###   ########.fr        #
+#    Updated: 2024/09/16 15:41:17 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= map_test
 
 CC				= cc
 
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 # MINILIBX_FLAGS	= -lmlx -lXext -lX11
 
 PRINTF_DIR	= ft_printf
