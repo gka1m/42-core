@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   initilalization.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:24:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/16 14:56:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/17 17:05:11 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// initialize connection and create window
 void	init_window(t_game *game, int width, int height, char *title)
 {
 	game->mlx_ptr = mlx_init();

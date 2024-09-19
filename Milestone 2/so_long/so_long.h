@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/16 14:40:56 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/19 15:35:34 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,19 @@ typedef struct s_game
 }			t_game;
 
 char		**read_file(char *mapfile);
-void		error_msg(t_map *map, const char *message);
-void		check_structure(t_map *map, char *mapfile);
-void		check_elements(t_map *map);
-int			check_map(t_map *map, char *mapfile);
+void		handle_error(t_map *map, const char *message);
+void		init_dims(t_map *map);
+int			is_rect(t_map *map);
+int			surrounded(t_map *map);
+void		count_elems(t_map *map);
+int			validate_elem(t_map *map);
 void		dfs(char **map, int i, int j);
 void		floodfill(char **map);
+int			check_path(t_map *map, char **map_arr);
 char		**ft_split(char const *s, char c);
-char		**validate_map(t_map *map, char *mapfile);
+int			validate_map(t_map *map, char *mapfile);
+int			ft_strncmp(const char *str1, const char *str2, size_t n);
+void		free_map(char **map_array);
+int			validate_str(t_map *map);
 
 #endif
