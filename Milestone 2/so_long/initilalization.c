@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:24:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/23 16:25:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 16:55:32 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,32 @@ void	init_window(t_game *game, int width, int height)
 		return ;
 	}
 }
+void	load_single(t_game *game, void **img_ptr, char *filename)
+{
+	*img_ptr = mlx_xpm_file_to_image(game->mlx_ptr, filename, 64, 64);
+	if (!*img_ptr)
+		printf("Error: Failed to load %s\n", filename);
+}
 
 void	load_assets(t_game *game)
 {
-	game->p_img = mlx_xpm_file_to_image(game->mlx_ptr, "textures/player.xpm",
-			64, 64);
-	game->wall_img = mlx_xpm_file_to_image(game->mlx_ptr, "textures/wall.xpm",
-			64, 64);
-	game->exit_img = mlx_xpm_file_to_image(game->mlx_ptr,
-			"textures/door-open.xpm", 64, 64);
-	game->floor_img = mlx_xpm_file_to_image(game->mlx_ptr, "textures/floor.xpm",
-			64, 64);
-	game->c_img = mlx_xpm_file_to_image(game->mlx_ptr,
-			"textures/collectible.xpm", 64, 64);
-	if (!game->p_img || game->wall_img || game->exit_img || game->floor_img
-		|| game->c_img)
+	load_single(game, &game->p_img, "textures/player.xpm");
+	load_single(game, &game->wall_img, "textures/wall.xpm");
+	load_single(game, &game->c_img, "textures/collectible.xpm");
+	load_single(game, &game->floor_img, "textures/floor.xpm");
+	load_single(game, &game->exit_img, "textures/exit-open.xpm");
+	if (!game->p_img || !game->wall_img || !game->c_img || !game->floor_img || !game->exit_img)
 	{
+		if (game->p_img)
+			mlx_destroy_image(game->mlx_ptr, game->p_img);
+		if (game->wall_img)
+			mlx_destroy_image(game->mlx_ptr, game->wall_img);
+		if (game->exit_img)
+			mlx_destroy_image(game->mlx_ptr, game->exit_img);
+		if (game->floor_img)
+			mlx_destroy_image(game->mlx_ptr, game->floor_img);
+		if (game->c_img)
+			mlx_destroy_image(game->mlx_ptr, game->c_img);
 		printf("Error: Failed to load assets\n");
 		exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/23 16:26:16 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 16:56:06 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+# define ESC_KEY 65307
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define RIGHT_KEY 65363
+# define LEFT_KEY 65361
 
 typedef struct s_map
 {
@@ -66,6 +72,7 @@ void		free_map(char **map_array);
 int			validate_str(t_map *map);
 
 void		init_window(t_game *game, int width, int height);
+void		load_single(t_game *game, void **img_ptr, char *filename);
 void		load_assets(t_game *game);
 void		render_map(t_game *game, t_map *map, int i, int j);
 
