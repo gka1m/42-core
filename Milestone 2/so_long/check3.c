@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:39:53 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/19 15:37:34 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 12:44:00 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	check_path(t_map *map, char **map_arr)
 		while (map_arr[i][j])
 		{
 			if (map_arr[i][j] == 'C' || map_arr[i][j] == 'E')
-				return (free_map(map_arr), handle_error(map, "Invalid path"),
-					1);
+				return (free_map(map_arr), handle_error(map,
+						"Error\nInvalid path"), 1);
 			j++;
 		}
 		i++;

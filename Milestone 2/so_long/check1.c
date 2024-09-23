@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:28:33 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/19 15:30:58 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 12:41:36 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ int	surrounded(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width
-					- 1) && map->map_array[i][j] != '1')
+			if ((i == 0 || i == map->height - 1 || j == 0
+					|| j == ft_strlen(map->map_array[i]) - 1)
+				&& map->map_array[i][j] != '1')
 				return (0);
 			j++;
 		}

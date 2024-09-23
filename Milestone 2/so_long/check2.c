@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:50:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/19 15:36:33 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 12:31:57 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	validate_str(t_map *map)
 	int	error_flag;
 
 	error_flag = 0;
-	if (!surrounded(map))
-	{
-		ft_printf("Error\nMap not surrounded by walls\n");
-		error_flag = 1;
-	}
 	if (!is_rect(map))
 	{
 		ft_printf("Error\nMap is not rectangular\n");
+		error_flag = 1;
+	}
+	if (!surrounded(map))
+	{
+		ft_printf("Error\nMap not surrounded by walls\n");
 		error_flag = 1;
 	}
 	if (error_flag)

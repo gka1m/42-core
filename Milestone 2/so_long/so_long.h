@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/19 15:35:34 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/23 16:26:16 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 # include <string.h>
 # include <unistd.h>
 
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	int		moves;
-}			t_player;
-
 typedef struct s_map
 {
 	char	**map_array;
@@ -46,6 +39,11 @@ typedef struct s_game
 	t_map	map;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*p_img;
+	void	*wall_img;
+	void	*exit_img;
+	void	*floor_img;
+	void	*c_img;
 	int		px;
 	int		py;
 	int		moves;
@@ -66,5 +64,9 @@ int			validate_map(t_map *map, char *mapfile);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 void		free_map(char **map_array);
 int			validate_str(t_map *map);
+
+void		init_window(t_game *game, int width, int height);
+void		load_assets(t_game *game);
+void		render_map(t_game *game, t_map *map, int i, int j);
 
 #endif
