@@ -6,71 +6,43 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:42:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/19 13:43:31 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/25 17:02:24 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "ft_printf/ft_printf.h"
 
-// Free the validated map
-// void	free_validated_map(char **validated_map)
-// {
-//     int i;
+void	destroy_images(t_game *game)
+{
+	mlx_destroy_image(game->mlx_ptr, game->p_img);
+	mlx_destroy_image(game->mlx_ptr, game->wall_img);
+	mlx_destroy_image(game->mlx_ptr, game->exit_img);
+	mlx_destroy_image(game->mlx_ptr, game->floor_img);
+	mlx_destroy_image(game->mlx_ptr, game->c_img);
+}
 
-// 	i = 0;
-//     if (validated_map)
-//     {
-//         while (validated_map[i])
-//         {
-//             free(validated_map[i]);
-//             i++;
-//         }
-//         free(validated_map);
-//     }
-// }
-
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	t_map	map;
-
-	// Check for correct number of arguments
+	t_game	game;
+	
 	if (argc != 2)
-	{
-		printf("Usage: ./map_test <mapfile>\n");
-		return (1);
-	}
-
-	// Initialize the map structure fields to 0 or NULL
-	map.map_array = NULL;
-	map.width = 0;
-	map.height = 0;
-	map.collectibles = 0;
-	map.exit = 0;
-	map.player = 0;
-
-	// Validate the map using the validate_map function
+		return (ft_printf("Usage: ./so_long <filename>\n"), 1);
 	if (validate_map(&map, argv[1]) == 0)
 	{
-		printf("Map is valid!\n");
+		init_window(&game, map.width * 64, map.height * 64);
+		load_assets(&game);
+		map.map_array = read_file(argv[1]);
+		game.map = map;
+		render_map(&game, &map);
+		find_player(&game);
+		game.moves = 0;
+		mlx_key_hook(game.win_ptr, handle_key, &game);
+		mlx_loop(game.mlx_ptr);
 	}
 	else
-	{
-		printf("Map is invalid!\n");
-	}
-
-	// Free the original map array if it was allocated
-	// if (map.map_array)
-	// {
-	// 	int i = 0;
-	// 	while (map.map_array[i])
-	// 	{
-	// 		free(map.map_array[i]);
-	// 		i++;
-	// 	}
-	// 	free(map.map_array);
-	// }
-
+		return (ft_printf("Invalid map\n"), 1);
+	cleanup(&game);
 	return (0);
 }

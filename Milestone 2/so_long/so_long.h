@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/23 16:56:06 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/25 17:01:43 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # define DOWN_KEY 65364
 # define RIGHT_KEY 65363
 # define LEFT_KEY 65361
+# define W_KEY 119
+# define S_KEY 115
+# define A_KEY 97
+# define D_KEY 100
 
 typedef struct s_map
 {
@@ -74,6 +78,13 @@ int			validate_str(t_map *map);
 void		init_window(t_game *game, int width, int height);
 void		load_single(t_game *game, void **img_ptr, char *filename);
 void		load_assets(t_game *game);
-void		render_map(t_game *game, t_map *map, int i, int j);
+void		render_map(t_game *game, t_map *map);
+
+void		find_player(t_game *game);
+int			valid_movement(t_game *game, int newx, int newy);
+int			handle_key(int key, t_game *game);
+void		move(t_game *game, int newx, int newy);
+void		destroy_images(t_game *game);
+void		cleanup(t_game *game);
 
 #endif

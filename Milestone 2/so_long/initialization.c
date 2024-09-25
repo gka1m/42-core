@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initilalization.c                                  :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:24:28 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/23 16:55:32 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/24 18:11:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	init_window(t_game *game, int width, int height)
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
 	{
-		printf("Failed to initialize connection\n");
+		ft_printf("Failed to initialize connection\n");
 		return ;
 	}
 	game->win_ptr = mlx_new_window(game->mlx_ptr, width, height, "so_long");
 	if (game->win_ptr == NULL)
 	{
-		printf("Window creation failed\n");
+		ft_printf("Window creation failed\n");
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 		return ;
@@ -32,9 +32,12 @@ void	init_window(t_game *game, int width, int height)
 }
 void	load_single(t_game *game, void **img_ptr, char *filename)
 {
-	*img_ptr = mlx_xpm_file_to_image(game->mlx_ptr, filename, 64, 64);
+	int		width;
+	int		height;
+
+	*img_ptr = mlx_xpm_file_to_image(game->mlx_ptr, filename, &width, &height);
 	if (!*img_ptr)
-		printf("Error: Failed to load %s\n", filename);
+		ft_printf("Error: Failed to load %s\n", filename);
 }
 
 void	load_assets(t_game *game)
@@ -43,7 +46,7 @@ void	load_assets(t_game *game)
 	load_single(game, &game->wall_img, "textures/wall.xpm");
 	load_single(game, &game->c_img, "textures/collectible.xpm");
 	load_single(game, &game->floor_img, "textures/floor.xpm");
-	load_single(game, &game->exit_img, "textures/exit-open.xpm");
+	load_single(game, &game->exit_img, "textures/door-opened.xpm");
 	if (!game->p_img || !game->wall_img || !game->c_img || !game->floor_img || !game->exit_img)
 	{
 		if (game->p_img)
@@ -56,13 +59,16 @@ void	load_assets(t_game *game)
 			mlx_destroy_image(game->mlx_ptr, game->floor_img);
 		if (game->c_img)
 			mlx_destroy_image(game->mlx_ptr, game->c_img);
-		printf("Error: Failed to load assets\n");
+		ft_printf("Error: Failed to load assets\n");
 		exit(1);
 	}
 }
 
-void	render_map(t_game *game, t_map *map, int i, int j)
+void	render_map(t_game *game, t_map *map)
 {
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < map->height)
 	{
@@ -71,57 +77,21 @@ void	render_map(t_game *game, t_map *map, int i, int j)
 		{
 			if (map->map_array[i][j] == '1')
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->wall_img, i * 64, j * 64);
+					game->wall_img, j * 64, i * 64);
 			else if (map->map_array[i][j] == '0')
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->floor_img, i * 64, j * 64);
+					game->floor_img, j * 64, i * 64);
 			else if (map->map_array[i][j] == 'C')
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->c_img, i * 64, j * 64);
+					game->c_img, j * 64, i * 64);
 			else if (map->map_array[i][j] == 'E')
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->exit_img, i * 64, j * 64);
+					game->exit_img, j * 64, i * 64);
 			else if (map->map_array[i][j] == 'P')
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->p_img, i * 64, j * 64);
+					game->p_img, j * 64, i * 64);
 			j++;
 		}
 		i++;
 	}
 }
-
-
-// int main(void)
-// {
-//     t_game game;
-//     int width = 100;
-//     int height = 100;
-
-//     // Initialize the game structure to ensure no garbage values
-//     game.mlx_ptr = NULL;
-//     game.win_ptr = NULL;
-
-//     // Initialize the window
-//     init_window(&game, width, height);
-
-//     // Check for failure
-//     if (!game.mlx_ptr || !game.win_ptr)
-//     {
-//         printf("Window initialization failed\n");
-//         return (1);
-//     }
-
-//     // Start the MLX loop
-//     mlx_loop(game.mlx_ptr);
-
-//     // Proper cleanup after mlx_loop exits
-//     if (game.win_ptr)
-//         mlx_destroy_window(game.mlx_ptr, game.win_ptr);
-//     if (game.mlx_ptr)
-//     {
-//         mlx_destroy_display(game.mlx_ptr);
-//         free(game.mlx_ptr);
-//     }
-
-//     return (0);
-// }
