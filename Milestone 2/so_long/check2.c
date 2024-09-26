@@ -13,9 +13,9 @@
 #include "so_long.h"
 #include "ft_printf/ft_printf.h"
 
-int	validate_str(t_map *map)
+int validate_str(t_map *map)
 {
-	int	error_flag;
+	int error_flag;
 
 	error_flag = 0;
 	if (!is_rect(map))
@@ -33,10 +33,10 @@ int	validate_str(t_map *map)
 	return (1);
 }
 
-void	count_elems(t_map *map)
+void count_elems(t_map *map)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	map->player = 0;
 	map->collectibles = 0;
@@ -59,7 +59,7 @@ void	count_elems(t_map *map)
 	}
 }
 
-int	validate_elem(t_map *map)
+int validate_elem(t_map *map)
 {
 	int error_flag;
 
@@ -84,41 +84,26 @@ int	validate_elem(t_map *map)
 	return (1);
 }
 
-void	dfs(char **map, int i, int j)
+int check_invalid_c(t_map *map)
 {
-	int	arrlen;
-
-	arrlen = 0;
-	while (map[arrlen])
-		arrlen++;
-	if (i < 0 || i >= arrlen || j < 0 || j >= ft_strlen(map[0])
-		|| map[i][j] == '1' || map[i][j] == 'V')
-		return ;
-	map[i][j] = 'V';
-	dfs(map, i + 1, j);
-	dfs(map, i - 1, j);
-	dfs(map, i, j + 1);
-	dfs(map, i, j - 1);
-}
-
-void	floodfill(char **map)
-{
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
-	while (map[i])
+	while (i < map->height)
 	{
 		j = 0;
-		while (map[i][j])
+		while (j < map->width)
 		{
-			if (map[i][j] == 'P')
+			if (map->map_array[i][j] != '1' || map->map_array[i][j] != '0' || map->map_array[i][j] != 'C' || map->map_array[i][j] != 'E' || map->map_array[i][j] != 'P')
 			{
-				dfs(map, i, j);
-				break ;
+				ft_printf("Invalid character %c found at position: x:%d, y:%d\n", map->map_array[i][j], j, i);
+				handle_error(map, "Invalid character");
+				return (0);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (1);
 }
