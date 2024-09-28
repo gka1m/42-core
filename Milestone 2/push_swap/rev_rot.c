@@ -1,43 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_ops.c                                         :+:      :+:    :+:   */
+/*   rev_rot.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 21:59:26 by kagoh             #+#    #+#             */
-/*   Updated: 2024/07/13 21:59:26 by kagoh            ###   ########.fr       */
+/*   Created: 2024/09/28 16:41:57 by kagoh             #+#    #+#             */
+/*   Updated: 2024/09/28 16:45:23 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* handles sa, sb and ss operations */
-
-void sa(t_stack *a)
+void rev_rot(t_stack *stack)
 {
-    int temp;
+    t_node *last;
+    t_node *sec_last;
 
-    if (a->size < 2)
+    if (stack->size < 2)
         return;
-    temp = a->top->value;
-    a->top->value = a->top->next->value;
-    a->top->next->value = temp;
+    last = stack->bottom;
+    sec_last = last->prev;
+    sec_last->next = NULL;
+    stack->bottom = sec_last;
+    last->next = stack->top;
+    stack->top->prev = last;
+    last->prev = NULL;
+    stack->top = last;
 }
 
-void sb(t_stack *b)
+void rra(t_stack *a)
 {
-    int temp;
-
-    if (b->size < 2)
-        return;
-    temp = b->top->value;
-    b->top->value = b->top->next->value;
-    b->top->next->value = temp;
+    rev_rot(a);
 }
 
-void ss(t_stack *a, t_stack *b)
+void rrb(t_stack *b)
 {
-    sa(a);
-    sb(b);
+    rev_rot(b);
+}
+
+void rrr(t_stack *a, t_stack *b)
+{
+    rra(a);
+    rrb(b);
 }

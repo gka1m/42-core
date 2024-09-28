@@ -20,19 +20,16 @@
 typedef struct s_node
 {
     int value;
+    int index;
     struct s_node *next;
+    struct s_node *prev;
 } t_node;
 
 typedef struct s_stack
 {
     t_node *top;
+    t_node *bottom;
     int size;
 } t_stack;
-
-void push(t_stack *stack, int value);
-int pop(t_stack *stack);
-void swap(t_stack *stack);
-void rotate(t_stack *stack);
-void rev_rotate(t_stack *stack);
 
 #endif
