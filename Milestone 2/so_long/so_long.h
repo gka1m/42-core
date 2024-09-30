@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:46:52 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/30 14:42:54 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/30 16:45:20 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		render_map(t_game *game, t_map *map);
 void		find_player(t_game *game);
 int			valid_movement(t_game *game, int newx, int newy);
 int			handle_key(int key, t_game *game);
-void		move(t_game *game, int newx, int newy);
+void		move(t_game *game, int newx, int new, int key);
 void		destroy_images(t_game *game);
 void		cleanup(t_game *game);
 int			handle_close(t_game *game);

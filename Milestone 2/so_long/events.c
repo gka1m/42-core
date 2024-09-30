@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:17:27 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/30 14:49:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/30 16:45:00 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	handle_key(int key, t_game *game)
 		cleanup(game);
 		exit(0);
 	}
-	move(game, newy, newx);
+	move(game, newy, newx, key);
 	return (0);
 }
 
-void	move(t_game *game, int newy, int newx)
+void	move(t_game *game, int newy, int newx, int key)
 {
 	if (!valid_movement(game, newy, newx))
 		return ;
@@ -91,7 +91,10 @@ void	move(t_game *game, int newy, int newx)
 	game->py = newy;
 	if (game->map.map_array[newy][newx] != 'E')
 		game->map.map_array[newy][newx] = 'P';
-	ft_printf("Moves: %d\n", game->moves++);
+	if (key == W_KEY || key == A_KEY || key == S_KEY || key == D_KEY
+		|| key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY
+		|| key == RIGHT_KEY)
+		ft_printf("Moves: %d\n", game->moves++);
 	mlx_clear_window(game->mlx_ptr, game->win_ptr);
 	render_map(game, &game->map);
 }
