@@ -6,13 +6,12 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:17:27 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/25 16:50:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/30 14:49:55 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "so_long.h"
-#include <stdio.h>
 
 void	find_player(t_game *game)
 {
@@ -79,7 +78,7 @@ void	move(t_game *game, int newy, int newx)
 		game->map.collectibles--;
 	if (game->map.map_array[newy][newx] == 'E' && game->map.collectibles == 0)
 	{
-		ft_printf("Success! Sayonara\n");
+		ft_printf("Success! You win\n");
 		cleanup(game);
 		exit(0);
 	}
@@ -97,7 +96,7 @@ void	move(t_game *game, int newy, int newx)
 	render_map(game, &game->map);
 }
 
-void cleanup(t_game *game)
+void	cleanup(t_game *game)
 {
 	destroy_images(game);
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);

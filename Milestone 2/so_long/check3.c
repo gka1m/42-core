@@ -6,22 +6,23 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:39:53 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/24 15:21:21 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/30 13:53:20 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "so_long.h"
 
-void dfs(char **map, int i, int j)
+void	dfs(char **map, int i, int j)
 {
-	int arrlen;
+	int	arrlen;
 
 	arrlen = 0;
 	while (map[arrlen])
 		arrlen++;
-	if (i < 0 || i >= arrlen || j < 0 || j >= ft_strlen(map[0]) || map[i][j] == '1' || map[i][j] == 'V')
-		return;
+	if (i < 0 || i >= arrlen || j < 0 || j >= ft_strlen(map[0])
+		|| map[i][j] == '1' || map[i][j] == 'V')
+		return ;
 	map[i][j] = 'V';
 	dfs(map, i + 1, j);
 	dfs(map, i - 1, j);
@@ -29,10 +30,10 @@ void dfs(char **map, int i, int j)
 	dfs(map, i, j - 1);
 }
 
-void floodfill(char **map)
+void	floodfill(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
@@ -43,7 +44,7 @@ void floodfill(char **map)
 			if (map[i][j] == 'P')
 			{
 				dfs(map, i, j);
-				break;
+				break ;
 			}
 			j++;
 		}
@@ -51,10 +52,10 @@ void floodfill(char **map)
 	}
 }
 
-int check_path(t_map *map, char **map_arr)
+int	check_path(t_map *map, char **map_arr)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	floodfill(map_arr);
@@ -64,7 +65,8 @@ int check_path(t_map *map, char **map_arr)
 		while (map_arr[i][j])
 		{
 			if (map_arr[i][j] == 'C' || map_arr[i][j] == 'E')
-				return (free_map(map_arr), handle_error(map, "Error\nInvalid path"), 1);
+				return (free_map(map_arr), handle_error(map,
+						"Error\nInvalid path"), 1);
 			j++;
 		}
 		i++;
@@ -74,9 +76,9 @@ int check_path(t_map *map, char **map_arr)
 	return (0);
 }
 
-void free_map(char **map_array)
+void	free_map(char **map_array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map_array)
@@ -90,9 +92,9 @@ void free_map(char **map_array)
 	}
 }
 
-int validate_map(t_map *map, char *mapfile)
+int	validate_map(t_map *map, char *mapfile)
 {
-	char **copy;
+	char	**copy;
 
 	map->map_array = read_file(mapfile);
 	if (!map->map_array)

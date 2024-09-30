@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/07 14:46:59 by kagoh             #+#    #+#              #
-#    Updated: 2024/09/24 16:36:11 by kagoh            ###   ########.fr        #
+#    Updated: 2024/09/30 14:37:06 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS			= -Wall -Wextra -Werror
 
 MINILIBX_FLAGS	= -lmlx -lXext -lX11
 
-MLX_DIR			= /home/kagoh/42-core/minilibx-linux
+MLX_DIR			= ./minilibx-linux
 
 PRINTF_DIR	= ft_printf
 

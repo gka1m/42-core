@@ -6,16 +6,16 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:50:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/09/23 12:31:57 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/09/30 14:25:04 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "ft_printf/ft_printf.h"
+#include "so_long.h"
 
-int validate_str(t_map *map)
+int	validate_str(t_map *map)
 {
-	int error_flag;
+	int	error_flag;
 
 	error_flag = 0;
 	if (!is_rect(map))
@@ -33,10 +33,10 @@ int validate_str(t_map *map)
 	return (1);
 }
 
-void count_elems(t_map *map)
+void	count_elems(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	map->player = 0;
 	map->collectibles = 0;
@@ -59,9 +59,9 @@ void count_elems(t_map *map)
 	}
 }
 
-int validate_elem(t_map *map)
+int	validate_elem(t_map *map)
 {
-	int error_flag;
+	int	error_flag;
 
 	error_flag = 0;
 	if (map->player != 1)
@@ -84,10 +84,10 @@ int validate_elem(t_map *map)
 	return (1);
 }
 
-int check_invalid_c(t_map *map)
+int	check_invalid_c(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < map->height)
@@ -95,9 +95,12 @@ int check_invalid_c(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			if (map->map_array[i][j] != '1' || map->map_array[i][j] != '0' || map->map_array[i][j] != 'C' || map->map_array[i][j] != 'E' || map->map_array[i][j] != 'P')
+			if (map->map_array[i][j] != '1' && map->map_array[i][j] != '0'
+				&& map->map_array[i][j] != 'C' && map->map_array[i][j] != 'E'
+				&& map->map_array[i][j] != 'P')
 			{
-				ft_printf("Invalid character %c found at position: x:%d, y:%d\n", map->map_array[i][j], j, i);
+				ft_printf("Error\nInvalid char %c found at x:%d, y:%d\n",
+					map->map_array[i][j], j, i);
 				handle_error(map, "Invalid character");
 				return (0);
 			}
