@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/01 17:03:57 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/02 17:14:23 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,12 @@ int		ft_isdigit(int i);
 int		dig_input(int argc, char **argv);
 
 /* initializing stack and pushing inputs to stack */
+t_node	*new_node(int value);
+void	init_stack(t_stack *stack);
+void	to_stack(t_stack *stack, int argc, char **argv);
+void	free_stack(t_stack *stack);
+t_stack *in_val(int ac, char **av);
+
+/* sorting the chunks */
 
 #endif
