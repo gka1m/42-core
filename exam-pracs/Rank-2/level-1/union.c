@@ -41,6 +41,18 @@ int is_duplicate(char *str, char c, int index)
 	return 0;
 }
 
+int in_str(char *s, char c)
+{
+	int i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
 void union_str(char *s1, char *s2)
 {
 	int i = 0;
@@ -55,7 +67,7 @@ void union_str(char *s1, char *s2)
 
 	while (s2[i] != '\0')
 	{
-		if (!is_duplicate(s2, s2[i], i))
+		if (!is_duplicate(s2, s2[i], i) && !in_str(s1, s2[i]))
 			write(1, &s2[i], 1);
 		i++;
 	}

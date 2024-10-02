@@ -26,6 +26,8 @@ $>*/
 
 #include <unistd.h>
 
+#include <unistd.h>
+
 void last_word(char *str)
 {
     int i = 0;
@@ -34,7 +36,7 @@ void last_word(char *str)
     while (str[i] != '\0')
         i++;
 
-    // Move backwards to find the start of the last word
+    // Move backwards to skip trailing spaces and tabs
     while (i > 0 && (str[i - 1] == ' ' || str[i - 1] == '\t'))
         i--;
 
@@ -47,7 +49,7 @@ void last_word(char *str)
 
     // Move backwards to find the start of the last word
     int start = i;
-    while (start > 0 && (str[start - 1] != ' ' || str[start - 1] != '\t'))
+    while (start > 0 && str[start - 1] != ' ' && str[start - 1] != '\t')
         start--;
 
     // Write the last word
