@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/02 17:14:23 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:44:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ t_node	*new_node(int value);
 void	init_stack(t_stack *stack);
 void	to_stack(t_stack *stack, int argc, char **argv);
 void	free_stack(t_stack *stack);
-t_stack *in_val(int ac, char **av);
+t_stack	*in_val(int ac, char **av);
 
 /* sorting the chunks */
-
+int		check_sorted(t_stack *stack);
+int		find_max(t_stack *stack);
+int		calc_bits(int max);
+void	radix_sort(t_stack *a, t_stack *b, int max, int bits);
+void	sort_stack(t_stack *a, t_stack *b);
+void	print_stack(t_stack *stack);
 #endif

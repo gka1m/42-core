@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:06:29 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/01 13:56:32 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:42:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	push(t_stack *src, t_stack *dest)
 	if (src->size == 0)
 		return ;
 	src_top = src->top;
+	if (!src_top)
+		return ;
 	src->top = src_top->next;
 	if (src->top)
 		src->top->prev = NULL;
@@ -28,6 +30,8 @@ void	push(t_stack *src, t_stack *dest)
 	src_top->next = dest->top;
 	if (dest->top)
 		dest->top->prev = src_top;
+	else
+		dest->bottom = src_top;
 	src_top->prev = NULL;
 	dest->top = src_top;
 	if (dest->size == 0)
@@ -38,11 +42,15 @@ void	push(t_stack *src, t_stack *dest)
 
 void	pa(t_stack *a, t_stack *b)
 {
+	if (a == NULL || b == NULL)
+		return ;
 	push(b, a);
 }
 
 void	pb(t_stack *a, t_stack *b)
 {
+	if (a == NULL || b == NULL)
+		return ;
 	push(a, b);
 }
 
@@ -85,22 +93,34 @@ void	pb(t_stack *a, t_stack *b)
 //     stack->size++;
 // }
 
-// // Function to print the contents of a stack
-// void print_stack(t_stack *stack, char *name)
+// // // Function to print the contents of a stack
+// // void print_stack(t_stack *stack, char *name)
+// // {
+// //     printf("Stack %s: ", name);
+// //     t_node *current = stack->top;
+// //     if (current == NULL)
+// //     {
+// //         printf("Empty\n");
+// //         return ;
+// //     }
+// //     while (current)
+// //     {
+// //         printf("%d ", current->value);
+// //         current = current->next;
+// //     }
+// //     printf("\n");
+// // }
+
+// void	print_stack(t_stack *stack)
 // {
-//     printf("Stack %s: ", name);
-//     t_node *current = stack->top;
-//     if (current == NULL)
-//     {
-//         printf("Empty\n");
-//         return ;
-//     }
-//     while (current)
-//     {
-//         printf("%d ", current->value);
-//         current = current->next;
-//     }
-//     printf("\n");
+// 	t_node	*current;
+
+// 	current = stack->top;
+// 	while (current)
+// 	{
+// 		ft_printf("%d\n", current->value);
+// 		current = current->next;
+// 	}
 // }
 
 // // Test function in main
@@ -122,26 +142,26 @@ void	pb(t_stack *a, t_stack *b)
 
 //     // Print the initial stacks
 //     printf("Initial stacks:\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     // Perform pb: push top of a to b
 //     pb(&a, &b);
 //     printf("\nAfter pb (push top of a to b):\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     // Perform pa: push top of b to a
 //     pa(&a, &b);
 //     printf("\nAfter pa (push top of b to a):\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     // Perform pb again
 //     pb(&a, &b);
 //     printf("\nAfter another pb (push top of a to b):\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     return (0);
 // }

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/02 16:57:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:44:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_node	*new_node(int value)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
@@ -28,9 +28,9 @@ t_node	*new_node(int value)
 
 void	init_stack(t_stack *stack)
 {
-    stack->top = NULL;
-    stack->bottom = NULL;
-    stack->size = 0;
+	stack->top = NULL;
+	stack->bottom = NULL;
+	stack->size = 0;
 }
 
 void	to_stack(t_stack *stack, int argc, char **argv)
@@ -45,17 +45,21 @@ void	to_stack(t_stack *stack, int argc, char **argv)
 		value = ft_atoi(argv[i]);
 		new = new_node(value);
 		if (!new)
-			return;
-		if (stack->top == NULL)
+			return ;
+		// if (stack->top == NULL)
+		if (stack->bottom == NULL)
 		{
 			stack->top = new;
 			stack->bottom = new;
 		}
 		else
 		{
-			new->prev = stack->top;
-			stack->top->next = new;
-			stack->top = new;
+			// new->prev = stack->top;
+			// stack->top->next = new;
+			// stack->top = new;
+			new->next = stack->bottom;
+			stack->bottom->prev = new;
+			stack->bottom = new;
 		}
 		stack->size++;
 		i++;
@@ -77,7 +81,7 @@ void	free_stack(t_stack *stack)
 	free(stack);
 }
 
-t_stack *in_val(int ac, char **av)
+t_stack	*in_val(int ac, char **av)
 {
 	t_stack	*stack;
 
@@ -88,8 +92,13 @@ t_stack *in_val(int ac, char **av)
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	init_stack(stack);
-	to_stack(stack, ac, av);
+	else
+	{
+		init_stack(stack);
+		to_stack(stack, ac, av);
+		if (!stack->top)
+			return (free_stack(stack), NULL);
+	}
 	return (stack);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:21:12 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/01 14:01:11 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:11:15 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,26 @@ void	rotate(t_stack *stack)
 	t_node	*first;
 	t_node	*second;
 
-	if (stack->size < 2)
+	if (stack->size < 2 || stack->size < 2)
 		return ;
 	first = stack->top;
+	if (!first)
+		return ;
 	second = first->next;
+	if (!second)
+		return ;
 	stack->top = second;
 	second->prev = NULL;
 	first->next = NULL;
-	first->prev = stack->bottom;
-	stack->bottom->next = first;
+	if (stack->size > 2)
+	{
+		if (stack->bottom == NULL)
+			return ;
+		first->prev = stack->bottom;
+		stack->bottom->next = first;
+	}
+	else
+		stack->bottom = first;
 	stack->bottom = first;
 }
 
