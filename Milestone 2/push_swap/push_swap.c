@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:30:16 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/07 17:43:35 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 14:24:24 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,16 @@ int	main(int ac, char **av)
 		return (ft_printf("Input(s) are invalid\n"), 1);
 	a = in_val(ac, av);
 	if (!a)
-		return (1);
+		return (ft_printf("Error initializing A\n"), 1);
+	ft_printf("Before sort: \n");
 	print_stack(a);
 	b = malloc(sizeof(t_stack));
 	if (!b)
-		return (ft_printf("Memory allocation failed\n"), 1);
+		return (free_stack(a), 1);
 	init_stack(b);
 	sort_stack(a, b);
-	ft_printf("Sorted stack B: \n");
-	print_stack(b);
+	ft_printf("After sort: \n");
+	print_stack(a);
 	free_stack(a);
 	free_stack(b);
 	return (0);

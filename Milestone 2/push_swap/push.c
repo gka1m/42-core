@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:06:29 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/07 17:42:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 12:18:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,23 @@ void	pb(t_stack *a, t_stack *b)
 //     stack->size++;
 // }
 
-// // // Function to print the contents of a stack
-// // void print_stack(t_stack *stack, char *name)
-// // {
-// //     printf("Stack %s: ", name);
-// //     t_node *current = stack->top;
-// //     if (current == NULL)
-// //     {
-// //         printf("Empty\n");
-// //         return ;
-// //     }
-// //     while (current)
-// //     {
-// //         printf("%d ", current->value);
-// //         current = current->next;
-// //     }
-// //     printf("\n");
-// // }
+// // Function to print the contents of a stack
+// void print_stack(t_stack *stack, char *name)
+// {
+//     printf("Stack %s: ", name);
+//     t_node *current = stack->top;
+//     if (current == NULL)
+//     {
+//         printf("Empty\n");
+//         return ;
+//     }
+//     while (current)
+//     {
+//         printf("%d ", current->value);
+//         current = current->next;
+//     }
+//     printf("\n");
+// }
 
 // void	print_stack(t_stack *stack)
 // {
@@ -123,7 +123,6 @@ void	pb(t_stack *a, t_stack *b)
 // 	}
 // }
 
-// // Test function in main
 // int main()
 // {
 //     // Initialize two stacks
@@ -141,27 +140,31 @@ void	pb(t_stack *a, t_stack *b)
 //     stack_push(&b, 25);
 
 //     // Print the initial stacks
-//     printf("Initial stacks:\n");
+//     printf("Initial stacks:\nStack A:\n");
 //     print_stack(&a);
+//     printf("Stack B:\n");
 //     print_stack(&b);
 
 //     // Perform pb: push top of a to b
 //     pb(&a, &b);
-//     printf("\nAfter pb (push top of a to b):\n");
+//     printf("\nAfter pb (push top of a to b):\nStack A:\n");
 //     print_stack(&a);
+//     printf("Stack B:\n");
 //     print_stack(&b);
 
 //     // Perform pa: push top of b to a
 //     pa(&a, &b);
-//     printf("\nAfter pa (push top of b to a):\n");
+//     printf("\nAfter pa (push top of b to a):\nStack A:\n");
 //     print_stack(&a);
+//     printf("Stack B:\n");
 //     print_stack(&b);
 
 //     // Perform pb again
 //     pb(&a, &b);
-//     printf("\nAfter another pb (push top of a to b):\n");
+//     printf("\nAfter another pb (push top of a to b):\nStack A:\n");
 //     print_stack(&a);
+//     printf("Stack B:\n");
 //     print_stack(&b);
 
-//     return (0);
+//     return 0;
 // }

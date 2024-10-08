@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:41:57 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/01 13:56:39 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 12:11:41 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	rrr(t_stack *a, t_stack *b)
 	rrb(b);
 }
 
-// // Function to create a new node
 // t_node *new_node(int value)
 // {
 //     t_node *node = (t_node *)malloc(sizeof(t_node));
@@ -86,22 +85,34 @@ void	rrr(t_stack *a, t_stack *b)
 //     stack->size++;
 // }
 
-// // Function to print the contents of a stack
-// void print_stack(t_stack *stack, char *name)
+// // // Function to print the contents of a stack
+// // void print_stack(t_stack *stack, char *name)
+// // {
+// //     printf("Stack %s: ", name);
+// //     t_node *current = stack->top;
+// //     if (current == NULL)
+// //     {
+// //         printf("Empty\n");
+// //         return ;
+// //     }
+// //     while (current)
+// //     {
+// //         printf("%d ", current->value);
+// //         current = current->next;
+// //     }
+// //     printf("\n");
+// // }
+
+// void	print_stack(t_stack *stack)
 // {
-//     printf("Stack %s: ", name);
-//     t_node *current = stack->top;
-//     if (current == NULL)
-//     {
-//         printf("Empty\n");
-//         return ;
-//     }
-//     while (current)
-//     {
-//         printf("%d ", current->value);
-//         current = current->next;
-//     }
-//     printf("\n");
+// 	t_node	*current;
+
+// 	current = stack->top;
+// 	while (current)
+// 	{
+// 		ft_printf("%d\n", current->value);
+// 		current = current->next;
+// 	}
 // }
 
 // int main()
@@ -124,24 +135,24 @@ void	rrr(t_stack *a, t_stack *b)
 
 //     // Print the initial stacks
 //     printf("Initial stacks:\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     // Perform rra: reverse rotate stack a
 //     rra(&a);
 //     printf("\nAfter rra (reverse rotate a):\n");
-//     print_stack(&a, "a");
+//     print_stack(&a);
 
 //     // Perform rrb: reverse rotate stack b
 //     rrb(&b);
 //     printf("\nAfter rrb (reverse rotate b):\n");
-//     print_stack(&b, "b");
+//     print_stack(&b);
 
 //     // Perform rrr: reverse rotate both a and b
 //     rrr(&a, &b);
 //     printf("\nAfter rrr (reverse rotate both a and b):\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     return (0);
 // }

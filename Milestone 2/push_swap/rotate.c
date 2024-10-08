@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:21:12 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/07 17:11:15 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 12:14:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,24 +101,16 @@ void	rr(t_stack *a, t_stack *b)
 // 	stack->size++;
 // }
 
-// // Function to print the contents of a stack
-// void	print_stack(t_stack *stack, char *name)
+// void	print_stack(t_stack *stack)
 // {
 // 	t_node	*current;
 
-// 	printf("Stack %s: ", name);
 // 	current = stack->top;
-// 	if (current == NULL)
-// 	{
-// 		printf("Empty\n");
-// 		return ;
-// 	}
 // 	while (current)
 // 	{
-// 		printf("%d ", current->value);
+// 		ft_printf("%d\n", current->value);
 // 		current = current->next;
 // 	}
-// 	printf("\n");
 // }
 
 // // Test function in main
@@ -142,24 +134,24 @@ void	rr(t_stack *a, t_stack *b)
 
 // 	// Print the initial stacks
 // 	printf("Initial stacks:\n");
-// 	print_stack(&a, "a");
-// 	print_stack(&b, "b");
+// 	print_stack(&a);
+// 	print_stack(&b);
 
 // 	// Perform ra: rotate stack a
 // 	ra(&a);
 // 	printf("\nAfter ra (rotate a):\n");
-// 	print_stack(&a, "a");
+// 	print_stack(&a);
 
 // 	// Perform rb: rotate stack b
 // 	rb(&b);
 // 	printf("\nAfter rb (rotate b):\n");
-// 	print_stack(&b, "b");
+// 	print_stack(&b);
 
 // 	// Perform rr: rotate both a and b
 // 	rr(&a, &b);
 // 	printf("\nAfter rr (rotate both a and b):\n");
-// 	print_stack(&a, "a");
-// 	print_stack(&b, "b");
+// 	print_stack(&a);
+// 	print_stack(&b);
 
 // 	return (0);
 // }

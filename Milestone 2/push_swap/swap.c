@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:59:26 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/01 14:05:51 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 12:16:09 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,16 @@ void	ss(t_stack *a, t_stack *b)
 //     stack->size++;
 // }
 
-// // Function to print the contents of a stack
-// void print_stack(t_stack *stack, char *name)
+// void	print_stack(t_stack *stack)
 // {
-//     printf("Stack %s: ", name);
-//     t_node *current = stack->top;
-//     if (current == NULL)
-//     {
-//         printf("Empty\n");
-//         return;
-//     }
-//     while (current)
-//     {
-//         printf("%d ", current->value);
-//         current = current->next;
-//     }
-//     printf("\n");
+// 	t_node	*current;
+
+// 	current = stack->top;
+// 	while (current)
+// 	{
+// 		ft_printf("%d\n", current->value);
+// 		current = current->next;
+// 	}
 // }
 
 // // Test function in main
@@ -127,24 +121,24 @@ void	ss(t_stack *a, t_stack *b)
 
 //     // Print the initial stacks
 //     printf("Initial stacks:\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     // Perform sa: swap the first two elements of stack a
 //     sa(&a);
 //     printf("\nAfter sa (swap a):\n");
-//     print_stack(&a, "a");
+//     print_stack(&a);
 
 //     // Perform sb: swap the first two elements of stack b
 //     sb(&b);
 //     printf("\nAfter sb (swap b):\n");
-//     print_stack(&b, "b");
+//     print_stack(&b);
 
 //     // Perform ss: swap both stack a and stack b
 //     ss(&a, &b);
 //     printf("\nAfter ss (swap both a and b):\n");
-//     print_stack(&a, "a");
-//     print_stack(&b, "b");
+//     print_stack(&a);
+//     print_stack(&b);
 
 //     return 0;
 // }

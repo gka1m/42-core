@@ -6,12 +6,13 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/07 17:44:01 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/08 14:42:28 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "push_swap.h"
+#include <stdio.h>
 
 t_node	*new_node(int value)
 {
@@ -36,17 +37,17 @@ void	init_stack(t_stack *stack)
 void	to_stack(t_stack *stack, int argc, char **argv)
 {
 	int		i;
-	int		value;
 	t_node	*new;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
-		value = ft_atoi(argv[i]);
-		new = new_node(value);
+		new = new_node(ft_atoi(argv[i]));
 		if (!new)
+		{
+			free_stack(stack);
 			return ;
-		// if (stack->top == NULL)
+		}
 		if (stack->bottom == NULL)
 		{
 			stack->top = new;
@@ -54,15 +55,11 @@ void	to_stack(t_stack *stack, int argc, char **argv)
 		}
 		else
 		{
-			// new->prev = stack->top;
-			// stack->top->next = new;
-			// stack->top = new;
 			new->next = stack->bottom;
 			stack->bottom->prev = new;
 			stack->bottom = new;
 		}
 		stack->size++;
-		i++;
 	}
 }
 
