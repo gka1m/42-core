@@ -26,7 +26,7 @@ $
 int ft_atoi(char *str)
 {
     int i = 0;
-    int result;
+    int result = 0;  // Initialize result
     int sign = 1;
 
     while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
@@ -48,7 +48,7 @@ int ft_atoi(char *str)
     return (result * sign);
 }
 
-void print_hex(int n)
+void print_hex(unsigned int n)  // Use unsigned int for proper handling of negatives
 {
     char hex[] = "0123456789abcdef";
 
@@ -64,7 +64,16 @@ int main(int argc, char **argv)
         write(1, "\n", 1);
         return 1;
     }
-    print_hex(ft_atoi(argv[1]));
+    int num = ft_atoi(argv[1]);
+    
+    if (num < 0)  // Handle negative case by converting to unsigned int
+    {
+        write(1, "-", 1);  // Print minus sign
+        print_hex(-num);  // Print positive equivalent in hex
+    }
+    else
+        print_hex(num);
+
     write(1, "\n", 1);
     return 0;
 }

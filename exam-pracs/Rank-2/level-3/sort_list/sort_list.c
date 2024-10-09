@@ -36,23 +36,24 @@ int ascending(int a, int b)
 #include "list.h"
 #include <stdlib.h>
 
-t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
+t_list *sort_list(t_list *lst, int(*cmp)(int, int))
 {
-	t_list *tmp = lst;
-	int temp_hold;
+	if (!lst)
+		return NULL;
+	t_list *temp_l = lst;
+	int temp;
 
-	while (lst -> next != NULL)
+	while (lst->next)
 	{
-		if ((*cmp)(lst -> data, lst -> next -> data) == 0)
+		if ((*cmp)(lst->data, lst->next->data) == 0)
 		{
-			temp_hold = lst -> data;
-			lst -> data = lst -> next -> data;
-			lst -> next -> data = temp_hold;
-			lst = tmp;
+			temp = lst->data;
+			lst->data = lst->next->data;
+			lst->next->data = temp;
 		}
 		else
-			lst = lst -> next;
+			lst = lst->next;
 	}
-	lst = tmp;
-	return (lst);
+	lst = temp_l;
+	return lst;
 }
