@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/08 16:37:23 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/14 15:15:33 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ft_printf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_node
 {
@@ -50,15 +51,18 @@ void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
 
 /* initial checks and input validation */
+// int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
-int		is_int(int argc, char **argv);
-int		ft_isdigit(int i);
-int		dig_input(int argc, char **argv);
+char	**ft_split(char const *s, char c);
+int		valid_num(char *str);
+int		validate_store(char **nums, int *unique, int *count);
+void	free_split(char **split);
+int		validate_input(int ac, char **av, int *unique);
 
 /* initializing stack and pushing inputs to stack */
 t_node	*new_node(int value);
 void	init_stack(t_stack *stack);
-void	to_stack(t_stack *stack, int argc, char **argv);
+void	to_stack(t_stack *stack, int *unique, int count);
 void	free_stack(t_stack *stack);
 t_stack	*in_val(int ac, char **av);
 

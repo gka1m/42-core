@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/08 14:42:28 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/14 17:07:04 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,17 @@ void	init_stack(t_stack *stack)
 	stack->size = 0;
 }
 
-void	to_stack(t_stack *stack, int argc, char **argv)
+void	to_stack(t_stack *stack, int *unique, int count)
 {
 	int		i;
 	t_node	*new;
 
 	i = 0;
-	while (++i < argc)
+	while (i < count)
 	{
-		new = new_node(ft_atoi(argv[i]));
+		new = new_node(unique[i]);
 		if (!new)
-		{
-			free_stack(stack);
-			return ;
-		}
+			return (free_stack(stack));
 		if (stack->bottom == NULL)
 		{
 			stack->top = new;
@@ -60,6 +57,7 @@ void	to_stack(t_stack *stack, int argc, char **argv)
 			stack->bottom = new;
 		}
 		stack->size++;
+		i++;
 	}
 }
 
@@ -81,54 +79,70 @@ void	free_stack(t_stack *stack)
 t_stack	*in_val(int ac, char **av)
 {
 	t_stack	*stack;
+	int		unique[ac - 1];
+	int		count;
 
-	if (!is_int(ac, av))
-		return (NULL);
-	if (!dig_input(ac, av))
+	count = validate_input(ac, av, unique);
+	if (count == 0)
 		return (NULL);
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	else
-	{
-		init_stack(stack);
-		to_stack(stack, ac, av);
-		if (!stack->top)
-			return (free_stack(stack), NULL);
-	}
+	init_stack(stack);
+	to_stack(stack, unique, count);
+	if (!stack->top)
+		return (free_stack(stack), NULL);
 	return (stack);
 }
 
-// void print_stack(t_stack *stack)
+// void	print_stack(t_stack *stack)
 // {
-//     t_node *current = stack->top;
+// 	t_node	*current;
 
-//     printf("Stack contents (top to bottom):\n");
-//     while (current)
-//     {
-//         printf("%d\n", current->value);
-//         current = current->prev;
-//     }
+// 	current = stack->top;
+// 	printf("Stack contents (top to bottom):\n");
+// 	while (current)
+// 	{
+// 		printf("%d\n", current->value);
+// 		current = current->prev;
+// 	}
 // }
 
-// int main(int argc, char **argv)
+// void	run_test(int argc, char **argv)
 // {
-//     t_stack *stack;
+// 	t_stack	*stack;
 
-//     // Call in_val to validate input and initialize stack
-//     stack = in_val(argc, argv);
-
-//     if (!stack)
-//     {
-//         printf("Error: Invalid input\n");
-//         return (1);  // Exit if validation failed
-//     }
-
-//     // Print the contents of the stack
-//     print_stack(stack);
-
-//     // Free the stack and its nodes after testing
-//     // You will need to implement a function to free the stack here
+// 	stack = in_val(argc, argv);
+// 	if (!stack)
+// 	{
+// 		printf("Error: Invalid input\n");
+// 		return;
+// 	}
+// 	print_stack(stack);
 // 	free_stack(stack);
-//     return (0);
+// }
+
+// int	main(void)
+// {
+// 	char	*test1[] = {"program", "10", "20", "30"};
+// 	char	*test2[] = {"program", "10", "20", "abc"};
+// 	char	*test3[] = {"program", "2147483647", "-2147483648"};
+// 	char	*test4[] = {"program", "10", "20", "10"}; // Duplicate test
+// 	char	*test5[] = {"program", "42"};
+// 	char	*test6[] = {"program", "2147483648"}; // Overflow test
+
+// 	printf("Running Test 1:\n");
+// 	run_test(4, test1);
+// 	printf("\nRunning Test 2:\n");
+// 	run_test(4, test2);
+// 	printf("\nRunning Test 3:\n");
+// 	run_test(3, test3);
+// 	printf("\nRunning Test 4:\n");
+// 	run_test(4, test4);
+// 	printf("\nRunning Test 5:\n");
+// 	run_test(2, test5);
+// 	printf("\nRunning Test 6:\n");
+// 	run_test(2, test6);
+
+// 	return (0);
 // }

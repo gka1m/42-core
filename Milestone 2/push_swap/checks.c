@@ -6,110 +6,119 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:22:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/02 16:40:00 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/14 17:06:28 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "ft_printf/ft_printf.h"
+#include "push_swap.h"
 #include <stdio.h>
 
-int	is_int(int argc, char **argv)
-{
-	int	i;
-	int	num;
-
-	i = 1;
-	while (i < argc)
-	{
-		num = ft_atoi(argv[i]);
-		if (num < INT_MIN || num > INT_MAX)
-		{
-			ft_printf("Number %d is out of int range\n", num);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	ft_isdigit(int i)
-{
-	if (i >= '0' && i <= '9')
-		return (1);
-	return (0);
-}
-
-int	dig_input(int argc, char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = 0;
-		if (argv[i][j] == '-')
-			j++;
-		while (argv[i][j] != '\0')
-		{
-			if (!ft_isdigit(argv[i][j]))
-			{
-				ft_printf("Invalid input: %s\n", argv[i]);
-				return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-// int main(int argc, char **argv)
+// int	ft_isdigit(char c)
 // {
-//     // Test case 1: Valid integer inputs
-//     argv[1] = "1";
-//     argv[2] = "2";
-//     argv[3] = "3";
-//     argc = 4;
-//     if (is_int(argc, argv) && dig_input(argc, argv))
-//         printf("Test case 1: Passed\n");
-//     else
-//         printf("Test case 1: Failed\n");
+// 	if (c >= '0' && c <= '9')
+// 		return (1);
+// 	return (0);
+// }
 
-//     // Test case 2: Out of int range
-//     argv[1] = "2147483648";
-//     argc = 2;
-//     if (!is_int(argc, argv))
-//         printf("Test case 2: Passed\n");
-//     else
-//         printf("Test case 2: Failed\n");
+int	valid_num(char *str)
+{
+	int	i;
 
-//     // Test case 3: Non-integer input
-//     argv[1] = "ABC";
-//     argc = 2;
-//     if (!dig_input(argc, argv))
-//         printf("Test case 3: Passed\n");
-//     else
-//         printf("Test case 3: Failed\n");
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-//     // Test case 4: Negative integer input
-//     argv[1] = "-56";
-//     argc = 2;
-//     if (is_int(argc, argv) && dig_input(argc, argv))
-//         printf("Test case 4: Passed\n");
-//     else
-//         printf("Test case 4: Failed\n");
+int	validate_store(char **nums, int *unique, int *count)
+{
+	int		i;
+	int		j;
+	long	num;
 
-//     // Test case 5: Multiple arguments
-//     argv[1] = "1";
-//     argv[2] = "2";
-//     argv[3] = "ABC";
-//     argc = 4;
-//     if (!dig_input(argc, argv))
-//         printf("Test case 5: Passed\n");
-//     else
-//         printf("Test case 5: Failed\n");
+	i = 0;
+	while (nums[i])
+	{
+		if (!valid_num(nums[i]))
+			return (0);
+		num = ft_atoi(nums[i]);
+		if (num < INT_MIN || num > INT_MAX)
+			return (0);
+		j = 0;
+		while (j < *count)
+		{
+			if (unique[j] == num)
+				return (0);
+			j++;
+		}
+		unique[*count] = (int)num;
+		(*count)++;
+		i++;
+	}
+	return (1);
+}
 
-//     return 0;
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+int	validate_input(int ac, char **av, int *unique)
+{
+	int		count;
+	int		i;
+	char	**nums;
+
+	if (ac < 2)
+		return (0);
+	count = 0;
+	i = 1;
+	while (i < ac)
+	{
+		nums = ft_split(av[i], ' ');
+		if (!validate_store(nums, unique, &count))
+			return (free_split(nums), 0);
+		free_split(nums);
+		i++;
+	}
+	return (count);
+}
+
+// int	main(int argc, char **argv)
+// {
+// 	int	uniq_nums[argc - 1];
+// 	int	count;
+// 	int	i;
+
+// 	count = validate_input(argc, argv, uniq_nums);
+// 	if (count == 0)
+// 	{
+// 		ft_printf("Error\n");
+// 		return (1);
+// 	}
+// 	i = 0;
+// 	while (i < count)
+// 	{
+// 		ft_printf("%d ", uniq_nums[i]);
+// 		i++;
+// 	}
+// 	ft_printf("\n");
+// 	return (0);
 // }

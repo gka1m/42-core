@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 17:13:01 by kagoh             #+#    #+#              #
-#    Updated: 2024/10/08 15:03:49 by kagoh            ###   ########.fr        #
+#    Updated: 2024/10/14 14:16:19 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC		= $(PRINTF_DIR)/ft_printchar.c $(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_p
 		  $(PRINTF_DIR)/ft_printunsigned_num.c $(PRINTF_DIR)/ft_strchr.c \
 		  $(PRINTF_DIR)/ft_strlen.c push.c rev_rot.c rotate.c swap.c \
 		  ft_atoi.c checks.c initialization.c sorting.c push_swap.c \
+		  ft_split.c
 
 OBJ		= $(SRC:.c=.o)
 
