@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:22:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/14 17:06:28 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/15 18:05:52 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	valid_num(char *str)
 
 int	validate_store(char **nums, int *unique, int *count)
 {
-	int		i;
-	int		j;
-	long	num;
+	int	i;
+	int	j;
+	int	num;
 
 	i = 0;
 	while (nums[i])
@@ -52,7 +52,7 @@ int	validate_store(char **nums, int *unique, int *count)
 			return (0);
 		num = ft_atoi(nums[i]);
 		if (num < INT_MIN || num > INT_MAX)
-			return (0);
+			return (ft_printf("Number out of range\n"), 0);
 		j = 0;
 		while (j < *count)
 		{
@@ -103,7 +103,7 @@ int	validate_input(int ac, char **av, int *unique)
 
 // int	main(int argc, char **argv)
 // {
-// 	int	uniq_nums[argc - 1];
+// 	int	uniq_nums[argc * 10];
 // 	int	count;
 // 	int	i;
 

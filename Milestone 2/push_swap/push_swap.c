@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:30:16 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/14 17:05:18 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/15 12:17:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,29 @@ void	print_stack(t_stack *stack)
 	ft_printf("\n");
 }
 
-// int	main(int ac, char **av)
-// {
-// 	t_stack	*a;
-// 	t_stack	*b;
+int	main(int argc, char **argv)
+{
+	t_stack	*a;
+	t_stack	*b;
+	int		uniq_nums[argc - 1];
+	int		count;
 
-// 	if (ac < 2)
-// 		return (ft_printf("Error: No input\n"), 1);
-// 	if (!is_int(ac, av) || !dig_input(ac, av))
-// 		return (ft_printf("Input(s) are invalid\n"), 1);
-// 	a = in_val(ac, av);
-// 	if (!a)
-// 		return (ft_printf("Error initializing A\n"), 1);
-// 	ft_printf("Before sort: \n");
-// 	print_stack(a);
-// 	b = malloc(sizeof(t_stack));
-// 	if (!b)
-// 		return (free_stack(a), 1);
-// 	init_stack(b);
-// 	sort_stack(a, b);
-// 	ft_printf("After sort: \n");
-// 	print_stack(a);
-// 	free_stack(a);
-// 	free_stack(b);
-// 	return (0);
-// }
+	count = validate_input(argc, argv, uniq_nums);
+	if (count == 0)
+		return (ft_printf("Error: Invalid input\n"), 1);
+	a = malloc(sizeof(t_stack));
+	b = malloc(sizeof(t_stack));
+	if (!a || !b)
+		return (ft_printf("Error: Stack allocation failed\n"), 1);
+	init_stack(a);
+	init_stack(b);
+	to_stack(a, uniq_nums, count);
+	ft_printf("Original Stack A:\n");
+	print_stack(a);
+	sort_stack(a, b);
+	ft_printf("Sorted Stack A:\n");
+	print_stack(a);
+	free_stack(a);
+	free_stack(b);
+	return (0);
+}

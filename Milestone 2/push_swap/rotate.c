@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:21:12 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/08 12:14:26 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:17:12 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,14 @@ void	rotate(t_stack *stack)
 	t_node	*first;
 	t_node	*second;
 
-	if (stack->size < 2 || stack->size < 2)
+	if (stack->size < 2)
 		return ;
 	first = stack->top;
-	if (!first)
-		return ;
 	second = first->next;
-	if (!second)
-		return ;
 	stack->top = second;
-	second->prev = NULL;
-	first->next = NULL;
-	if (stack->size > 2)
-	{
-		if (stack->bottom == NULL)
-			return ;
-		first->prev = stack->bottom;
-		stack->bottom->next = first;
-	}
-	else
-		stack->bottom = first;
+	stack->bottom->next = first;
 	stack->bottom = first;
+	first->next = NULL;
 }
 
 void	ra(t_stack *a)
@@ -58,100 +45,107 @@ void	rr(t_stack *a, t_stack *b)
 }
 
 // // Function to create a new node
-// t_node	*new_node(int value)
-// {
-// 	t_node	*node;
-
-// 	node = (t_node *)malloc(sizeof(t_node));
-// 	if (!node)
-// 		return (NULL);
-// 	node->value = value;
-// 	node->next = NULL;
-// 	node->prev = NULL;
-// 	return (node);
+// t_node *create_node(int value) {
+//     t_node *new_node = (t_node *)malloc(sizeof(t_node));
+//     if (!new_node) {
+//         perror("Failed to allocate memory for node");
+//         exit(EXIT_FAILURE);
+//     }
+//     new_node->value = value;
+//     new_node->next = NULL;
+//     return new_node;
 // }
 
-// // Function to initialize an empty stack
-// void	init_stack(t_stack *stack)
-// {
-// 	stack->top = NULL;
-// 	stack->bottom = NULL;
-// 	stack->size = 0;
+// // Function to initialize a stack
+// void init_stack(t_stack *stack) {
+//     stack->top = NULL;
+//     stack->bottom = NULL;
+//     stack->size = 0;
 // }
 
-// // Function to push a new value to the top of the stack
-// void	stack_push(t_stack *stack, int value)
-// {
-// 	t_node	*node;
-
-// 	node = new_node(value);
-// 	if (!node)
-// 		return ;
-// 	if (stack->size == 0)
-// 	{
-// 		stack->top = node;
-// 		stack->bottom = node;
-// 	}
-// 	else
-// 	{
-// 		node->next = stack->top;
-// 		stack->top->prev = node;
-// 		stack->top = node;
-// 	}
-// 	stack->size++;
+// // Function to push a value onto a stack
+// void push_value(t_stack *stack, int value) {
+//     t_node *new_node = create_node(value);
+//     if (stack->size == 0) {
+//         stack->top = new_node;
+//         stack->bottom = new_node;
+//     } else {
+//         new_node->next = stack->top;
+//         stack->top = new_node;
+//     }
+//     stack->size++;
 // }
 
-// void	print_stack(t_stack *stack)
-// {
-// 	t_node	*current;
-
-// 	current = stack->top;
-// 	while (current)
-// 	{
-// 		ft_printf("%d\n", current->value);
-// 		current = current->next;
-// 	}
+// // Function to print the stack
+// void print_stack(t_stack *stack) {
+//     t_node *current = stack->top;
+//     printf("Stack (size %d): ", stack->size);
+//     while (current) {
+//         printf("%d ", current->value);
+//         current = current->next;
+//     }
+//     printf("\n");
 // }
 
-// // Test function in main
-// int	main(void)
-// {
-// 	// Initialize two stacks
-// 	t_stack a, b;
-// 	init_stack(&a);
-// 	init_stack(&b);
+// // Function to free all nodes in a stack
+// void free_stack(t_stack *stack) {
+//     t_node *current = stack->top;
+//     t_node *next;
+//     while (current) {
+//         next = current->next;
+//         free(current);
+//         current = next;
+//     }
+//     stack->top = NULL;
+//     stack->bottom = NULL;
+//     stack->size = 0;
+// }
 
-// 	// Add some elements to stack a
-// 	stack_push(&a, 5);
-// 	stack_push(&a, 10);
-// 	stack_push(&a, 15);
-// 	stack_push(&a, 20);
+// int main() {
+//     t_stack a, b;
 
-// 	// Add some elements to stack b
-// 	stack_push(&b, 100);
-// 	stack_push(&b, 200);
-// 	stack_push(&b, 300);
+//     // Initialize stacks
+//     init_stack(&a);
+//     init_stack(&b);
 
-// 	// Print the initial stacks
-// 	printf("Initial stacks:\n");
-// 	print_stack(&a);
-// 	print_stack(&b);
+//     // Populate stack a with some values
+//     push_value(&a, 1);
+//     push_value(&a, 2);
+//     push_value(&a, 3);
 
-// 	// Perform ra: rotate stack a
-// 	ra(&a);
-// 	printf("\nAfter ra (rotate a):\n");
-// 	print_stack(&a);
+//     // Populate stack b with some values
+//     push_value(&b, 4);
+//     push_value(&b, 5);
+//     push_value(&b, 6);
 
-// 	// Perform rb: rotate stack b
-// 	rb(&b);
-// 	printf("\nAfter rb (rotate b):\n");
-// 	print_stack(&b);
+//     // Print initial stacks
+//     printf("Initial stacks:\n");
+//     printf("Stack A: ");
+//     print_stack(&a);
+//     printf("Stack B: ");
+//     print_stack(&b);
 
-// 	// Perform rr: rotate both a and b
-// 	rr(&a, &b);
-// 	printf("\nAfter rr (rotate both a and b):\n");
-// 	print_stack(&a);
-// 	print_stack(&b);
+//     // Perform rotation operations
+//     printf("\nPerforming ra (rotate A):\n");
+//     ra(&a);
+//     printf("Stack A: ");
+//     print_stack(&a);
 
-// 	return (0);
+//     printf("\nPerforming rb (rotate B):\n");
+//     rb(&b);
+//     printf("Stack B: ");
+//     print_stack(&b);
+
+//     printf("\nPerforming rr (rotate both A and B):\n");
+//     rr(&a, &b);
+//     printf("Stack A: ");
+//     print_stack(&a);
+//     printf("Stack B: ");
+//     print_stack(&b);
+
+//     // Clean up dynamically allocated nodes
+//     free_stack(&a);
+//     free_stack(&b);
+
+//     return 0;
 // }

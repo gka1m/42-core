@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/14 15:15:33 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/15 16:40:59 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_node
 	int				value;
 	int				rank;
 	struct s_node	*next;
-	struct s_node	*prev;
 }					t_node;
 
 typedef struct s_stack
@@ -62,9 +61,9 @@ int		validate_input(int ac, char **av, int *unique);
 /* initializing stack and pushing inputs to stack */
 t_node	*new_node(int value);
 void	init_stack(t_stack *stack);
-void	to_stack(t_stack *stack, int *unique, int count);
+void	to_stack(t_stack *stack, int value);
 void	free_stack(t_stack *stack);
-t_stack	*in_val(int ac, char **av);
+t_stack	*initialize(int ac, char **av);
 
 /* sorting the chunks */
 int		check_sorted(t_stack *stack);

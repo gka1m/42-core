@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:06:29 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/08 12:18:31 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:07:04 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,10 @@ void	push(t_stack *src, t_stack *dest)
 	if (src->size == 0)
 		return ;
 	src_top = src->top;
-	if (!src_top)
-		return ;
 	src->top = src_top->next;
-	if (src->top)
-		src->top->prev = NULL;
-	else
+	if (src->top == NULL)
 		src->bottom = NULL;
 	src_top->next = dest->top;
-	if (dest->top)
-		dest->top->prev = src_top;
-	else
-		dest->bottom = src_top;
-	src_top->prev = NULL;
 	dest->top = src_top;
 	if (dest->size == 0)
 		dest->bottom = src_top;
@@ -54,117 +45,84 @@ void	pb(t_stack *a, t_stack *b)
 	push(a, b);
 }
 
-// t_node *new_node(int value)
-// {
-//     t_node *node = (t_node *)malloc(sizeof(t_node));
-//     if (!node)
-//         return (NULL);
-//     node->value = value;
-//     node->next = NULL;
-//     node->prev = NULL;
-//     return (node);
+// // Function to create a new node
+// t_node *create_node(int value) {
+//     t_node *new_node = (t_node *)malloc(sizeof(t_node));
+//     if (!new_node) {
+//         perror("Failed to allocate memory for node");
+//         exit(EXIT_FAILURE);
+//     }
+//     new_node->value = value;
+//     new_node->rank = 0; // Assuming rank is not used in this test
+//     new_node->next = NULL;
+//     return new_node;
 // }
 
-// // Function to initialize an empty stack
-// void init_stack(t_stack *stack)
-// {
+// // Function to initialize a stack
+// void init_stack(t_stack *stack) {
 //     stack->top = NULL;
 //     stack->bottom = NULL;
 //     stack->size = 0;
 // }
 
-// // Function to push a new value to the top of the stack
-// void stack_push(t_stack *stack, int value)
-// {
-//     t_node *node = new_node(value);
-//     if (!node)
-//         return ;
-//     if (stack->size == 0)
-//     {
-//         stack->top = node;
-//         stack->bottom = node;
-//     }
-//     else
-//     {
-//         node->next = stack->top;
-//         stack->top->prev = node;
-//         stack->top = node;
+// // Function to push a value onto a stack
+// void push_value(t_stack *stack, int value) {
+//     t_node *new_node = create_node(value);
+//     new_node->next = stack->top;
+//     stack->top = new_node;
+//     if (stack->size == 0) {
+//         stack->bottom = new_node;
 //     }
 //     stack->size++;
 // }
 
-// // Function to print the contents of a stack
-// void print_stack(t_stack *stack, char *name)
-// {
-//     printf("Stack %s: ", name);
+// // Function to print the stack
+// void print_stack(t_stack *stack) {
 //     t_node *current = stack->top;
-//     if (current == NULL)
-//     {
-//         printf("Empty\n");
-//         return ;
-//     }
-//     while (current)
-//     {
+//     printf("Stack (size %d): ", stack->size);
+//     while (current) {
 //         printf("%d ", current->value);
 //         current = current->next;
 //     }
 //     printf("\n");
 // }
 
-// void	print_stack(t_stack *stack)
-// {
-// 	t_node	*current;
-
-// 	current = stack->top;
-// 	while (current)
-// 	{
-// 		ft_printf("%d\n", current->value);
-// 		current = current->next;
-// 	}
-// }
-
-// int main()
-// {
-//     // Initialize two stacks
+// int main() {
 //     t_stack a, b;
+
+//     // Initialize stacks
 //     init_stack(&a);
 //     init_stack(&b);
 
-//     // Add some elements to stack a
-//     stack_push(&a, 5);
-//     stack_push(&a, 10);
-//     stack_push(&a, 15);
+//     // Populate stack a with some values
+//     push_value(&a, 1);
+//     push_value(&a, 2);
+//     push_value(&a, 3);
 
-//     // Add some elements to stack b
-//     stack_push(&b, 20);
-//     stack_push(&b, 25);
-
-//     // Print the initial stacks
-//     printf("Initial stacks:\nStack A:\n");
+//     // Print initial stacks
+//     printf("Initial stacks:\n");
+//     printf("Stack A: ");
 //     print_stack(&a);
-//     printf("Stack B:\n");
+//     printf("Stack B: ");
 //     print_stack(&b);
 
-//     // Perform pb: push top of a to b
+//     // Perform push operations
+//     printf("\nPerforming pb (push from A to B):\n");
 //     pb(&a, &b);
-//     printf("\nAfter pb (push top of a to b):\nStack A:\n");
+//     printf("Stack A: ");
 //     print_stack(&a);
-//     printf("Stack B:\n");
+//     printf("Stack B: ");
 //     print_stack(&b);
 
-//     // Perform pa: push top of b to a
+//     printf("\nPerforming pa (push from B to A):\n");
 //     pa(&a, &b);
-//     printf("\nAfter pa (push top of b to a):\nStack A:\n");
+//     printf("Stack A: ");
 //     print_stack(&a);
-//     printf("Stack B:\n");
+//     printf("Stack B: ");
 //     print_stack(&b);
 
-//     // Perform pb again
-//     pb(&a, &b);
-//     printf("\nAfter another pb (push top of a to b):\nStack A:\n");
-//     print_stack(&a);
-//     printf("Stack B:\n");
-//     print_stack(&b);
+//     // Clean up dynamically allocated nodes (not shown here)
+//     // You should implement a function to free all nodes in a stack
 
 //     return 0;
 // }
