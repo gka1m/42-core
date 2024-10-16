@@ -43,10 +43,11 @@ char *rev_print(char *str)
 
 	while (str[i] != '\0')
 		i++;
-	while (i >= 0)
+	char *temp = str;
+	while (i > 0)
 	{
-		write(1, &str[i], 1);
+		write(1, &temp[i - 1], 1);
 		i--;
 	}
-	return (str);
+	return str;
 }
