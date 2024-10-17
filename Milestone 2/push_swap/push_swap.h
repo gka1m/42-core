@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 16:40:59 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/17 16:40:53 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
 
-/* initial checks and input validation */
-// int		ft_isdigit(char c);
-int		ft_atoi(const char *str);
+/* Utilities (ft functions) */
+long	ft_atol(const char *str);
 char	**ft_split(char const *s, char c);
+int 	ft_strcmp(char *s1, char *s2);
+char	*ft_strdup(const char *string);
+
+/* initial checks and input validation */
 int		valid_num(char *str);
-int		validate_store(char **nums, int *unique, int *count);
+int		has_duplicates(char **nums);
+char	**split_input(int ac, char **av);
 void	free_split(char **split);
-int		validate_input(int ac, char **av, int *unique);
+char	**validate_input(int ac, char **av);
 
 /* initializing stack and pushing inputs to stack */
 t_node	*new_node(int value);

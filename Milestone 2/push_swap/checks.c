@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:22:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 18:05:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/17 16:49:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-// int	ft_isdigit(char c)
-// {
-// 	if (c >= '0' && c <= '9')
-// 		return (1);
-// 	return (0);
-// }
-
 int	valid_num(char *str)
 {
-	int	i;
+	int		i;
+	long	num;
 
 	i = 0;
+	num = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (str[i] == '\0')
+		return (0);
+	num = ft_atol(str);
+	if (num > 2147483647 || num < -2147483648)
 		return (0);
 	while (str[i])
 	{
@@ -39,32 +37,48 @@ int	valid_num(char *str)
 	return (1);
 }
 
-int	validate_store(char **nums, int *unique, int *count)
+int	has_duplicates(char **nums)
 {
 	int	i;
 	int	j;
-	int	num;
 
 	i = 0;
+	j = 0;
 	while (nums[i])
 	{
-		if (!valid_num(nums[i]))
-			return (0);
-		num = ft_atoi(nums[i]);
-		if (num < INT_MIN || num > INT_MAX)
-			return (ft_printf("Number out of range\n"), 0);
-		j = 0;
-		while (j < *count)
+		j = i + 1;
+		while (nums[j])
 		{
-			if (unique[j] == num)
-				return (0);
+			if (ft_strcmp(nums[i], nums[j]) == 0)
+				return (1);
 			j++;
 		}
-		unique[*count] = (int)num;
-		(*count)++;
 		i++;
 	}
-	return (1);
+	return (0);
+}
+
+char	**split_input(int ac, char **av)
+{
+	int		i;
+	char	**nums;
+
+	if (ac == 2)
+		nums = ft_split(av[1], ' ');
+	else
+	{
+		nums = malloc(ac * sizeof(char *));
+		if (!nums)
+			return (NULL);
+		i = 1;
+		while (i < ac)
+		{
+			nums[i - 1] = ft_strdup(av[i]);
+			i++;
+		}
+		nums[ac - 1] = NULL;
+	}
+	return (nums);
 }
 
 void	free_split(char **split)
@@ -80,45 +94,43 @@ void	free_split(char **split)
 	free(split);
 }
 
-int	validate_input(int ac, char **av, int *unique)
+char	**validate_input(int ac, char **av)
 {
-	int		count;
-	int		i;
 	char	**nums;
+	int		i;
 
-	if (ac < 2)
-		return (0);
-	count = 0;
-	i = 1;
-	while (i < ac)
+	nums = split_input(ac, av);
+	if (!nums || has_duplicates(nums))
+		return (free_split(nums), NULL);
+	i = 0;
+	while (nums[i])
 	{
-		nums = ft_split(av[i], ' ');
-		if (!validate_store(nums, unique, &count))
-			return (free_split(nums), 0);
-		free_split(nums);
+		if (valid_num(nums[i]) == 0)
+			return (free_split(nums), NULL);
 		i++;
 	}
-	return (count);
+	return (nums);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	int	uniq_nums[argc * 10];
-// 	int	count;
-// 	int	i;
-
-// 	count = validate_input(argc, argv, uniq_nums);
-// 	if (count == 0)
-// 	{
-// 		ft_printf("Error\n");
-// 		return (1);
-// 	}
-// 	i = 0;
-// 	while (i < count)
-// 	{
-// 		ft_printf("%d ", uniq_nums[i]);
-// 		i++;
-// 	}
-// 	ft_printf("\n");
-// 	return (0);
-// }
+int main(int ac, char **av)
+{
+	if (ac < 2)
+	{
+		printf("Usage: ./a.out <numbers> or ./a.out <numbers in string>\n");
+		return 1;
+	}
+	char **result = validate_input(ac, av);
+	if (result)
+	{
+		printf("Input is valid!\n");
+		for (int i = 0; result[i] != NULL; i++)
+            printf("%s ", result[i]);
+	}
+	else
+	{
+		printf("Invalid Input.\n");
+		return (1);
+	}
+	free_split(result);
+	return (0);
+}
