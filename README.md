@@ -16,4 +16,4 @@ My own repo of projects completed in 42 Core Program
 
 - [ ] push_swap
 - [x] pipex
-- [ ] so_long
+- [x] so_long
