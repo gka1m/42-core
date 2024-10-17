@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/17 16:40:53 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/17 17:05:51 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ss(t_stack *a, t_stack *b);
 /* Utilities (ft functions) */
 long	ft_atol(const char *str);
 char	**ft_split(char const *s, char c);
-int 	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *string);
 
 /* initial checks and input validation */

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:41:57 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 15:12:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/17 17:07:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 
 void	rev_rot(t_stack *stack)
 {
-    t_node *last;
-    t_node *sec_last;
-    if (stack->size < 2)
-        return;
-    sec_last = stack->top;
-    while (sec_last->next && sec_last->next->next)
-        sec_last = sec_last->next;
-    last = sec_last->next;
-    sec_last->next = NULL;
-    stack->bottom = sec_last;
-    last->next = stack->top;
-    stack->top = last;
+	t_node	*last;
+	t_node	*sec_last;
+
+	if (stack->size < 2)
+		return ;
+	sec_last = stack->top;
+	while (sec_last->next && sec_last->next->next)
+		sec_last = sec_last->next;
+	last = sec_last->next;
+	sec_last->next = NULL;
+	stack->bottom = sec_last;
+	last->next = stack->top;
+	stack->top = last;
 }
 
 void	rra(t_stack *a)

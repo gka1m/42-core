@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:03:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 18:02:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/17 17:08:17 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	sort_stack(t_stack *a, t_stack *b)
 	else
 		radix_sort(a, b);
 }
-
 
 // void	print_stack(t_stack *stack)
 // {
