@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 18:11:34 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 14:44:06 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,64 +74,62 @@ void	free_stack(t_stack *stack)
 t_stack	*initialize(int ac, char **av)
 {
 	t_stack	*stack;
-	int		unique[ac * 10];
-	int		count;
+	char	**nums;
+	int		value;
 	int		i;
 
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
 	init_stack(stack);
-	count = validate_input(ac, av, unique);
-	if (count == 0)
+	nums = validate_input(ac, av);
+	if (!nums)
 		return (free(stack), NULL);
 	i = 0;
-	while (i < count)
+	while (nums[i])
 	{
-		to_stack(stack, unique[i]);
+		value = (int)ft_atol(nums[i]);
+		to_stack(stack, value);
 		i++;
 	}
+	free_split(nums);
 	return (stack);
 }
 
-// // Function to print the stack
-// void print_stack(t_stack *stack) {
-//     t_node *current = stack->top;
-//     printf("Stack (size %d): ", stack->size);
-//     while (current) {
-//         printf("%d ", current->value);
-//         current = current->next;
-//     }
-//     printf("\n");
-// }
+void	print_stack(t_stack *stack)
+{
+	t_node	*current;
 
-// // Main function
-// int	main(int argc, char **argv)
+	current = stack->top;
+	ft_printf("Stack A:\n");
+	while (current)
+	{
+		ft_printf("%d\n", current->value);
+		current = current->next;
+	}
+}
+
+// int	main(int ac, char **av)
 // {
 // 	t_stack	*stack;
-// 	t_node	*current;
 
-// 	if (argc < 2)
+// 	if (ac < 2)
 // 	{
-// 		printf("Usage: %s <numbers>\n", argv[0]);
+// 		ft_printf("Error: No input provided\n");
 // 		return (1);
 // 	}
-
-// 	stack = initialize(argc, argv);
+// 	// Initialize stack with validated input
+// 	stack = initialize(ac, av);
 // 	if (!stack)
 // 	{
-// 		printf("Error: Invalid input or memory allocation failed\n");
+// 		ft_printf("Error: Invalid input\n");
 // 		return (1);
 // 	}
 
-// 	printf("Stack contents:\n");
-// 	current = stack->top;
-// 	while (current)
-// 	{
-// 		printf("%d\n", current->value);
-// 		current = current->next;
-// 	}
+// 	// Print the stack to verify values
+// 	print_stack(stack);
 
+// 	// Free stack after use
 // 	free_stack(stack);
 // 	return (0);
 // }

@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 17:13:01 by kagoh             #+#    #+#              #
-#    Updated: 2024/10/17 16:52:49 by kagoh            ###   ########.fr        #
+#    Updated: 2024/10/18 14:42:55 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SRC		= $(PRINTF_DIR)/ft_printchar.c $(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_p
 		  $(PRINTF_DIR)/ft_printnumber.c $(PRINTF_DIR)/ft_printptr.c $(PRINTF_DIR)/ft_printstr.c \
 		  $(PRINTF_DIR)/ft_printunsigned_num.c $(PRINTF_DIR)/ft_strchr.c \
 		  $(PRINTF_DIR)/ft_strlen.c push.c rev_rot.c rotate.c swap.c \
-		  ft_atol.c checks.c initialization.c sorting.c push_swap.c \
-		  ft_split.c ft_strcmp.c ft_strdup.c
-
+		  ft_atol.c ft_split.c ft_strcmp.c ft_strdup.c \
+		  checks.c initialization.c \
+		  
 OBJ		= $(SRC:.c=.o)
 
 INCLUDES = push_swap.h $(PRINTF_DIR)/ft_printf.h

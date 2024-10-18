@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:03:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/17 17:08:17 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 14:34:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,103 +63,90 @@ int	calc_bits(int max)
 	return (bits);
 }
 
+int	find_max_rank(t_stack *stack)
+{
+	t_node	*current;
+	int		max_rank;
+
+	if (!stack || !stack->top)
+		return (0);
+	max_rank = stack->top->rank;
+	current = stack->top;
+	while (current)
+	{
+		if (current->rank > max_rank)
+			max_rank = current->rank;
+		current = current->next;
+	}
+	return (max_rank);
+}
+
 void	radix_sort(t_stack *a, t_stack *b)
 {
 	int		bits;
 	int		i;
 	int		j;
+	int		max_rank;
 	t_node	*current;
 
 	rank_nums(a);
-	bits = calc_bits(a->size - 1);
-	i = 0;
-	while (i < bits)
+	max_rank = find_max_rank(a);
+	bits = calc_bits(max_rank);
+	i = -1;
+	while (++i < bits)
 	{
-		j = 0;
-		while (j < a->size)
+		j = -1;
+		while (++j < a->size)
 		{
 			current = a->top;
 			if (((current->rank >> i) & 1) == 1)
 				ra(a);
 			else
 				pb(a, b);
-			j++;
 		}
 		while (b->size > 0)
 			pa(a, b);
-		i++;
 	}
 }
 
-void	sort_stack(t_stack *a, t_stack *b)
-{
-	if (check_sorted(a) == 1)
-	{
-		ft_printf("Stack A is sorted. No sorting needed.\n");
-		return ;
-	}
-	else
-		radix_sort(a, b);
-}
-
-// void	print_stack(t_stack *stack)
+// void	print_stack_ranks(t_stack *stack)
 // {
 // 	t_node	*current;
 
-// 	if (stack == NULL || stack->top == NULL)
-// 		return ;
 // 	current = stack->top;
+// 	ft_printf("Stack with ranks:\n");
 // 	while (current)
 // 	{
-// 		ft_printf("%d\n", current->value);
+// 		ft_printf("Value: %d, Rank: %d\n", current->value, current->rank);
 // 		current = current->next;
 // 	}
-// 	ft_printf("\n");
 // }
 
-// int	main(int argc, char **argv)
+// int	main(int ac, char **av)
 // {
-// 	t_stack	*a;
-// 	t_stack	*b;
-// 	int		i;
+// 	t_stack	*stack;
 
-// 	if (argc < 2)
+// 	if (ac < 2)
 // 	{
-// 		ft_printf("Usage: ./push_swap <numbers>\n");
+// 		ft_printf("Error: No input provided\n");
 // 		return (1);
 // 	}
 
-// 	// Initialize stacks
-// 	a = malloc(sizeof(t_stack));
-// 	b = malloc(sizeof(t_stack));
-// 	if (!a || !b)
-// 		return (ft_printf("Error: Stack allocation failed\n"), 1);
-// 	init_stack(a); // Assume you have a function to initialize a stack
-// 	init_stack(b);
-
-// 	// Fill stack A with input numbers
-// 	i = 1;
-// 	while (i < argc)
+// 	// Initialize the stack with validated input
+// 	stack = initialize(ac, av);
+// 	if (!stack)
 // 	{
-// 		int num = ft_atoi(argv[i]);
-// 		push(a, num); // Assume push adds a node with value `num` to stack A
-// 		i++;
+// 		ft_printf("Error: Invalid input\n");
+// 		return (1);
 // 	}
 
-// 	// Print original stack for reference
-// 	ft_printf("Original Stack A:\n");
-// 	print_stack(a); // Assume you have a function to print the stack
+// 	// Rank the numbers in the stack
+// 	rank_nums(stack);
 
-// 	// Sort stack A using radix sort
-// 	sort_stack(a, b);
+// 	// Print the stack values and their ranks
+// 	print_stack_ranks(stack);
 
-// 	// Print sorted stack for verification
-// 	ft_printf("Sorted Stack A:\n");
-// 	print_stack(a);
-
-// 	// Free stacks
-// 	free_stack(a); // Assume you have a function to free a stack
-// 	free_stack(b);
-
+// 	// Free the stack after use
+// 	free_stack(stack);
 // 	return (0);
 // }
