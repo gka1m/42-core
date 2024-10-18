@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 14:48:23 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:54:07 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	rank_nums(t_stack *stack);
 int		calc_bits(int max);
 int		find_max_rank(t_stack *stack);
 void	radix_sort(t_stack *a, t_stack *b);
+void	quicksort(t_stack *a, t_stack *b);
 void	sort_stack(t_stack *a, t_stack *b);
 void	print_stack(t_stack *stack);
 #endif

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:36:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 15:06:30 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:54:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,35 @@ void	sort_stack(t_stack *a, t_stack *b)
 	}
 	else
 	{
-		// less than 6 numbers, simple sort of numbers
+		// less than 6 numbers, simple sort of numbers using quicksort
+		if (ft_lstsize(a) <= 6)
+			quicksort(a, b);
 		// if more than 6 numbers, call radix sort
-		radix_sort(a, b);
+		else if (ft_lstsize(a) > 6)
+			radix_sort(a, b);
 	}
 }
 
+void	quicksort(t_stack *a, t_stack *b)
+{
+	int		pivot;
+	t_node	*current;
+
+	pivot = 0;
+	current = a->top;
+	if (a->size <= 1)
+		return ;
+	while (current)
+	{
+		if (current->value < pivot)
+			pb(a, b);
+		else
+			ra(a);
+		current = a->top;
+	}
+	quicksort(a, b);
+	quicksort(b, a);
+	while (b->size > 0)
+		pa(b, a);
+	to_stack(a, pivot);
+}

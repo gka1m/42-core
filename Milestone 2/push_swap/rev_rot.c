@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:41:57 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/17 17:07:56 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:51:33 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@ void	rev_rot(t_stack *stack)
 void	rra(t_stack *a)
 {
 	rev_rot(a);
+	ft_printf("rra\n");
 }
 
 void	rrb(t_stack *b)
 {
 	rev_rot(b);
+	ft_printf("rrb\n");
 }
 
 void	rrr(t_stack *a, t_stack *b)
 {
-	rra(a);
-	rrb(b);
+	rev_rot(a);
+	rev_rot(b);
+	ft_printf("rrr\n");
 }
 
 // // Function to create a new node

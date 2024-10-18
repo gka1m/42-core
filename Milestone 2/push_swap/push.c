@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:06:29 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 15:07:04 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:48:50 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	pa(t_stack *a, t_stack *b)
 	if (a == NULL || b == NULL)
 		return ;
 	push(b, a);
+	ft_printf("pa\n");
 }
 
 void	pb(t_stack *a, t_stack *b)
@@ -43,6 +44,7 @@ void	pb(t_stack *a, t_stack *b)
 	if (a == NULL || b == NULL)
 		return ;
 	push(a, b);
+	ft_printf("pb\n");
 }
 
 // // Function to create a new node

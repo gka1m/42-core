@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:59:26 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/15 15:20:14 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:52:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ void	swap(t_stack *stack)
 void	sa(t_stack *a)
 {
 	swap(a);
+	ft_printf("sa\n");
 }
 
 void	sb(t_stack *b)
 {
 	swap(b);
+	ft_printf("sb\n");
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
-	sa(a);
-	sb(b);
+	swap(a);
+	swap(b);
+	ft_printf("ss\n");
 }
 
 // // Function to create a new node
