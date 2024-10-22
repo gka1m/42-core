@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:03:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 14:34:01 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/22 16:55:39 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	radix_sort(t_stack *a, t_stack *b)
 			else
 				pb(a, b);
 		}
-		while (b->size > 0)
+		while (b->size)
 			pa(a, b);
 	}
 }
@@ -145,7 +145,6 @@ void	radix_sort(t_stack *a, t_stack *b)
 
 // 	// Print the stack values and their ranks
 // 	print_stack_ranks(stack);
-
 // 	// Free the stack after use
 // 	free_stack(stack);
 // 	return (0);

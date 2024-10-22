@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 14:44:06 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:33:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,18 @@ t_stack	*initialize(int ac, char **av)
 	return (stack);
 }
 
-void	print_stack(t_stack *stack)
-{
-	t_node	*current;
+// void	print_stack(t_stack *stack)
+// {
+// 	t_node	*current;
 
-	current = stack->top;
-	ft_printf("Stack A:\n");
-	while (current)
-	{
-		ft_printf("%d\n", current->value);
-		current = current->next;
-	}
-}
+// 	current = stack->top;
+// 	ft_printf("Stack A:\n");
+// 	while (current)
+// 	{
+// 		ft_printf("%d\n", current->value);
+// 		current = current->next;
+// 	}
+// }
 
 // int	main(int ac, char **av)
 // {

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:11:56 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 15:54:07 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/22 14:07:46 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ long	ft_atol(const char *str);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *string);
-int		ft_lstsize(t_stack *stack);
 
 /* initial checks and input validation */
 int		valid_num(char *str);
@@ -76,7 +75,10 @@ void	rank_nums(t_stack *stack);
 int		calc_bits(int max);
 int		find_max_rank(t_stack *stack);
 void	radix_sort(t_stack *a, t_stack *b);
-void	quicksort(t_stack *a, t_stack *b);
+void	simple_sort(t_stack *a, t_stack *b);
+void	sort_3(t_stack *a);
+void	sort_4(t_stack *a, t_stack *b);	
+void	sort_5(t_stack *a, t_stack *b);
 void	sort_stack(t_stack *a, t_stack *b);
 void	print_stack(t_stack *stack);
 #endif

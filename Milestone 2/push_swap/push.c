@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:06:29 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 15:48:50 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/22 17:09:08 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,15 @@ void	pb(t_stack *a, t_stack *b)
 //     stack->size = 0;
 // }
 
-// // Function to push a value onto a stack
+// // Function to push a value onto the bottom of the stack
 // void push_value(t_stack *stack, int value) {
 //     t_node *new_node = create_node(value);
-//     new_node->next = stack->top;
-//     stack->top = new_node;
 //     if (stack->size == 0) {
+//         stack->top = new_node;
 //         stack->bottom = new_node;
+//     } else {
+//         stack->bottom->next = new_node; // Link the current bottom to the new node
+//         stack->bottom = new_node; // Update the bottom to the new node
 //     }
 //     stack->size++;
 // }
@@ -89,17 +91,33 @@ void	pb(t_stack *a, t_stack *b)
 //     printf("\n");
 // }
 
-// int main() {
+// // Function to free all nodes in a stack
+// void free_stack(t_stack *stack) {
+//     t_node *current = stack->top;
+//     t_node *next_node;
+//     while (current) {
+//         next_node = current->next;
+//         free(current);
+//         current = next_node;
+//     }
+//     stack->top = NULL;
+//     stack->bottom = NULL;
+//     stack->size = 0;
+// }
+
+// // Main function
+// int main(int argc, char *argv[]) {
 //     t_stack a, b;
 
 //     // Initialize stacks
 //     init_stack(&a);
 //     init_stack(&b);
 
-//     // Populate stack a with some values
-//     push_value(&a, 1);
-//     push_value(&a, 2);
-//     push_value(&a, 3);
+//     // Populate stack a with command-line arguments
+//     for (int i = 1; i < argc; i++) {
+//         int value = atoi(argv[i]);
+//         push_value(&a, value);
+//     }
 
 //     // Print initial stacks
 //     printf("Initial stacks:\n");
@@ -108,7 +126,7 @@ void	pb(t_stack *a, t_stack *b)
 //     printf("Stack B: ");
 //     print_stack(&b);
 
-//     // Perform push operations
+//     // Perform a single pb (push from A to B)
 //     printf("\nPerforming pb (push from A to B):\n");
 //     pb(&a, &b);
 //     printf("Stack A: ");
@@ -116,6 +134,7 @@ void	pb(t_stack *a, t_stack *b)
 //     printf("Stack B: ");
 //     print_stack(&b);
 
+//     // Perform a single pa (push from B to A)
 //     printf("\nPerforming pa (push from B to A):\n");
 //     pa(&a, &b);
 //     printf("Stack A: ");
@@ -123,8 +142,9 @@ void	pb(t_stack *a, t_stack *b)
 //     printf("Stack B: ");
 //     print_stack(&b);
 
-//     // Clean up dynamically allocated nodes (not shown here)
-//     // You should implement a function to free all nodes in a stack
+//     // Clean up dynamically allocated nodes
+//     free_stack(&a);
+//     free_stack(&b);
 
 //     return 0;
 // }
