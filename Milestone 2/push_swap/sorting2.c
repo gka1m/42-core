@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:36:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/22 14:21:31 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/22 18:00:24 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	sort_4(t_stack *a, t_stack *b)
 	t_node	*smallest;
 	int		i;
 
+	if (a->size == 0)
+		return ;
 	current = a->top;
 	smallest = current;
 	i = 0;
@@ -95,10 +97,12 @@ void	sort_4(t_stack *a, t_stack *b)
 		current = current->next;
 		i++;
 	}
+	// ft_printf("Smallest number: %d\n", smallest->value);
 	while (a->top->value != smallest->value)
 		ra(a);
 	pb(a, b);
-	sort_3(a);
+	if (!check_sorted(a))
+		sort_3(a);
 	pa(a, b);
 }
 
@@ -108,6 +112,8 @@ void	sort_5(t_stack *a, t_stack *b)
 	t_node	*smallest;
 	int		i;
 
+	if (a->size == 0)
+		return ;
 	i = 0;
 	current = a->top;
 	smallest = current;
@@ -118,9 +124,11 @@ void	sort_5(t_stack *a, t_stack *b)
 		current = current->next;
 		i++;
 	}
+	// ft_printf("Smallest number: %d\n", smallest->value);
 	while (a->top->value != smallest->value)
 		ra(a);
 	pb(a, b);
-	sort_4(a, b);
+	if (!check_sorted(a))
+		sort_4(a, b);
 	pa(a, b);
 }

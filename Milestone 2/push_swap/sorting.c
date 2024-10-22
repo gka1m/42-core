@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:03:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/22 16:55:39 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/22 18:29:00 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ void	radix_sort(t_stack *a, t_stack *b)
 	max_rank = find_max_rank(a);
 	bits = calc_bits(max_rank);
 	i = -1;
+	int a_size = a->size;
 	while (++i < bits)
 	{
 		j = -1;
-		while (++j < a->size)
+		while (++j < a_size)
 		{
 			current = a->top;
 			if (((current->rank >> i) & 1) == 1)
@@ -108,44 +109,3 @@ void	radix_sort(t_stack *a, t_stack *b)
 			pa(a, b);
 	}
 }
-
-// void	print_stack_ranks(t_stack *stack)
-// {
-// 	t_node	*current;
-
-// 	current = stack->top;
-// 	ft_printf("Stack with ranks:\n");
-// 	while (current)
-// 	{
-// 		ft_printf("Value: %d, Rank: %d\n", current->value, current->rank);
-// 		current = current->next;
-// 	}
-// }
-
-// int	main(int ac, char **av)
-// {
-// 	t_stack	*stack;
-
-// 	if (ac < 2)
-// 	{
-// 		ft_printf("Error: No input provided\n");
-// 		return (1);
-// 	}
-
-// 	// Initialize the stack with validated input
-// 	stack = initialize(ac, av);
-// 	if (!stack)
-// 	{
-// 		ft_printf("Error: Invalid input\n");
-// 		return (1);
-// 	}
-
-// 	// Rank the numbers in the stack
-// 	rank_nums(stack);
-
-// 	// Print the stack values and their ranks
-// 	print_stack_ranks(stack);
-// 	// Free the stack after use
-// 	free_stack(stack);
-// 	return (0);
-// }
