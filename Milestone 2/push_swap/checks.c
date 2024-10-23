@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:22:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/18 12:26:22 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/23 15:54:59 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	valid_num(char *str)
 		return (0);
 	num = ft_atol(str);
 	if (num > 2147483647 || num < -2147483648)
-		return (ft_printf("Error: Out of range\n"), 0);
+		return (ft_printf("Error\n"), 0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-			return (ft_printf("Error: Non-numerical input\n"), 0);
+			return (ft_printf("Error\n"), 0);
 		i++;
 	}
 	return (1);
@@ -50,7 +50,7 @@ int	has_duplicates(char **nums)
 		while (nums[j])
 		{
 			if (ft_strcmp(nums[i], nums[j]) == 0)
-				return (ft_printf("Error: Duplicates found\n"), 1);
+				return (ft_printf("Error\n"), 1);
 			j++;
 		}
 		i++;
@@ -111,26 +111,3 @@ char	**validate_input(int ac, char **av)
 	}
 	return (nums);
 }
-
-// int main(int ac, char **av)
-// {
-// 	if (ac < 2)
-// 	{
-// 		printf("Usage: ./a.out <numbers> or ./a.out <numbers in string>\n");
-// 		return 1;
-// 	}
-// 	char **result = validate_input(ac, av);
-// 	if (result)
-// 	{
-// 		printf("Input is valid!\n");
-// 		for (int i = 0; result[i] != NULL; i++)
-//             printf("%s ", result[i]);
-// 	}
-// 	else
-// 	{
-// 		printf("Invalid Input.\n");
-// 		return (1);
-// 	}
-// 	free_split(result);
-// 	return (0);
-// }

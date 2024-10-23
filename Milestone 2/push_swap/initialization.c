@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:19:39 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/21 13:33:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/23 13:20:36 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,41 +95,3 @@ t_stack	*initialize(int ac, char **av)
 	free_split(nums);
 	return (stack);
 }
-
-// void	print_stack(t_stack *stack)
-// {
-// 	t_node	*current;
-
-// 	current = stack->top;
-// 	ft_printf("Stack A:\n");
-// 	while (current)
-// 	{
-// 		ft_printf("%d\n", current->value);
-// 		current = current->next;
-// 	}
-// }
-
-// int	main(int ac, char **av)
-// {
-// 	t_stack	*stack;
-
-// 	if (ac < 2)
-// 	{
-// 		ft_printf("Error: No input provided\n");
-// 		return (1);
-// 	}
-// 	// Initialize stack with validated input
-// 	stack = initialize(ac, av);
-// 	if (!stack)
-// 	{
-// 		ft_printf("Error: Invalid input\n");
-// 		return (1);
-// 	}
-
-// 	// Print the stack to verify values
-// 	print_stack(stack);
-
-// 	// Free stack after use
-// 	free_stack(stack);
-// 	return (0);
-// }
