@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:30:16 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/22 14:58:03 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/23 12:13:02 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 	t_stack	*b;
 
 	if (ac < 2)
-		return (ft_printf("Error: No input provided\n"), 1);
+		return (1);
 	a = initialize(ac, av);
 	if (!a)
 		return (ft_printf("Error: Invalid Input\n"), 1);
@@ -47,7 +47,6 @@ int	main(int ac, char **av)
 		return (free_stack(a), 1);
 	init_stack(b);
 	sort_stack(a, b);
-	print_stack(a);
 	free_stack(a);
 	free_stack(b);
 	return (0);

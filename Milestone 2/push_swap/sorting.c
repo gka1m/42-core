@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:03:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/22 18:29:00 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/23 11:40:29 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	rank_nums(t_stack *stack)
 				current->rank++;
 			compare = compare->next;
 		}
-		ft_printf("Value: %d, Rank: %d\n", current->value, current->rank);
 		current = current->next;
 	}
 }
@@ -83,7 +82,7 @@ int	find_max_rank(t_stack *stack)
 
 void	radix_sort(t_stack *a, t_stack *b)
 {
-	int		bits;
+	int		size;
 	int		i;
 	int		j;
 	int		max_rank;
@@ -91,13 +90,12 @@ void	radix_sort(t_stack *a, t_stack *b)
 
 	rank_nums(a);
 	max_rank = find_max_rank(a);
-	bits = calc_bits(max_rank);
 	i = -1;
-	int a_size = a->size;
-	while (++i < bits)
+	size = a->size;
+	while (++i < calc_bits(max_rank))
 	{
 		j = -1;
-		while (++j < a_size)
+		while (++j < size)
 		{
 			current = a->top;
 			if (((current->rank >> i) & 1) == 1)

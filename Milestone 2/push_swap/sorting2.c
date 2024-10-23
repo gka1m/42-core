@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:36:55 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/22 18:00:24 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/23 11:38:59 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,13 @@
 void	sort_stack(t_stack *a, t_stack *b)
 {
 	if (check_sorted(a) == 1)
-	{
-		// ft_printf("Stack A is already sorted. No sorting needed.\n");
 		return ;
-	}
 	else
 	{
-		// ft_printf("Sorting Stack A with %d elements...\n", a->size);
 		if (a->size <= 5)
-		{
-			// ft_printf("Using simple sort...\n");
 			simple_sort(a, b);
-		}
 		else
-		{
-			// ft_printf("Using radix sort...\n");
 			radix_sort(a, b);
-		}
 	}
 }
 
@@ -97,7 +87,6 @@ void	sort_4(t_stack *a, t_stack *b)
 		current = current->next;
 		i++;
 	}
-	// ft_printf("Smallest number: %d\n", smallest->value);
 	while (a->top->value != smallest->value)
 		ra(a);
 	pb(a, b);
@@ -124,7 +113,6 @@ void	sort_5(t_stack *a, t_stack *b)
 		current = current->next;
 		i++;
 	}
-	// ft_printf("Smallest number: %d\n", smallest->value);
 	while (a->top->value != smallest->value)
 		ra(a);
 	pb(a, b);
