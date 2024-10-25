@@ -14,6 +14,10 @@ My own repo of projects completed in 42 Core Program
 
 ## Milestone 2
 
-- [ ] push_swap
+- [x] push_swap
 - [x] pipex
 - [x] so_long
+
+## Milestone 3
+- [ ] philosophers
+- [ ] minishell
