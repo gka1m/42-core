@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/07/05 17:13:01 by kagoh             #+#    #+#              #
-#    Updated: 2024/10/25 13:24:55 by kagoh            ###   ########.fr        #
+#    Created: 2024/10/25 15:07:46 by kagoh             #+#    #+#              #
+#    Updated: 2024/10/28 15:49:29 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= 
+SRC		= checks.c 
 		  
 OBJ		= $(SRC:.c=.o)
 
