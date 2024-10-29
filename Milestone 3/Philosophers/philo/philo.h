@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/28 16:16:27 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/29 12:33:50 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int	ft_atoi(const char *str);
 int	is_digit(const char *str);
 int	validate_input(int ac, char **av);
 
-/* initialization of threads */
+/* initialization of threads and cleanup */
+void	init_status(t_status *status, char **av);
+void	init_forks(t_status *status);
+void	init_philo(t_status *status);
+void	cleanup(t_status *status, size_t num_philo);
 
 #endif

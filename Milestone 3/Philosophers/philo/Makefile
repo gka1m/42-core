@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 15:07:46 by kagoh             #+#    #+#              #
-#    Updated: 2024/10/28 15:49:29 by kagoh            ###   ########.fr        #
+#    Updated: 2024/10/29 12:34:03 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= checks.c 
+SRC		= checks.c initialization.c 
 		  
 OBJ		= $(SRC:.c=.o)
 
