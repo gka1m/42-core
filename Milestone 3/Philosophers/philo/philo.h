@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/29 12:33:50 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/29 13:27:00 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct s_status
 }					t_status;
 
 /* input validation checks */
-int	ft_atoi(const char *str);
-int	is_digit(const char *str);
-int	validate_input(int ac, char **av);
+int		ft_atoi(const char *str);
+int		is_digit(const char *str);
+int		validate_input(int ac, char **av);
 
 /* initialization of threads and cleanup */
 void	init_status(t_status *status, char **av);
