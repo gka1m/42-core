@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/30 16:09:03 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:46:46 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*philo_routine(void *arg)
 	{
 		lock_forks(philo);
 		if (philo->status->sim_over)
-			break;
+			break ;
 		eat(philo);
 		unlock_forks(philo);
 		philo_sleep(philo);
