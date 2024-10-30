@@ -9,5 +9,7 @@
 #define BUFFER_SIZE 42
 #endif
 
+char *get_next_line(int fd);
+char *ft_strdup(char *str);
 
 #endif

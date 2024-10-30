@@ -36,14 +36,18 @@ Finally we consider that get_next_line has an undefined behaviour when reading f
 
 char *ft_strdup(char *str)
 {
+	char *result;
 	int len = 0;
 	int i = 0;
+
+	if (str == NULL)
+		return NULL;
 	for (i = 0; str[i] != '\0'; i++)
 		len++;
-	char *result = malloc((len + 1) * sizeof(char));
+	i = 0;
+	result = malloc((len + 1) * sizeof(char));
 	if (!result)
 		return NULL;
-	i = 0;
 	while (str[i])
 	{
 		result[i] = str[i];
@@ -53,11 +57,33 @@ char *ft_strdup(char *str)
 	return result;
 }
 
-//  char *get_next_line(int fd)
-//  {
-// 	static char buffer[BUFFER_SIZE];
-// 	char line[100000];
-// 	static int readed;
-// 	static int buffer_pos;
+ char *get_next_line(int fd)
+ {
+	static char buffer[BUFFER_SIZE];
+	char line[100000];
+	static int readed;
+	static int posn;
+	int i = 0;
 
-//  }
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return NULL;
+	
+	while (1)
+	{
+		if (posn >= readed)
+		{
+			readed = read(fd, buffer, BUFFER_SIZE);
+			posn = 0;
+			if (readed <= 0)
+				break;
+		}
+		if (line[i] == '\n')
+			break;
+		line[i] = buffer[posn++];
+		i++;
+	}
+	line[i] = '\0';
+	if (i == 0)
+		return NULL;
+	return (ft_strdup(line)); 
+ }
