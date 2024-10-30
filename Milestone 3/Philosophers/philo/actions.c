@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/29 14:05:27 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:09:03 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	eat(t_philo *philo)
 	usleep(philo->eat_time * 1000);
 }
 
-void	sleep(t_philo *philo)
+void	philo_sleep(t_philo *philo)
 {
 	printf("Philo %zu is sleeping\n", philo->id);
 	usleep(philo->sleep_time * 1000);
@@ -41,9 +41,11 @@ void	*philo_routine(void *arg)
 	while (!philo->status->sim_over)
 	{
 		lock_forks(philo);
+		if (philo->status->sim_over)
+			break;
 		eat(philo);
 		unlock_forks(philo);
-		sleep(philo);
+		philo_sleep(philo);
 		think(philo);
 	}
 	return (NULL);

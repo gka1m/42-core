@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/29 14:05:10 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:11:53 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ size_t	get_time(void)
 
 void	lock_forks(t_philo *philo)
 {
+	if (philo->status->num_philo == 1)
+	{
+		pthread_mutex_lock(philo->l_fork);
+		printf("Philo %zu has taken left fork\n", philo->id);
+		usleep(philo->die_time * 1000);
+		printf("Philo %zu has died\n", philo->id);
+		pthread_mutex_unlock(philo->l_fork);
+		philo->status->sim_over = 1;
+		return ;
+	}
 	pthread_mutex_lock(philo->l_fork);
 	printf("Philo %zu has taken left fork\n", philo->id);
 	pthread_mutex_lock(philo->r_fork);
