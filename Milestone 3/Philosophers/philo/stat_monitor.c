@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/30 16:11:53 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:43:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	*routine_monitor(void *arg)
 					- status->philos[i].last_meal) > status->time_to_die)
 			{
 				status->sim_over = 1;
-				printf("Philo %zu has died\n", status->philos[i].id);
 				pthread_mutex_unlock(&status->status_lock);
 				return (NULL);
 			}
