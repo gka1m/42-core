@@ -33,6 +33,7 @@ Finally we consider that get_next_line has an undefined behaviour when reading f
 */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char *ft_strdup(char *str)
 {
@@ -87,3 +88,17 @@ char *ft_strdup(char *str)
 		return NULL;
 	return (ft_strdup(line)); 
  }
+
+int main()
+{
+    int fd = open("./txt.txt", O_RDONLY);
+    char *line;
+
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+        free(line);  // Free the line after printing it
+    }
+    close(fd);
+    return (0);
+}

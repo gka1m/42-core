@@ -10,6 +10,6 @@
 #endif
 
 char *get_next_line(int fd);
-char *ft_strdup(char *str);
+char *ft_strdup(char *src);
 
 #endif
