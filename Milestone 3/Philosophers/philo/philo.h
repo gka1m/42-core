@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/30 15:51:04 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/04 14:19:37 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void	philo_sleep(t_philo *philo);
 void	think(t_philo *philo);
 void	*philo_routine(void *arg);
 void	start_sim(t_status *status);
+void	log_message(t_philo *philo, const char *message);
 
 #endif

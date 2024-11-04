@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:39:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/30 15:53:51 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/04 15:58:20 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av)
 	if (validate_input(ac, av) != 0)
 		return (1);
 	init_status(&status, av);
+	status.start_time = get_time();
 	start_sim(&status);
 	cleanup(&status, status.num_philo);
 	return (0);

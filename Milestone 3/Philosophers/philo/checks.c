@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:35:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/10/30 16:47:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/04 13:33:45 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	validate_input(int ac, char **av)
 	if (ac < 5 || ac > 6)
 	{
 		printf("Usage: ./philo <num_philos> <die_time> <eat_time> ");
-		return (printf("<sleep_time> <[number of meals to be eaten]\n"), 1);
+		return (printf("<sleep_time> <[number of meals to be eaten]>\n"), 1);
 	}
 	i = 1;
 	while (i < ac)
