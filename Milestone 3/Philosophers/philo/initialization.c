@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:58:14 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/04 15:26:40 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/13 16:21:30 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_status(t_status *status, char **av)
 	status->start_time = get_time();
 	pthread_mutex_init(&status->print_lock, NULL);
 	pthread_mutex_init(&status->status_lock, NULL);
+	pthread_mutex_init(&status->start, NULL);
 	init_forks(status);
 	init_philo(status);
 }
@@ -40,7 +41,8 @@ void	init_forks(t_status *status)
 		return ;
 	while (i < status->num_philo)
 	{
-		pthread_mutex_init(&status->forks[i], NULL);
+		if (pthread_mutex_init(&status->forks[i], NULL) != 0)
+			return ;
 		i++;
 	}
 }
@@ -55,15 +57,9 @@ void	init_philo(t_status *status)
 		return ;
 	while (i < status->num_philo)
 	{
+		memset(&status->philos[i], 0, sizeof(t_philo));
 		status->philos[i].id = i + 1;
-		status->philos[i].sleep_time = status->time_to_sleep;
-		status->philos[i].eat_time = status->time_to_eat;
-		status->philos[i].die_time = status->time_to_die;
-		status->philos[i].last_meal = 0;
-		status->philos[i].meal_count = 0;
-		status->philos[i].dead = 0;
 		status->philos[i].status = status;
-		status->philos[i].lock = &status->status_lock;
 		status->philos[i].l_fork = &status->forks[i];
 		status->philos[i].r_fork = &status->forks[(i + 1) % status->num_philo];
 		i++;
@@ -86,6 +82,7 @@ void	cleanup(t_status *status, size_t num_philo)
 	}
 	pthread_mutex_destroy(&status->print_lock);
 	pthread_mutex_destroy(&status->status_lock);
+	pthread_mutex_destroy(&status->start);
 	if (status->philos)
 		free(status->philos);
 }

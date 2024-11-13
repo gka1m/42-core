@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:39:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/04 15:58:20 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/13 16:43:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@ void	start_sim(t_status *status)
 	size_t		i;
 	pthread_t	monitor;
 
-	i = 0;
-	while (i < status->num_philo)
+	i = -1;
+	if (pthread_create(&monitor, NULL, &routine_monitor, status) != 0)
 	{
-		pthread_create(&status->philos[i].thread, NULL, philo_routine,
-			&status->philos[i]);
-		i++;
+		cleanup(status, status->num_philo);
+		return ;
 	}
-	pthread_create(&monitor, NULL, routine_monitor, status);
+	while (++i < status->num_philo)
+	{
+		if (pthread_create(&status->philos[i].thread, NULL, &philo_routine,
+			&status->philos[i]) != 0)
+		{
+			cleanup(status, status->num_philo);
+			break ;
+		}
+	}
 	pthread_join(monitor, NULL);
-	i = 0;
-	while (i < status->num_philo)
-	{
+	i = -1;
+	while (++i < status->num_philo)
 		pthread_join(status->philos[i].thread, NULL);
-		i++;
-	}
 }
 
 int	main(int ac, char **av)
@@ -42,7 +46,9 @@ int	main(int ac, char **av)
 		return (1);
 	init_status(&status, av);
 	status.start_time = get_time();
+	pthread_mutex_lock(&status.start);
 	start_sim(&status);
+	pthread_mutex_unlock(&status.start);
 	cleanup(&status, status.num_philo);
 	return (0);
 }
