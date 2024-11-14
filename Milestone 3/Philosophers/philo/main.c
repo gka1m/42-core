@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:39:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/13 16:43:26 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:23:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,21 @@ void	start_sim(t_status *status)
 
 	i = -1;
 	if (pthread_create(&monitor, NULL, &routine_monitor, status) != 0)
-	{
 		cleanup(status, status->num_philo);
-		return ;
-	}
 	while (++i < status->num_philo)
 	{
 		if (pthread_create(&status->philos[i].thread, NULL, &philo_routine,
-			&status->philos[i]) != 0)
-		{
+				&status->philos[i]) != 0)
 			cleanup(status, status->num_philo);
-			break ;
-		}
 	}
-	pthread_join(monitor, NULL);
+	if (pthread_join(monitor, NULL) != 0)
+		cleanup(status, status->num_philo);
 	i = -1;
 	while (++i < status->num_philo)
-		pthread_join(status->philos[i].thread, NULL);
+	{
+		if (pthread_join(status->philos[i].thread, NULL) != 0)
+			cleanup(status, status->num_philo);
+	}
 }
 
 int	main(int ac, char **av)

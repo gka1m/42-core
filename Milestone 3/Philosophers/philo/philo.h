@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/13 16:06:22 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:35:23 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	cleanup(t_status *status, size_t num_philo);
 /* actions and monitoring */
 size_t	get_time(void);
 void	*routine_monitor(void *arg);
-void	eat(t_philo *philo);
+void	nom(t_philo *philo);
 void	sleep_think(t_philo *philo);
 void	*philo_routine(void *arg);
 void	start_sim(t_status *status);
 void	log_message(t_philo *philo, char *message);
-int		check_max_meals(t_status *status);
+int		everybardi_full(t_status *status);
 int		is_dead(t_status *status);
 void	dead_boi(t_philo *philo);
 

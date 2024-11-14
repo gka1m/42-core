@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/13 16:38:01 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:35:37 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@ void	dead_boi(t_philo *philo)
 	pthread_mutex_unlock(philo->l_fork);
 }
 
-int	check_max_meals(t_status *status)
+int	everybardi_full(t_status *status)
 {
 	size_t	i;
 	size_t	full;
 
-	if (status->max_meals <= 0)
+	if (status->max_meals == -1)
 		return (0);
 	full = 0;
 	i = 0;
 	while (i < status->num_philo)
 	{
-		if (status->philos[i].meal_count >= status->max_meals)
+		pthread_mutex_lock(&status->status_lock);
+		if (status->philos[i].meal_count == status->max_meals)
 			full++;
+		pthread_mutex_unlock(&status->status_lock);
 		i++;
 	}
 	if (full == status->num_philo)
@@ -72,16 +74,12 @@ void	*routine_monitor(void *arg)
 	status = (t_status *)arg;
 	while (1)
 	{
-		if (is_dead(status))
+		if (is_dead(status) == 1 || everybardi_full(status) == 1)
 			break ;
-		if (status->max_meals > 0 && check_max_meals(status) == 1)
-		{
-			break ;
-		}
 		usleep(1000);
 	}
-	pthread_mutex_lock(&status->status_lock);
-	status->sim_over = 1;
-	pthread_mutex_unlock(&status->status_lock);
+	// pthread_mutex_lock(&status->status_lock);
+	// status->sim_over = 1;
+	// pthread_mutex_unlock(&status->status_lock);
 	return (arg);
 }

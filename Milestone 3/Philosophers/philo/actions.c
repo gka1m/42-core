@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/13 16:40:18 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:22:46 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	log_message(t_philo *philo, char *message)
 	pthread_mutex_unlock(&philo->status->print_lock);
 }
 
-void	eat(t_philo *philo)
+void	nom(t_philo *philo)
 {
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
 
-	if (philo->id % 2 == 0 || philo->id == philo->status->num_philo)
+	if (philo->id % 2 == 0)
 	{
 		first = philo->r_fork;
 		second = philo->l_fork;
@@ -72,20 +72,14 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->status->num_philo == 1)
-		dead_boi(philo);
-	while (!philo->status->sim_over)
 	{
-		eat(philo);
+		dead_boi(philo);
+		return (NULL);
+	}
+	while (1)
+	{
+		nom(philo);
 		sleep_think(philo);
-		if (philo->status->sim_over
-			|| (get_time() - philo->last_meal >= philo->status->time_to_die))
-		{
-			if (!philo->status->sim_over)
-				philo->status->sim_over = 1;
-			pthread_mutex_unlock(&philo->status->status_lock);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->status->status_lock);
 	}
 	return (arg);
 }
