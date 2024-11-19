@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:58:14 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/13 16:21:30 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/19 15:46:11 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	init_status(t_status *status, char **av)
 		status->max_meals = -1;
 	status->sim_over = 0;
 	status->start_time = get_time();
-	pthread_mutex_init(&status->print_lock, NULL);
-	pthread_mutex_init(&status->status_lock, NULL);
-	pthread_mutex_init(&status->start, NULL);
+	if (pthread_mutex_init(&status->print_lock, NULL) != 0)
+		status_cleanup(status, 0);
+	if (pthread_mutex_init(&status->status_lock, NULL) != 0)
+		status_cleanup(status, 1);
+	if (pthread_mutex_init(&status->start, NULL) != 0)
+		status_cleanup(status, 2);
 	init_forks(status);
 	init_philo(status);
 }
@@ -42,7 +45,13 @@ void	init_forks(t_status *status)
 	while (i < status->num_philo)
 	{
 		if (pthread_mutex_init(&status->forks[i], NULL) != 0)
+		{
+			while (--i > 0)
+				pthread_mutex_destroy(&status->forks[i]);
+			free(status->forks);
+			status->forks = NULL;
 			return ;
+		}
 		i++;
 	}
 }
@@ -64,25 +73,4 @@ void	init_philo(t_status *status)
 		status->philos[i].r_fork = &status->forks[(i + 1) % status->num_philo];
 		i++;
 	}
-}
-
-void	cleanup(t_status *status, size_t num_philo)
-{
-	size_t	i;
-
-	i = 0;
-	if (status->forks)
-	{
-		while (i < num_philo)
-		{
-			pthread_mutex_destroy(&status->forks[i]);
-			i++;
-		}
-		free(status->forks);
-	}
-	pthread_mutex_destroy(&status->print_lock);
-	pthread_mutex_destroy(&status->status_lock);
-	pthread_mutex_destroy(&status->start);
-	if (status->philos)
-		free(status->philos);
 }

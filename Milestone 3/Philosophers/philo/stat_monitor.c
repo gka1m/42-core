@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/14 16:35:37 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/19 11:54:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	everybardi_full(t_status *status)
 	size_t	i;
 	size_t	full;
 
-	if (status->max_meals == -1)
-		return (0);
 	full = 0;
 	i = 0;
+	if (status->max_meals == -1)
+		return (0);
 	while (i < status->num_philo)
 	{
 		pthread_mutex_lock(&status->status_lock);
@@ -76,10 +76,10 @@ void	*routine_monitor(void *arg)
 	{
 		if (is_dead(status) == 1 || everybardi_full(status) == 1)
 			break ;
-		usleep(1000);
+		// usleep(1000);
 	}
-	// pthread_mutex_lock(&status->status_lock);
-	// status->sim_over = 1;
-	// pthread_mutex_unlock(&status->status_lock);
+	pthread_mutex_lock(&status->status_lock);
+	status->sim_over = 1;
+	pthread_mutex_unlock(&status->status_lock);
 	return (arg);
 }

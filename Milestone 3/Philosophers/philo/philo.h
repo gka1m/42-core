@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/14 16:35:23 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/19 15:42:07 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_status(t_status *status, char **av);
 void	init_forks(t_status *status);
 void	init_philo(t_status *status);
 void	cleanup(t_status *status, size_t num_philo);
+void	status_cleanup(t_status *status, int thread_num);
 
 /* actions and monitoring */
 size_t	get_time(void);
