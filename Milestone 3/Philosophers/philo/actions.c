@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/14 16:22:46 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/22 16:27:58 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ void	*philo_routine(void *arg)
 	}
 	while (1)
 	{
+		pthread_mutex_lock(&philo->status->status_lock);
+		if (philo->status->sim_over)
+		{
+			pthread_mutex_unlock(&philo->status->status_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->status->status_lock);
 		nom(philo);
 		sleep_think(philo);
 	}
