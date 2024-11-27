@@ -6,19 +6,31 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/22 16:27:47 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/27 14:16:02 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	dead_boi(t_philo *philo)
+size_t	get_time(void)
 {
-	pthread_mutex_lock(philo->l_fork);
-	log_message(philo, "has taken a fork");
-	usleep(philo->status->time_to_die * 1000);
-	// log_message(philo, "died");
-	pthread_mutex_unlock(philo->l_fork);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	log_message(t_philo *philo, char *message)
+{
+	size_t	timestamp;
+
+	pthread_mutex_lock(&philo->status->print_lock);
+	if (!philo->status->sim_over)
+	{
+		timestamp = get_time() - philo->status->start_time;
+		printf("%zu %zu %s\n", timestamp, philo->id, message);
+	}
+	pthread_mutex_unlock(&philo->status->print_lock);
 }
 
 int	everybardi_full(t_status *status)
@@ -55,14 +67,14 @@ int	is_dead(t_status *status)
 	i = 0;
 	while (i < status->num_philo)
 	{
-		pthread_mutex_lock(&status->status_lock);
 		if ((get_time() - status->philos[i].last_meal) > status->time_to_die)
 		{
-			log_message(status->philos, "died");
+			pthread_mutex_lock(&status->status_lock);
+			log_message(&status->philos[i], "died");
 			status->sim_over = 1;
-			return (pthread_mutex_unlock(&status->status_lock), 1);
+			pthread_mutex_unlock(&status->status_lock);
+			return (1);
 		}
-		pthread_mutex_unlock(&status->status_lock);
 		i++;
 	}
 	return (0);
@@ -73,13 +85,18 @@ void	*routine_monitor(void *arg)
 	t_status	*status;
 
 	status = (t_status *)arg;
+	usleep(10000);
+	pthread_mutex_lock(&status->start);
+	pthread_mutex_unlock(&status->start);
 	while (1)
 	{
 		if (is_dead(status) || everybardi_full(status))
+		{
+			pthread_mutex_lock(&status->status_lock);
+			status->sim_over = 1;
+			pthread_mutex_unlock(&status->status_lock);
 			break ;
+		}
 	}
-	pthread_mutex_lock(&status->status_lock);
-	status->sim_over = 1;
-	pthread_mutex_unlock(&status->status_lock);
 	return (arg);
 }

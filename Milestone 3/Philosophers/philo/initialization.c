@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:58:14 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/22 16:27:27 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/27 13:53:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	init_status(t_status *status, char **av)
 	else
 		status->max_meals = -1;
 	status->sim_over = 0;
-	status->start_time = get_time();
 	if (pthread_mutex_init(&status->print_lock, NULL) != 0)
 		status_cleanup(status, 0);
 	if (pthread_mutex_init(&status->status_lock, NULL) != 0)

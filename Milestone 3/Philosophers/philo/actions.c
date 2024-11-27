@@ -6,37 +6,33 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/22 16:27:58 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/27 14:39:14 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_time(void)
+void	dead_boi(t_philo *philo)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	pthread_mutex_lock(philo->l_fork);
+	log_message(philo, "has taken a fork");
+	usleep(philo->status->time_to_die * 1000);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
-void	log_message(t_philo *philo, char *message)
-{
-	size_t	timestamp;
-
-	pthread_mutex_lock(&philo->status->print_lock);
-	timestamp = get_time() - philo->status->start_time;
-	printf("%zu %zu %s\n", timestamp, philo->id, message);
-	pthread_mutex_unlock(&philo->status->print_lock);
-}
-
-void	nom(t_philo *philo)
+void	bon_appetit(t_philo *philo)
 {
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
 
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 != 0 && philo->id == philo->status->num_philo)
 	{
+		first = philo->r_fork;
+		second = philo->l_fork;
+	}
+	else if (philo->id % 2 == 0)
+	{
+		usleep(500);
 		first = philo->r_fork;
 		second = philo->l_fork;
 	}
@@ -45,6 +41,11 @@ void	nom(t_philo *philo)
 		first = philo->l_fork;
 		second = philo->r_fork;
 	}
+	nom(philo, first, second);
+}
+
+void	nom(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
+{
 	pthread_mutex_lock(first);
 	log_message(philo, "has taken a fork");
 	pthread_mutex_lock(second);
@@ -71,6 +72,9 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->status->start);
+	philo->last_meal = philo->status->start_time;
+	pthread_mutex_unlock(&philo->status->start);
 	if (philo->status->num_philo == 1)
 	{
 		dead_boi(philo);
@@ -78,6 +82,8 @@ void	*philo_routine(void *arg)
 	}
 	while (1)
 	{
+		bon_appetit(philo);
+		sleep_think(philo);
 		pthread_mutex_lock(&philo->status->status_lock);
 		if (philo->status->sim_over)
 		{
@@ -85,8 +91,6 @@ void	*philo_routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->status->status_lock);
-		nom(philo);
-		sleep_think(philo);
 	}
 	return (arg);
 }

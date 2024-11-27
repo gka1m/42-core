@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:22:03 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/21 14:07:17 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/11/27 13:21:04 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	status_cleanup(t_status *status, int thread_num);
 /* actions and monitoring */
 size_t	get_time(void);
 void	*routine_monitor(void *arg);
-void	nom(t_philo *philo);
+void	bon_appetit(t_philo *philo);
+void	nom(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second);
 void	sleep_think(t_philo *philo);
 void	*philo_routine(void *arg);
 void	start_sim(t_status *status);
