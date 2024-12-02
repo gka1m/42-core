@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/27 14:39:14 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/12/02 14:18:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	bon_appetit(t_philo *philo)
 	}
 	else if (philo->id % 2 == 0)
 	{
-		usleep(500);
+		usleep(2000);
 		first = philo->r_fork;
 		second = philo->l_fork;
 	}

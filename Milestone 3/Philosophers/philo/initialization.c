@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:58:14 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/27 13:53:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/12/02 14:25:34 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	init_philo(t_status *status)
 		memset(&status->philos[i], 0, sizeof(t_philo));
 		status->philos[i].id = i + 1;
 		status->philos[i].status = status;
-		status->philos[i].last_meal = status->start_time;
 		status->philos[i].l_fork = &status->forks[i];
 		status->philos[i].r_fork = &status->forks[(i + 1) % status->num_philo];
 		i++;

@@ -1,0 +1,4 @@
+--tool=helgrind
+--show-leak-kinds=all
+--fair-sched=yes
+--tool=drd

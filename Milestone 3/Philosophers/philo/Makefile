@@ -6,7 +6,7 @@
 #    By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 15:07:46 by kagoh             #+#    #+#              #
-#    Updated: 2024/11/27 14:46:57 by kagoh            ###   ########.fr        #
+#    Updated: 2024/12/02 17:09:36 by kagoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=thread
 
 SRC		= checks.c initialization.c cleanups.c actions.c stat_monitor.c main.c
 		  

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/27 14:16:02 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/12/02 17:14:36 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ int	is_dead(t_status *status)
 	size_t	i;
 
 	i = 0;
+	pthread_mutex_lock(&status->status_lock);
 	while (i < status->num_philo)
 	{
+		
 		if ((get_time() - status->philos[i].last_meal) > status->time_to_die)
 		{
-			pthread_mutex_lock(&status->status_lock);
 			log_message(&status->philos[i], "died");
 			status->sim_over = 1;
 			pthread_mutex_unlock(&status->status_lock);
@@ -77,6 +78,7 @@ int	is_dead(t_status *status)
 		}
 		i++;
 	}
+	pthread_mutex_unlock(&status->status_lock);
 	return (0);
 }
 
@@ -85,8 +87,8 @@ void	*routine_monitor(void *arg)
 	t_status	*status;
 
 	status = (t_status *)arg;
-	usleep(10000);
 	pthread_mutex_lock(&status->start);
+	usleep(10000);
 	pthread_mutex_unlock(&status->start);
 	while (1)
 	{

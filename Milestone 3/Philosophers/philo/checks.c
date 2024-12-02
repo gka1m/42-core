@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:35:40 by kagoh             #+#    #+#             */
-/*   Updated: 2024/11/22 15:24:24 by kagoh            ###   ########.fr       */
+/*   Updated: 2024/12/02 15:13:40 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ int	ft_atoi(const char *str)
 	return (sign * result);
 }
 
-int	is_digit(const char *str)
+int	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int	is_valid_number(const char *str)
 {
 	int	i;
 
@@ -47,11 +52,13 @@ int	is_digit(const char *str)
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
 		|| str[i] == '\f' || str[i] == '\r')
 		i++;
-	if (str[i] == '+')
+	if (str[i] == '+' || str[i] == '-')
 		i++;
+	if (!is_digit(str[i]))
+		return (1);
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (!is_digit(str[i]))
 			return (1);
 		i++;
 	}
@@ -68,20 +75,21 @@ int	validate_input(int ac, char **av)
 		printf("Usage: ./philo <num_philos> <die_time> <eat_time> ");
 		return (printf("<sleep_time> <[number of meals to be eaten]>\n"), 1);
 	}
-	i = 1;
-	while (i < ac)
+	i = 0;
+	while (++i < ac)
 	{
-		if (is_digit(av[i]) != 0)
-			return (printf("Inputs must be positive integers\n"), 1);
-		value = ft_atoi(av[i]);
-		if (i == 1 && (value <= 0 || value > 200))
-			return (printf("Error: num_philos out of range\n"), 1);
-		if ((i >= 2 && i <= 4) && value <= 0)
-			return (printf("Time values must be positive\n"), 1);
-		if (i == 5 && value <= 0)
-			return (printf("Number of meals to be eaten must be positive\n"),
-				1);
-		i++;
+		if (is_valid_number(av[i]) == 1)
+			return (printf("Inputs should be numbers\n"), 1);
+		else
+		{
+			value = ft_atoi(av[i]);
+			if (i == 1 && value <= 0)
+				return (printf("Error: num_philos must be positive\n"), 1);
+			else if ((i >= 2 && i <= 4) && value <= 0)
+				return (printf("Time values must be positive\n"), 1);
+			else if (i == 5 && value <= 0)
+				return (printf("Number of meals must be positive\n"), 1);
+		}
 	}
 	return (0);
 }
