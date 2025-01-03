@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2024/12/02 14:18:56 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/01/03 16:53:59 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	dead_boi(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	log_message(philo, "has taken a fork");
 	usleep(philo->status->time_to_die * 1000);
+	log_message(philo, "died");
 	pthread_mutex_unlock(philo->l_fork);
 }
 
@@ -53,8 +54,8 @@ void	nom(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
 	pthread_mutex_lock(&philo->status->status_lock);
 	philo->last_meal = get_time();
 	philo->meal_count++;
-	log_message(philo, "is eating");
 	pthread_mutex_unlock(&philo->status->status_lock);
+	log_message(philo, "is eating");
 	usleep(philo->status->time_to_eat * 1000);
 	pthread_mutex_unlock(first);
 	pthread_mutex_unlock(second);
