@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:31:00 by kagoh             #+#    #+#             */
-/*   Updated: 2025/01/03 17:08:22 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/03/03 15:14:24 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ int	everybardi_full(t_status *status)
 	while (i < status->num_philo)
 	{
 		pthread_mutex_lock(&status->status_lock);
-		if (status->philos[i].meal_count == status->max_meals)
+		if (status->philos[i].meal_count >= status->max_meals)
 			full++;
 		pthread_mutex_unlock(&status->status_lock);
 		i++;
 	}
 	if (full == status->num_philo)
 	{
-		// pthread_mutex_lock(&status->statu`s_lock);
-		// status->sim_over = 1;
-		// pthread_mutex_unlock(&status->status_lock);
+		pthread_mutex_lock(&status->status_lock);
+		status->sim_over = 1;
+		pthread_mutex_unlock(&status->status_lock);
 		return (1);
 	}
 	return (0);
@@ -72,7 +72,6 @@ int	is_dead(t_status *status)
 	{
 		if ((get_time() - status->philos[i].last_meal) > status->time_to_die)
 		{
-			// status->sim_over = 1;
 			pthread_mutex_unlock(&status->status_lock);
 			log_message(&status->philos[i], "died");
 			return (1);
@@ -89,8 +88,8 @@ void	*routine_monitor(void *arg)
 
 	status = (t_status *)arg;
 	pthread_mutex_lock(&status->start);
-	usleep(10000);
 	pthread_mutex_unlock(&status->start);
+	usleep(10000);
 	while (1)
 	{
 		if (is_dead(status) == 1 || everybardi_full(status) == 1)

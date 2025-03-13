@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:34:50 by kagoh             #+#    #+#             */
-/*   Updated: 2025/01/03 16:53:59 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/03/11 12:53:22 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	dead_boi(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	log_message(philo, "has taken a fork");
 	usleep(philo->status->time_to_die * 1000);
-	log_message(philo, "died");
 	pthread_mutex_unlock(philo->l_fork);
 }
 
