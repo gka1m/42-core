@@ -28,5 +28,5 @@ My own repo of projects completed in 42 Core Program
 
 | Project Name        | Status | Description | Concepts Taught |
 |---------------------|--------|-------------|-----------------|
-| **philosophers**    |      | A project to simulate a multi-threaded dining philosophers problem, focusing on synchronization. | Thread management, mutexes, semaphores, concurrency, deadlock prevention. |
-| **minishell**       |      | A project to implement a simple shell with features like command execution, piping, and redirection. | Shell programming, process control, signal handling, piping, redirection, `fork()`, `exec()` system calls. |
+| **philosophers**    |   ✅   | A project to simulate a multi-threaded dining philosophers problem, focusing on synchronization. | Thread management, mutexes, concurrency, deadlock prevention. |
+| **minishell**       |   ✅  | A project to implement a simple shell with features like command execution, piping, and redirection. | Shell programming, process control, signal handling, piping, redirection, `fork()`, `exec()` system calls. |
