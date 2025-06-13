@@ -4,9 +4,9 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror
 
-SRC		= main.cpp Fixed.cpp
+SRC		= main.cpp Fixed.cpp Point.cpp bsp.cpp
 
-INCLUDES = Fixed.hpp
+INCLUDES = Fixed.hpp Point.hpp
 		  
 OBJ		= $(SRC:.cpp=.o)
 
