@@ -6,70 +6,56 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:05:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 13:22:07 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/17 16:26:12 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap()
+// Default Constructor
+ScavTrap::ScavTrap() : ClapTrap("Scav_gkaim", 100, 50, 20) 
 {
-    name = "Scav_gkaim";
-    hp = 100;
-    energy = 50;
-    dmg = 20;
-    
-    std::cout << " Default Scav " << name << " constructed" << std::endl;  
+    std::cout << "Default Scav constructed" << std::endl;
 }
 
-ScavTrap::ScavTrap(const std::string& name)
+// Param Constructor
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name, 100, 50, 20)
 {
-    this->name = name;
-    hp = 100;
-    energy = 50;
-    dmg = 20;
-    
     std::cout << "Scav " << name << " constructed" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other)
+// Copy Constructor
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other)
 {
-    *this = other;
-    
-    std::cout << "Copy Scav " << name << " constructed" << std::endl;
+    std::cout << "Copy Scav " << getName() << " constructed" << std::endl;
 }
 
+// Copy Assignment Operator
 ScavTrap& ScavTrap::operator=(const ScavTrap& other)
 {
     if (this != &other)
     {
-        name = other.name;
-        hp = other.hp;
-        energy = other.energy;
-        dmg = other.dmg;
+        ClapTrap::operator=(other);
     }
-
-    std::cout << "Scav " << name << " assigned" << std::endl;
+    std::cout << "Scav " << getName() << " assigned" << std::endl;
     return *this;
 }
 
-ScavTrap::~ScavTrap()
-{
-    std::cout << "Bye Scavvie!" << std::endl;
-}
+// Destructor
+ScavTrap::~ScavTrap() {}
 
 void ScavTrap::attack(const std::string& target)
 {
-    if (hp <= 0 || energy <= 0)
+    if (getHP() <= 0 || getEnergy() <= 0)
     {
-        std::cout << name << " has no energy or dead" << std::endl;
+        std::cout << getName() << " has no energy or dead" << std::endl;
         return;
     }
-    energy--;
-    std::cout << name << "attacks " << target << " brutally with " << dmg << " damage" << std::endl;
+    decreaseEnergy();
+    std::cout << getName() << "attacks " << target << " brutally with " << getDmg() << " damage" << std::endl;
 }
 
 void ScavTrap::guardGate()
 {
-    std::cout << name << " has entered Gate Keeper mode!" << std::endl;
+    std::cout << getName() << " has entered Gate Keeper mode!" << std::endl;
 }

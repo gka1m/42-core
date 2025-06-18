@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:25:37 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 14:49:25 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/17 13:49:23 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ClapTrap.hpp"
 #include <iostream>
 
-class FragTrap : virtual public ClapTrap
+class FragTrap : public ClapTrap
 {
     public:
         FragTrap();

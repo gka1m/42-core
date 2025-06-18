@@ -6,71 +6,51 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:49:30 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 14:06:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/18 16:11:18 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap()
+FragTrap::FragTrap() : ClapTrap("Frag_gkaim", 100, 100, 30)
 {
-    name = "Frag_gkaim";
-    hp = 100;
-    energy = 100;
-    dmg =30;
-
-    std::cout << "Default Frag " << name << " created" << std::endl;
+    std::cout << "Default Frag " << getName() << " created" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string& name)
+FragTrap::FragTrap(const std::string& name) : ClapTrap(name, 100, 100, 30)
 {
-    this->name = name;
-    hp = 100;
-    energy = 100;
-    dmg =30;
-    
-    std::cout << "Default Frag " << name << " constructed" << std::endl;
+    std::cout << "Frag " << getName() << " constructed" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap& other)
+FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other)
 {
-    *this = other;
-    
-    std::cout << "Copy Frag " << name << " constructed" << std::endl;
+    std::cout << "Copy Frag " << getName() << " constructed" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& other)
 {
     if (this != &other)
-    {
-        name = other.name;
-        hp = other.hp;
-        energy = other.energy;
-        dmg = other.dmg;
-    }
+        ClapTrap::operator=(other);  // Use base assignment operator
 
-    std::cout << "Frag " << name << " assigned" << std::endl;
+    std::cout << "Frag " << getName() << " assigned" << std::endl;
     return *this;
 }
 
-FragTrap::~FragTrap()
-{
-    std::cout << "Bye Fraggie!" << std::endl;
-}
+FragTrap::~FragTrap() {}
 
 void FragTrap::attack(const std::string& target)
 {
-    if (hp <= 0 || energy <= 0)
+    if (getHP() <= 0 || getEnergy() <= 0)
     {
-        std::cout << name << " has no energy or dead" << std::endl;
+        std::cout << getName() << " has no energy or dead" << std::endl;
         return;
     }
-    energy--;
-    std::cout << name << "frags " << target 
-    << " brutally with " << dmg << " damage" << std::endl;
+    decreaseEnergy();
+    std::cout << getName() << "frags " << target 
+    << " brutally with " << getDmg() << " damage" << std::endl;
 }
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << name << " wants to bro out with a high five!" << std::endl;
+    std::cout << getName() << " wants to bro out with a high five!" << std::endl;
 }

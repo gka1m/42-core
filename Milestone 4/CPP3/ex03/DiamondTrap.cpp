@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:46:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 15:01:35 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/18 16:39:22 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,4 @@ void DiamondTrap::attack(const std::string& target)
     ScavTrap::attack(target);
 }
 
-void DiamondTrap::whoAmI()
+// void DiamondTrap::whoAmI()

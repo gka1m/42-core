@@ -6,42 +6,50 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 14:05:04 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/18 16:10:33 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
-int main(void)
+void printStats(const ClapTrap& ct, const std::string& label)
 {
-    std::cout << "=== Constructing FragTrap ===" << std::endl;
-    FragTrap frag1("Fragger");
+    std::cout << "---- " << label << " Stats ----" << std::endl;
+    std::cout << "Name: " << ct.getName() << std::endl;
+    std::cout << "HP: " << ct.getHP() << std::endl;
+    std::cout << "Energy: " << ct.getEnergy() << std::endl;
+    std::cout << "Damage: " << ct.getDmg() << std::endl;
+    std::cout << "------------------------\n" << std::endl;
+}
 
-    std::cout << "\n=== Copy Constructing FragTrap ===" << std::endl;
-    FragTrap frag2(frag1);
+int main(void) 
+{
+    std::cout << "=== Constructing Default FragTrap ===" << std::endl;
+    FragTrap defaultFrag;
+    printStats(defaultFrag, "Default FragTrap");
 
-    std::cout << "\n=== Assigning FragTrap ===" << std::endl;
-    FragTrap frag3;
-    frag3 = frag1;
+    std::cout << "=== Constructing Named FragTrap ===" << std::endl;
+    FragTrap ft("FR4G-TP");
+    printStats(ft, "Initial FragTrap");
 
-    std::cout << "\n=== Attack Test ===" << std::endl;
-    frag1.attack("target A");
+    std::cout << "=== Basic Actions ===" << std::endl;
+    ft.attack("Bandit");
+    ft.takeDamage(35);
+    ft.beRepaired(20);
+    ft.highFivesGuys();
+    printStats(ft, "After Basic Actions");
 
-    std::cout << "\n=== High Fives Test ===" << std::endl;
-    frag1.highFivesGuys();
+    std::cout << "=== Energy Exhaustion Stress Test ===" << std::endl;
+    for (int i = 0; i < 101; ++i)
+        ft.attack("Dummy");
+    printStats(ft, "After Energy Exhaustion");
 
-    std::cout << "\n=== Energy Drain Test ===" << std::endl;
-    for (int i = 0; i < 105; ++i) {
-        frag1.attack("dummy");
-    }
+    std::cout << "=== Fatal Damage Test ===" << std::endl;
+    ft.takeDamage(200);
+    ft.beRepaired(10);  // Should fail
+    ft.attack("Zombie");  // Should fail
+    printStats(ft, "After Death");
 
-    std::cout << "\n=== Destruction Scope ===" << std::endl;
-    {
-        FragTrap tempFrag("ScopedFrag");
-        tempFrag.attack("scoped target");
-        tempFrag.highFivesGuys();
-    } // Destructor should trigger here
-
-    std::cout << "\n=== Done Testing ===" << std::endl;
+    std::cout << "=== Destruction Order ===" << std::endl;
     return 0;
 }

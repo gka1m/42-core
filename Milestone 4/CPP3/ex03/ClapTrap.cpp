@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:07:27 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 12:41:13 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/17 16:05:13 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 ClapTrap::ClapTrap() : name("gkaim"), hp(10), energy(10), dmg(0)
 {
-    std::cout << "ClapTrap has been constructed!" << std::endl;
+    std::cout << "Default ClapTrap has been constructed!" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string& name) : name(name), hp(10), energy(10), dmg(0)
@@ -43,6 +43,12 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 ClapTrap::~ClapTrap()
 {
     std::cout << "Bye " << name << "!" << std::endl;
+}
+
+ClapTrap::ClapTrap(const std::string& name, int hp, int energy, int dmg)
+    : name(name), hp(hp), energy(energy), dmg(dmg)
+{
+    std::cout << "ClapTrap " << name << " has been custom-constructed!" << std::endl;
 }
 
 void ClapTrap::attack(const std::string& target)
@@ -83,4 +89,30 @@ void ClapTrap::beRepaired(unsigned int amount)
     
     std::cout << "Repaired " << amount << " health.\n"
     << "HP: " << hp << std::endl;
+}
+
+// getter fns
+std::string ClapTrap::getName() const
+{ 
+    return name; 
+}
+
+int ClapTrap::getHP() const
+{
+    return hp; 
+}
+
+int ClapTrap::getEnergy() const
+{
+    return energy;
+}
+
+int ClapTrap::getDmg() const
+{
+    return dmg;
+}
+
+void ClapTrap::decreaseEnergy()
+{
+    energy--;
 }
