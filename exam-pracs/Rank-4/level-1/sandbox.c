@@ -47,71 +47,6 @@ void timeout_handler(int sig)
         g_signal = 1;
 }
 
-// int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
-// {
-//     int status;
-//     struct sigaction sa;
-//     int exit_status;
-
-//     pid_t pid = fork();
-//     if (pid == -1)
-//         return -1;
-//     if (pid == 0)
-//     {
-//         f();
-//         exit(0);
-//     }
-//     sa.sa_handler = timeout_handler;
-//     sigaction(SIGALRM, &sa, NULL);
-//     alarm(timeout);
-//     if (waitpid(pid, &status, 0) == -1)
-//     {
-//         while (1)
-//         {
-//             if (errno == 4)
-//             {
-//                 if (g_signal == 1)
-//                 {
-//                     if (verbose)
-//                         printf("Bad function: timed out after %u seconds\n", timeout);
-//                     kill(pid, SIGKILL);
-//                     if (waitpid(pid, &status, 0) == -1)
-//                         return -1;
-//                     return 0;
-//                 }
-//                 continue;
-//             }
-//             else
-//                 return -1;
-//             break;
-//         }
-//     }
-//     if (WIFSIGNALED(status))
-//     {
-//         exit_status = WTERMSIG(status);
-//         if (verbose)
-//             printf("Bad function: bad signal %s\n", strsignal(exit_status));
-//         return 0;
-//     }
-//     if (WIFEXITED(status))
-//     {
-//         exit_status = WEXITSTATUS(status);
-//         if (exit_status)
-//         {
-//             if (verbose)
-//                 printf("Bad function: exited with code %d\n", exit_status);
-//             return 0;
-//         }
-//         else
-//         {
-//             if (verbose)
-//                 printf("Nice function!\n");
-//             return 1;
-//         }
-//     }
-//     return -1;
-// }
-
 static int setup_alarm_handler(void (*handler)(int))
 {
 	struct sigaction sa;
@@ -242,3 +177,68 @@ int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
 
     return 0;
 }
+
+// int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
+// {
+//     int status;
+//     struct sigaction sa;
+//     int exit_status;
+
+//     pid_t pid = fork();
+//     if (pid == -1)
+//         return -1;
+//     if (pid == 0)
+//     {
+//         f();
+//         exit(0);
+//     }
+//     sa.sa_handler = timeout_handler;
+//     sigaction(SIGALRM, &sa, NULL);
+//     alarm(timeout);
+//     if (waitpid(pid, &status, 0) == -1)
+//     {
+//         while (1)
+//         {
+//             if (errno == 4)
+//             {
+//                 if (g_signal == 1)
+//                 {
+//                     if (verbose)
+//                         printf("Bad function: timed out after %u seconds\n", timeout);
+//                     kill(pid, SIGKILL);
+//                     if (waitpid(pid, &status, 0) == -1)
+//                         return -1;
+//                     return 0;
+//                 }
+//                 continue;
+//             }
+//             else
+//                 return -1;
+//             break;
+//         }
+//     }
+//     if (WIFSIGNALED(status))
+//     {
+//         exit_status = WTERMSIG(status);
+//         if (verbose)
+//             printf("Bad function: bad signal %s\n", strsignal(exit_status));
+//         return 0;
+//     }
+//     if (WIFEXITED(status))
+//     {
+//         exit_status = WEXITSTATUS(status);
+//         if (exit_status)
+//         {
+//             if (verbose)
+//                 printf("Bad function: exited with code %d\n", exit_status);
+//             return 0;
+//         }
+//         else
+//         {
+//             if (verbose)
+//                 printf("Nice function!\n");
+//             return 1;
+//         }
+//     }
+//     return -1;
+// }
