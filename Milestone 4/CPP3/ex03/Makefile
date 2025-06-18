@@ -1,4 +1,4 @@
-NAME = fragtrap
+NAME = diamondtrap
 
 CXX = c++
 

@@ -6,38 +6,36 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:46:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/18 16:39:22 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/18 17:10:24 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
+// Default constructor
 DiamondTrap::DiamondTrap()
-    : ClapTrap("Diamond_clap_name"), FragTrap(), ScavTrap(), name("Diamond")
+    : ClapTrap("Diamond_clap_name", 100, 50, 30),  // Use Frag's hp/dmg, Scav's energy
+      name("Diamond")
 {
-    hp = FragTrap::hp;
-    energy = ScavTrap::energy;
-    dmg = FragTrap::dmg;
-
     std::cout << "Default Diamond " << name << " constructed" << std::endl;
 }
 
+// Param constructor
 DiamondTrap::DiamondTrap(const std::string& name)
-    : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap(), name(name)  
+    : ClapTrap(name + "_clap_name", 100, 50, 30),
+      name(name)
 {
-    hp = FragTrap::hp;
-    energy = ScavTrap::energy;
-    dmg = FragTrap::dmg;
-
     std::cout << "Diamond " << name << " constructed" << std::endl;
 }
 
+// Copy constructor
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
-    : ClapTrap(other), FragTrap(other), ScavTrap(other), name(other.name)
+    : ClapTrap(other), ScavTrap(other), FragTrap(other), name(other.name)
 {
     std::cout << "Diamond copy " << name << " constructed" << std::endl;
 }
 
+// Assignment operator
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other)
 {
     if (this != &other)
@@ -47,19 +45,22 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other)
         ScavTrap::operator=(other);
         name = other.name;
     }
-
     std::cout << "Diamond " << name << " assigned" << std::endl;
     return *this;
 }
 
-DiamondTrap::~DiamondTrap()
-{
-    std::cout << "Bye Diamond!" << std::endl;
-}
+// Destructor
+DiamondTrap::~DiamondTrap() {}
 
+// Attack using ScavTrap's attack
 void DiamondTrap::attack(const std::string& target)
 {
     ScavTrap::attack(target);
 }
 
-// void DiamondTrap::whoAmI()
+// whoAmI
+void DiamondTrap::whoAmI()
+{
+    std::cout << "My name is " << name
+              << " and my ClapTrap name is " << ClapTrap::getName() << std::endl;
+}
