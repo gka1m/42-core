@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:57:04 by gkaim             #+#    #+#             */
-/*   Updated: 2025/06/23 12:39:43 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 14:40:00 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include "ICharacter.hpp"
+
+class ICharacter;
 
 class AMateria
 {
@@ -25,7 +27,7 @@ class AMateria
         AMateria();
         AMateria(const AMateria& other);
         AMateria& operator=(const AMateria& other);
-        ~AMateria();
+        virtual ~AMateria();
         AMateria(std::string const & type);
 
         std::string const & getType() const; //Returns the materia type

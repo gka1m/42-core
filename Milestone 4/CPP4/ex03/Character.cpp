@@ -6,13 +6,13 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:47:25 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/23 15:24:38 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 14:58:54 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Character.hpp"
 
-Character::Character(const std::string& name)
+Character::Character(const std::string& name) : name(name)
 {
     for (int i = 0; i < 4; ++i)
         inventory[i] = nullptr;
@@ -50,7 +50,7 @@ Character::~Character()
 {
     for (int i = 0; i < 4; ++i)
         delete inventory[i];
-    for (int j = 0; j < backpack.size(); ++j)
+    for (size_t j = 0; j < backpack.size(); ++j)
         delete backpack[j];
 }
 

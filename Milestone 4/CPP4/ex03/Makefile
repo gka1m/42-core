@@ -1,12 +1,12 @@
-NAME = animal
+NAME = materia
 
 CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror
 
-SRC		= main.cpp AMateria.cpp
+SRC		= main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 
-INCLUDES = AMateria.hpp
+INCLUDES = AMateria.hpp Character.hpp Cure.hpp Ice.hpp ICharacter.hpp IMateriaSource.hpp MateriaSource.hpp
 		  
 OBJ		= $(SRC:.cpp=.o)
 
