@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:47:25 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/24 14:58:54 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/25 15:39:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 Character::Character(const std::string& name) : name(name)
 {
     for (int i = 0; i < 4; ++i)
-        inventory[i] = nullptr;
+        inventory[i] = NULL;
 }
 
 Character::Character(const Character& other) : name(other.name)
@@ -25,7 +25,7 @@ Character::Character(const Character& other) : name(other.name)
         if (other.inventory[i])
             inventory[i] = other.inventory[i]->clone();
         else
-            inventory[i] = nullptr;
+            inventory[i] = NULL;
     }
 }
 
@@ -40,7 +40,7 @@ Character& Character::operator=(const Character& other)
             if (other.inventory[i])
                 inventory[i] = other.inventory[i]->clone();
             else
-                inventory[i] = nullptr;
+                inventory[i] = NULL;
         }
     }
     return *this;
@@ -78,7 +78,7 @@ void Character::unequip(int idx)
     if (idx >= 0 && idx < 4 && inventory[idx])
     {
         backpack.push_back(inventory[idx]);
-        inventory[idx] = nullptr;
+        inventory[idx] = NULL;
     }
 }
 
