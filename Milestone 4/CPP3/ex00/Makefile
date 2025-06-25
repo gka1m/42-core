@@ -2,7 +2,7 @@ NAME = claptrap
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC		= main.cpp ClapTrap.cpp
 
