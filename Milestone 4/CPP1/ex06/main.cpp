@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 15:29:38 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/11 16:25:54 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/25 14:13:13 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int main(int ac, char **av)
     {
         case 0:
             harl.complain("DEBUG");
-            [[fallthrough]];
+            // [[fallthrough]];
         case 1:
             harl.complain("INFO");
-            [[fallthrough]];
+            // [[fallthrough]];
         case 2:
             harl.complain("WARNING");
-            [[fallthrough]];
+            // [[fallthrough]];
         case 3:
             harl.complain("ERROR");
             break;
