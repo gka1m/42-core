@@ -2,7 +2,7 @@ NAME = zombieHorde
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC		= Zombie.cpp main.cpp zombieHorde.cpp
 		  

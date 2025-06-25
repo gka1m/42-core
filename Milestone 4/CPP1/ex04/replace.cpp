@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:29:14 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/11 15:23:08 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/25 13:26:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool copyFile(const std::string& filename, const std::string& copied)
 {
-    std::ifstream inFile(filename);
+    std::ifstream inFile(filename.c_str());
     if (!inFile.is_open())
     {
         std::cerr << "Error: cannot open input file " << filename << std::endl;
         return false;
     }
 
-    std::ofstream outFile(copied);
+    std::ofstream outFile(copied.c_str());
     if (!outFile.is_open())
     {
         std::cerr << "Error: cannot open output file " << copied 
@@ -61,7 +61,7 @@ std::string replaceLine(const std::string& line, const std::string& s1, const st
 
 bool replaceInFile(const std::string& filename, const std::string& s1, const std::string& s2)
 {
-    std::ifstream inFile(filename);
+    std::ifstream inFile(filename.c_str());
     if (!inFile.is_open())
     {
         std::cerr << "Error: cannot open file " << filename << " for reading\n";
@@ -74,7 +74,7 @@ bool replaceInFile(const std::string& filename, const std::string& s1, const std
         replaced += replaceLine(line, s1, s2) + "\n";
     inFile.close();
 
-    std::ofstream outFile(filename, std::ios::trunc);
+    std::ofstream outFile(filename.c_str(), std::ios::trunc);
     if (!outFile.is_open())
     {
         std::cerr << "Cannot open output file " << filename << " for writing\n";
@@ -88,14 +88,14 @@ bool replaceInFile(const std::string& filename, const std::string& s1, const std
 
 void replaceUsingStdReplace(const std::string& filename, const std::string& s1, const std::string& s2)
 {
-    std::ifstream inFile(filename);
+    std::ifstream inFile(filename.c_str());
     if (!inFile.is_open())
     {
         std::cerr << "Error: cannot open file for std::replace comparison\n";
         return;
     }
 
-    std::ofstream outFile(filename + ".stdreplace");
+    std::ofstream outFile((filename + ".stdreplace").c_str());
     if (!outFile.is_open())
     {
         std::cerr << "Error: cannot create stdreplace output file\n";

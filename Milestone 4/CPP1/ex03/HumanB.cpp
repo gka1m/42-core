@@ -6,13 +6,13 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:09:07 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/11 14:14:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/25 13:18:03 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(const std::string& name) : name(name), weapon(nullptr) {};
+HumanB::HumanB(const std::string& name) : name(name), weapon(NULL) {};
 
 void HumanB::attack() const
 {
