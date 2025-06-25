@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 12:58:15 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/09 13:09:09 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 16:37:33 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int main(int ac, char **av)
     {
         for (int j = 0; av[i][j]; j++)
         {
-            std::cout << static_cast<char>(std::toupper(av[i][j]));
+            std::cout << (char)std::toupper(av[i][j]);
         }
+        std::cout << " ";
     }
     std::cout << std::endl;
     return 0;

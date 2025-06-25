@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:43:41 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/09 15:05:39 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 16:46:54 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,19 @@ bool  Contact::isEmpty() const
     return (firstName.empty() || lastName.empty() || number.empty() || darkestSecret.empty() || nickname.empty());
 }
 
+std::string Contact::formatField(const std::string& str)
+{
+    if (str.length() > 10)
+        return str.substr(0, 9) + ".";
+    return str;
+}
+
 void Contact::displaySummary(int index) const
 {
-    auto format = [](std::string str)
-    {
-        if (str.length() > 10)
-            return (str.substr(0, 9) + ".");
-        return str;
-    };
     std::cout << std::setw(10) << index << "|"
-    << std::setw(10) << format(firstName) << "|"
-    << std::setw(10) << format(lastName) << "|"
-    << std::setw(10) << format(nickname) << std::endl;
+    << std::setw(10) << formatField(firstName) << "|"
+    << std::setw(10) << formatField(lastName) << "|"
+    << std::setw(10) << formatField(nickname) << std::endl;
 }
 
 void Contact::displayFull() const

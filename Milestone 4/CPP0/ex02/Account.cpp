@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:30:43 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/09 17:03:47 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 16:33:58 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ Account::Account(int initial_deposit)
     _totalAmount += initial_deposit;
 
     _displayTimestamp();
-    std::cout << "index: " << _accountIndex
-    << ";amount: " << _amount
+    std::cout << "index:" << _accountIndex
+    << ";amount:" << _amount
     << ";created" << std::endl;
 }
 
@@ -113,6 +113,7 @@ bool Account::makeWithdrawal(int withdrawal)
     std::cout << ";withdrawal:" << withdrawal
     << "amount:" << _totalAmount
     << "nb_withdrawals:" << _nbWithdrawals << std::endl;
+    return true;
 }
 
 int Account::checkAmount(void) const
@@ -132,7 +133,7 @@ void Account::displayStatus(void) const
 
 void Account::_displayTimestamp(void)
 {
-    std::time_t now = std::time(nullptr);
+    std::time_t now = std::time(NULL);
     std::tm *t = std::localtime(&now);
 
     std::cout << "[" << (t->tm_year + 1900)

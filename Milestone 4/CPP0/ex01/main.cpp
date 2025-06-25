@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:50:13 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/09 15:00:51 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/06/24 16:48:51 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
+#include <sstream>
 
 int main(void)
 {
@@ -37,7 +38,13 @@ int main(void)
             std::getline(std::cin, input);
             try
             {
-                int index = std::stoi(input);
+                std::istringstream iss(input);
+                int index;
+                if (!(iss >> index))
+                {
+                    std::cout << "Invalid index\n";
+                    continue;
+                }
                 pb.displayDetailed(index);
             }
             catch(...)

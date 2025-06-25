@@ -1,14 +1,14 @@
-NAME = phonebook
+NAME = account
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC		= Contact.cpp main.cpp PhoneBook.cpp
+SRC		= tests.cpp Account.cpp
 		  
 OBJ		= $(SRC:.cpp=.o)
 
-INCLUDES = PhoneBook.hpp Contact.hpp
+INCLUDES = Account.hpp
 
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
