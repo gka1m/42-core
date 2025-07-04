@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:16:37 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/11 17:25:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:50:40 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ Fixed::Fixed() : fixedPtVal(0)
 {
     std::cout << "Default constructor called" << std::endl;
 }
-Fixed::Fixed(const Fixed& other)
+Fixed::Fixed(const Fixed& other) : fixedPtVal(other.fixedPtVal)
 {
     std::cout << "Copy constructor called" << std::endl;
-    *this = other;
+    // *this = other;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)

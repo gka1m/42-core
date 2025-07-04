@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 15:29:38 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/25 14:13:13 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:21:23 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int getLog(const std::string& level)
     return -1;
 }
 
+/* note: commented out the attribute line as both are usable in c++98; can use either one*/
 int main(int ac, char **av)
 {
     Harl harl;
@@ -41,13 +42,19 @@ int main(int ac, char **av)
     {
         case 0:
             harl.complain("DEBUG");
-            // [[fallthrough]];
+            /* fall through */
+            // __attribute__((fallthrough));
+
         case 1:
             harl.complain("INFO");
-            // [[fallthrough]];
+            /* fall through */
+            // __attribute__((fallthrough));
+
         case 2:
             harl.complain("WARNING");
-            // [[fallthrough]];
+            /* fall through */
+            // __attribute__((fallthrough));
+
         case 3:
             harl.complain("ERROR");
             break;
