@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:40:45 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/09 15:33:40 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/10 10:38:18 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+
+class Form;
 
 class Bureaucrat
 {
@@ -38,6 +40,8 @@ class Bureaucrat
         // increment and decrement grade functions
         void gradeUp(); // grade -1
         void gradeDown(); // grade +1
+
+        void signForm(Form& f);
 
         /* exception classes */
         class GradeTooHighException : public std::exception

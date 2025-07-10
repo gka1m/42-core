@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:53:50 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/09 16:05:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/10 10:45:51 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 #define FORM_HPP
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
+// #include "Bureaucrat.hpp"
 
+class Bureaucrat;
 
 class Form
 {
     private:
-        const std::string& name;
+        const std::string name;
         bool isSigned;
         const int gradeToSign;
         const int gradeToExec;
@@ -40,8 +43,21 @@ class Form
         int getGradeToExec() const;
         
         /* be signed function */
+        void beSigned(const Bureaucrat& bu);
         
-
+        /* exception classes */
+        class GradeTooHighException: public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
+        class GradeTooLowException: public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
 };
+
+std::ostream& operator<<(std::ostream& os, const Form& f);
 
 #endif

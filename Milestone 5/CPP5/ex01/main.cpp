@@ -6,90 +6,106 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/09 15:21:51 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/10 10:35:57 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
-int main()
+int main() 
 {
-    std::cout << "== Constructing Bureaucrats ==\n";
+    std::cout << "--- Testing valid and invalid Form construction ---\n";
     try 
     {
-        Bureaucrat a("Alice", 1); // Valid
-        Bureaucrat b("Bob", 150); // Valid
-        Bureaucrat c("Charlie", 75); // Valid
-        std::cout << a << "\n" << b << "\n" << c << "\n";
+        Form validForm("TopSecret", 50, 25);
+        std::cout << validForm << "\n";
     } 
     catch (std::exception &e) 
     {
-        std::cerr << "Exception during construction: " << e.what() << std::endl;
-    }
-
-    std::cout << "\n== Invalid Construction (Too High) ==\n";
-    try 
-    {
-        Bureaucrat d("Dave", 0); // Invalid
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught: " << e.what() << std::endl;
-    }
-
-    std::cout << "\n== Invalid Construction (Too Low) ==\n";
-    try 
-    {
-        Bureaucrat e("Eve", 151); // Invalid
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught: " << e.what() << std::endl;
-    }
-
-    std::cout << "\n== Increment and Decrement Tests ==\n";
-    try 
-    {
-        Bureaucrat f("Frank", 2);
-        std::cout << f << std::endl;
-        f.gradeUp(); // should succeed
-        std::cout << "After increment: " << f << std::endl;
-        f.gradeUp(); // should throw
-        std::cout << "After second increment: " << f << std::endl;
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught during increment test: " << e.what() << std::endl;
+        std::cerr << "Error creating validForm: " << e.what() << "\n";
     }
 
     try 
     {
-        Bureaucrat g("Grace", 149);
-        std::cout << g << std::endl;
-        g.gradeDown(); // should succeed
-        std::cout << "After decrement: " << g << std::endl;
-        g.gradeDown(); // should throw
-        std::cout << "After second decrement: " << g << std::endl;
+        Form tooHigh("IllegalForm", 0, 100); // should throw
     } 
     catch (std::exception &e) 
     {
-        std::cerr << "Caught during decrement test: " << e.what() << std::endl;
+        std::cerr << "Caught (too high grade): " << e.what() << "\n";
     }
 
-    std::cout << "\n== Copy and Assignment Test ==\n";
-    try
+    try 
     {
-        Bureaucrat h("Henry", 50);
-        Bureaucrat i = h; // Copy constructor
-        std::cout << "Copy: " << i << std::endl;
-
-        Bureaucrat j("Jack", 100);
-        j = h; // Assignment operator
-        std::cout << "After assignment: " << j << std::endl;
+        Form tooLow("BottomFeeder", 151, 150); // should throw
     } 
     catch (std::exception &e) 
     {
-        std::cerr << "Exception during copy/assignment: " << e.what() << std::endl;
+        std::cerr << "Caught (too low grade): " << e.what() << "\n";
+    }
+
+    std::cout << "\n--- Testing Bureaucrats and Form signing ---\n";
+    try 
+    {
+        Bureaucrat bob("Bob", 45);
+        Bureaucrat joe("Joe", 100);
+
+        Form permit("PermitForm", 50, 20);
+
+        std::cout << bob << "\n";
+        std::cout << joe << "\n";
+        std::cout << permit << "\n\n";
+
+        bob.signForm(permit); // should succeed
+        std::cout << permit << "\n";
+
+        joe.signForm(permit); // already signed, but let's see what happens
+    } 
+    catch (std::exception &e) 
+    {
+        std::cerr << "Signing error: " << e.what() << "\n";
+    }
+
+    std::cout << "\n--- Testing failure to sign due to low grade ---\n";
+    try 
+    {
+        Bureaucrat intern("Intern", 150);
+        Form securityForm("SecurityAccess", 100, 50);
+
+        intern.signForm(securityForm); // should fail
+    } 
+    catch (std::exception &e) 
+    {
+        std::cerr << "Caught while signing: " << e.what() << "\n";
+    }
+
+    std::cout << "\n--- Testing grade increment/decrement boundaries ---\n";
+    try 
+    {
+        Bureaucrat high("High", 1);
+        Bureaucrat low("Low", 150);
+
+        std::cout << high << "\n";
+        std::cout << low << "\n";
+
+        std::cout << "Trying to increment High beyond 1...\n";
+        high.gradeUp(); // should throw
+
+    } 
+    catch (std::exception &e) 
+    {
+        std::cerr << "Caught (increment error): " << e.what() << "\n";
+    }
+
+    try 
+    {
+        Bureaucrat low("Low", 150);
+        std::cout << "Trying to decrement Low beyond 150...\n";
+        low.gradeDown(); // should throw
+    } 
+    catch (std::exception &e) 
+    {
+        std::cerr << "Caught (decrement error): " << e.what() << "\n";
     }
 
     return 0;
