@@ -6,106 +6,83 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/10 10:35:57 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/15 13:35:28 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-int main() 
+int main()
 {
-    std::cout << "--- Testing valid and invalid Form construction ---\n";
-    try 
-    {
-        Form validForm("TopSecret", 50, 25);
-        std::cout << validForm << "\n";
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Error creating validForm: " << e.what() << "\n";
-    }
+    try {
+        // Bureaucrats of different grades
+        Bureaucrat alice("Alice", 1);     // Can do anything
+        Bureaucrat bob("Bob", 45);        // Mid-level
+        Bureaucrat carl("Carl", 150);     // Lowest level
 
-    try 
-    {
-        Form tooHigh("IllegalForm", 0, 100); // should throw
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught (too high grade): " << e.what() << "\n";
-    }
+        // Shrubbery Form Test
+        {
+            ShrubberyCreationForm shrub("home");
+            std::cout << shrub << std::endl;
+            alice.signForm(shrub);
+            alice.execute(shrub);
+        }
 
-    try 
-    {
-        Form tooLow("BottomFeeder", 151, 150); // should throw
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught (too low grade): " << e.what() << "\n";
-    }
+        std::cout << "-------------------------------" << std::endl;
 
-    std::cout << "\n--- Testing Bureaucrats and Form signing ---\n";
-    try 
-    {
-        Bureaucrat bob("Bob", 45);
-        Bureaucrat joe("Joe", 100);
+        // Robotomy Form Test
+        {
+            RobotomyRequestForm robot("Bender");
+            std::cout << robot << std::endl;
+            bob.signForm(robot);
 
-        Form permit("PermitForm", 50, 20);
+            for (int i = 0; i < 5; ++i) {
+                try {
+                    bob.executeForm(robot);  // Should work (bob is grade 45)
+                } catch (const std::exception& e) {
+                    std::cerr << "Execution error: " << e.what() << std::endl;
+                }
+            }
+        }
 
-        std::cout << bob << "\n";
-        std::cout << joe << "\n";
-        std::cout << permit << "\n\n";
+        std::cout << "-------------------------------" << std::endl;
 
-        bob.signForm(permit); // should succeed
-        std::cout << permit << "\n";
+        // Presidential Pardon Form Test
+        {
+            PresidentialPardonForm pardon("Ford Prefect");
+            std::cout << pardon << std::endl;
 
-        joe.signForm(permit); // already signed, but let's see what happens
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Signing error: " << e.what() << "\n";
-    }
+            try {
+                bob.signForm(pardon);  // Should fail, grade too low
+            } catch (const std::exception& e) {
+                std::cerr << "Signing failed: " << e.what() << std::endl;
+            }
 
-    std::cout << "\n--- Testing failure to sign due to low grade ---\n";
-    try 
-    {
-        Bureaucrat intern("Intern", 150);
-        Form securityForm("SecurityAccess", 100, 50);
+            alice.signForm(pardon);       // Should succeed
+            alice.executeForm(pardon);    // Should succeed
+        }
 
-        intern.signForm(securityForm); // should fail
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught while signing: " << e.what() << "\n";
-    }
+        std::cout << "-------------------------------" << std::endl;
 
-    std::cout << "\n--- Testing grade increment/decrement boundaries ---\n";
-    try 
-    {
-        Bureaucrat high("High", 1);
-        Bureaucrat low("Low", 150);
+        // Test low-level bureaucrat with all forms
+        {
+            ShrubberyCreationForm shrub("garden");
+            RobotomyRequestForm robot("Marvin");
+            PresidentialPardonForm pardon("Arthur Dent");
 
-        std::cout << high << "\n";
-        std::cout << low << "\n";
+            std::cout << shrub << std::endl;
+            std::cout << robot << std::endl;
+            std::cout << pardon << std::endl;
 
-        std::cout << "Trying to increment High beyond 1...\n";
-        high.gradeUp(); // should throw
+            carl.signForm(shrub);   // Should fail
+            carl.executeForm(shrub); // Should fail
+        }
 
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught (increment error): " << e.what() << "\n";
-    }
-
-    try 
-    {
-        Bureaucrat low("Low", 150);
-        std::cout << "Trying to decrement Low beyond 150...\n";
-        low.gradeDown(); // should throw
-    } 
-    catch (std::exception &e) 
-    {
-        std::cerr << "Caught (decrement error): " << e.what() << "\n";
+    } catch (const std::exception& e) {
+        std::cerr << "Fatal exception: " << e.what() << std::endl;
     }
 
     return 0;

@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 15:35:56 by gkaim             #+#    #+#             */
-/*   Updated: 2025/07/15 12:34:44 by kagoh            ###   ########.fr       */
+/*   Created: 2025/07/15 12:56:42 by kagoh             #+#    #+#             */
+/*   Updated: 2025/07/15 13:25:27 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-#define SHRUBBERYCREATIONFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+#define PRESIDENTIALPARDONFORM_HPP
 
-#include <iostream>
-#include <stdexcept>
-#include <fstream>
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
+#include <string>
+#include <iostream>
 
-class ShrubberyCreationForm : public AForm
+class PresidentialPardonForm : public AForm
 {
     private:
-        const std::string target;
-    
+        std::string target;
+        
     public:
-        ShrubberyCreationForm();
-        ShrubberyCreationForm(const std::string& target);
-        ShrubberyCreationForm(const ShrubberyCreationForm& other);
-        ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
-        ~ShrubberyCreationForm();
+        PresidentialPardonForm();
+        PresidentialPardonForm(const std::string& target);
+        PresidentialPardonForm(const PresidentialPardonForm& other);
+        PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+        ~PresidentialPardonForm();
 
         void execute(const Bureaucrat& executor) const;
 };
+
 #endif
