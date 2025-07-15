@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/15 13:35:28 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/15 16:30:02 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,47 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "AForm.hpp"
 
-int main()
-{
-    try {
-        // Bureaucrats of different grades
-        Bureaucrat alice("Alice", 1);     // Can do anything
-        Bureaucrat bob("Bob", 45);        // Mid-level
-        Bureaucrat carl("Carl", 150);     // Lowest level
+int main() {
+    try 
+    {
+        Bureaucrat alice("Alice", 1);      // Very high rank
+        Bureaucrat bob("Bob", 150);        // Lowest rank
+        Bureaucrat charlie("Charlie", 70); // Mid-rank
 
-        // Shrubbery Form Test
-        {
-            ShrubberyCreationForm shrub("home");
-            std::cout << shrub << std::endl;
-            alice.signForm(shrub);
-            alice.execute(shrub);
-        }
+        ShrubberyCreationForm shrub("home");
+        RobotomyRequestForm robot("Bender");
+        PresidentialPardonForm pardon("Marvin");
 
-        std::cout << "-------------------------------" << std::endl;
+        std::cout << "\n--- Trying to execute unsigned forms ---\n";
+        try { shrub.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { robot.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { pardon.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
 
-        // Robotomy Form Test
-        {
-            RobotomyRequestForm robot("Bender");
-            std::cout << robot << std::endl;
-            bob.signForm(robot);
+        std::cout << "\n--- Signing forms ---\n";
+        alice.signForm(shrub);
+        charlie.signForm(robot);
+        bob.signForm(pardon); // Should fail
 
-            for (int i = 0; i < 5; ++i) {
-                try {
-                    bob.executeForm(robot);  // Should work (bob is grade 45)
-                } catch (const std::exception& e) {
-                    std::cerr << "Execution error: " << e.what() << std::endl;
-                }
-            }
-        }
+        std::cout << "\n--- Executing forms ---\n";
+        shrub.execute(alice);    // Should succeed
+        robot.execute(charlie);  // May succeed or fail (50%)
+        pardon.execute(alice);   // Should succeed
 
-        std::cout << "-------------------------------" << std::endl;
+        std::cout << "\n--- Stress: Bob tries to do everything ---\n";
+        bob.signForm(shrub);
+        shrub.execute(bob);
+        robot.execute(bob);
+        pardon.execute(bob);
 
-        // Presidential Pardon Form Test
-        {
-            PresidentialPardonForm pardon("Ford Prefect");
-            std::cout << pardon << std::endl;
 
-            try {
-                bob.signForm(pardon);  // Should fail, grade too low
-            } catch (const std::exception& e) {
-                std::cerr << "Signing failed: " << e.what() << std::endl;
-            }
-
-            alice.signForm(pardon);       // Should succeed
-            alice.executeForm(pardon);    // Should succeed
-        }
-
-        std::cout << "-------------------------------" << std::endl;
-
-        // Test low-level bureaucrat with all forms
-        {
-            ShrubberyCreationForm shrub("garden");
-            RobotomyRequestForm robot("Marvin");
-            PresidentialPardonForm pardon("Arthur Dent");
-
-            std::cout << shrub << std::endl;
-            std::cout << robot << std::endl;
-            std::cout << pardon << std::endl;
-
-            carl.signForm(shrub);   // Should fail
-            carl.executeForm(shrub); // Should fail
-        }
-
-    } catch (const std::exception& e) {
-        std::cerr << "Fatal exception: " << e.what() << std::endl;
+    } 
+    catch (std::exception& e)
+    {
+        std::cerr << "Fatal error: " << e.what() << std::endl;
     }
 
     return 0;
 }
+

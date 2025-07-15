@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:40:51 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/15 13:18:22 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/15 16:32:35 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
-    if (!getSigned)
+    if (!getSigned())
         throw AForm::NotSignedException();
     if (executor.getGrade() > getGradeToExec())
         throw AForm::GradeTooLowException();

@@ -6,12 +6,12 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:58:08 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/10 10:38:13 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/15 16:30:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat() : name("Default"), grade(150)
 {
@@ -86,7 +86,7 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& bu)
     return os;
 }
 
-void Bureaucrat::signForm(Form& f)
+void Bureaucrat::signForm(AForm& f)
 {
     try
     {
