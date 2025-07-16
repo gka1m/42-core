@@ -6,13 +6,13 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:07:27 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 16:05:13 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/16 14:27:35 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : name("gkaim"), hp(10), energy(10), dmg(0)
+ClapTrap::ClapTrap() : name("default_clap"), hp(10), energy(10), dmg(0)
 {
     std::cout << "Default ClapTrap has been constructed!" << std::endl;
 }
@@ -22,21 +22,21 @@ ClapTrap::ClapTrap(const std::string& name) : name(name), hp(10), energy(10), dm
     std::cout << "ClapTrap " << name << " has been constructed!" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) :  name(other.name), hp(other.hp), energy(other.dmg), dmg(other.dmg)
+ClapTrap::ClapTrap(const ClapTrap& other) :  name(other.name + "_copy"), hp(other.hp), energy(other.energy), dmg(other.dmg)
 {
-    std::cout << "Copy called for " << name << std::endl;
+    std::cout << "Copy called: " << name << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 {
     if (this != &other)
     {
-        name = other.name;
+        name = other.name + "_assigned";
         hp = other.hp;
         energy = other.energy;
         dmg = other.dmg;
     }
-    std::cout << "Assignment operator called for " << name << std::endl;
+    std::cout << "Assigned: " << name << std::endl;
     return *this;
 }
 
@@ -71,7 +71,7 @@ void ClapTrap::takeDamage(unsigned int amount)
         return;
     }
     hp -= amount;
-    if (hp < 0)
+    if (hp <= 0)
         hp = 0;
     std::cout << name << " tanked " << amount << " damage.\n"
     << "Remaining HP: " << hp << std::endl;
@@ -110,9 +110,4 @@ int ClapTrap::getEnergy() const
 int ClapTrap::getDmg() const
 {
     return dmg;
-}
-
-void ClapTrap::decreaseEnergy()
-{
-    energy--;
 }

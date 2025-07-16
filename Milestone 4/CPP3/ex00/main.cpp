@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 15:55:38 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/16 14:31:31 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,16 @@ int main()
 {
     ClapTrap a; // default
     ClapTrap b("BravBot"); // name-only
-    ClapTrap c("TankBot", 150, 5, 42); // full constructor
+    ClapTrap c("TankBot", 150, 5, 42); // custom constructor
+    ClapTrap aa(c);
+    ClapTrap bb;
+    bb = b;
 
     printStats(a, "Default ClapTrap");
     printStats(b, "Named ClapTrap");
     printStats(c, "Custom ClapTrap");
+    printStats(aa, "Copy Claptrap");
+    printStats(bb, "Assigned ClapTrap");
 
     std::cout << "\n=== Testing attack ===" << std::endl;
     b.attack("EvilBot");

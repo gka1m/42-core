@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:01:47 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 16:04:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/16 14:40:40 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class ClapTrap
 {
-    private:
+    protected:
         std::string name;
         int hp;
         int energy;
@@ -40,7 +40,6 @@ class ClapTrap
         int getHP() const;
         int getEnergy() const;
         int getDmg() const;
-        void decreaseEnergy();
 };
 
 #endif
