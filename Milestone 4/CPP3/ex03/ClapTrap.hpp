@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:01:47 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/17 16:04:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/17 16:45:10 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class ClapTrap
 {
-    private:
+    protected:
         std::string name;
         int hp;
         int energy;
@@ -30,7 +30,7 @@ class ClapTrap
         ClapTrap(const ClapTrap& other);
         ClapTrap& operator=(const ClapTrap& other);
         ClapTrap(const std::string& name, int hp, int energy, int dmg); //custom constructor for other exercises
-        ~ClapTrap();
+        virtual ~ClapTrap();
         void attack(const std::string& target);
         void takeDamage(unsigned int amount);
         void beRepaired(unsigned int amount);
@@ -40,7 +40,6 @@ class ClapTrap
         int getHP() const;
         int getEnergy() const;
         int getDmg() const;
-        void decreaseEnergy();
 };
 
 #endif

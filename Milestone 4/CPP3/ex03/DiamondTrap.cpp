@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:46:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/18 17:10:24 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/17 16:53:30 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 // Default constructor
 DiamondTrap::DiamondTrap()
-    : ClapTrap("Diamond_clap_name", 100, 50, 30),  // Use Frag's hp/dmg, Scav's energy
-      name("Diamond")
+    : ClapTrap("diamond_clap_name_default", 100, 50, 30), ScavTrap(), FragTrap(), // Use Frag's hp/dmg, Scav's energy
+      name("diamond_default")
 {
-    std::cout << "Default Diamond " << name << " constructed" << std::endl;
+    std::cout << "Default Diamond constructed" << std::endl;
 }
 
 // Param constructor
 DiamondTrap::DiamondTrap(const std::string& name)
     : ClapTrap(name + "_clap_name", 100, 50, 30),
-      name(name)
+    ScavTrap(), FragTrap(), name(name)
 {
     std::cout << "Diamond " << name << " constructed" << std::endl;
 }
@@ -32,7 +32,7 @@ DiamondTrap::DiamondTrap(const std::string& name)
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
     : ClapTrap(other), ScavTrap(other), FragTrap(other), name(other.name)
 {
-    std::cout << "Diamond copy " << name << " constructed" << std::endl;
+    std::cout << "Diamond copy " << name + "_copy" << " constructed" << std::endl;
 }
 
 // Assignment operator
@@ -45,7 +45,7 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other)
         ScavTrap::operator=(other);
         name = other.name;
     }
-    std::cout << "Diamond " << name << " assigned" << std::endl;
+    std::cout << "Diamond " << name + "_assigned" << " assigned" << std::endl;
     return *this;
 }
 

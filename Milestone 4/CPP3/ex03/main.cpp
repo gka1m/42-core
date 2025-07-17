@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/18 17:08:29 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/17 16:56:05 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,49 @@ void printStats(const ClapTrap& ct, const std::string& label)
 
 int main()
 {
-    std::cout << "=== Default DiamondTrap ===" << std::endl;
+    std::cout << "\n=== [1] Default Construction ===" << std::endl;
     DiamondTrap dt1;
-    printStats(dt1, "Default Diamond");
+    printStats(dt1, "Default");
 
-    std::cout << "=== Named DiamondTrap ===" << std::endl;
+    std::cout << "\n=== [2] Parameterized Construction ===" << std::endl;
     DiamondTrap dt2("DiaBot");
-    printStats(dt2, "Named Diamond");
+    printStats(dt2, "Named");
 
-    std::cout << "=== Performing Actions ===" << std::endl;
-    dt2.attack("Enemy");
-    dt2.takeDamage(40);
-    dt2.beRepaired(25);
+    std::cout << "\n=== [3] Basic Functionality ===" << std::endl;
+    dt2.attack("Mutant");
+    dt2.takeDamage(30);
+    dt2.beRepaired(20);
     dt2.whoAmI();
-    printStats(dt2, "After Actions");
+    printStats(dt2, "After Basic Actions");
 
-    std::cout << "=== Copy & Assignment Test ===" << std::endl;
-    DiamondTrap dt3 = dt2; // Copy constructor
-    printStats(dt3, "Copied Diamond");
+    std::cout << "\n=== [4] Energy Exhaustion Stress Test ===" << std::endl;
+    for (int i = 0; i < 101; ++i)
+        dt2.attack("Dummy");
+    printStats(dt2, "After Energy Depletion");
 
+    std::cout << "\n=== [5] HP Edge Case Test ===" << std::endl;
+    dt2.takeDamage(200); // reduce to 0
+    dt2.attack("Zombie"); // should fail
+    dt2.beRepaired(10);   // should fail
+    printStats(dt2, "After Fatal Damage");
+
+    std::cout << "\n=== [6] Copy Constructor Test ===" << std::endl;
+    DiamondTrap dt3(dt2); // should invoke copy constructor
+    printStats(dt3, "Copy Constructed");
+
+    std::cout << "\n=== [7] Copy Assignment Operator Test ===" << std::endl;
     DiamondTrap dt4;
-    dt4 = dt1; // Assignment
-    printStats(dt4, "Assigned Diamond");
+    dt4 = dt1; // should invoke copy assignment
+    printStats(dt4, "Assigned From Default");
 
+    std::cout << "\n=== [8] Stacked Destruction Test ===" << std::endl;
+    {
+        DiamondTrap temp1("StackA");
+        DiamondTrap temp2("StackB");
+        DiamondTrap temp3("StackC");
+        std::cout << "Exiting local scope..." << std::endl;
+    }
+
+    std::cout << "\n=== End of main() ===" << std::endl;
     return 0;
 }

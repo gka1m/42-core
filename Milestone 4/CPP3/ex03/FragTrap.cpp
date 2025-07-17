@@ -6,15 +6,15 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:49:30 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/18 16:11:18 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/07/17 16:32:15 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() : ClapTrap("Frag_gkaim", 100, 100, 30)
+FragTrap::FragTrap() : ClapTrap("frag_default", 100, 100, 30)
 {
-    std::cout << "Default Frag " << getName() << " created" << std::endl;
+    std::cout << "Default Frag created" << std::endl;
 }
 
 FragTrap::FragTrap(const std::string& name) : ClapTrap(name, 100, 100, 30)
@@ -24,7 +24,7 @@ FragTrap::FragTrap(const std::string& name) : ClapTrap(name, 100, 100, 30)
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other)
 {
-    std::cout << "Copy Frag " << getName() << " constructed" << std::endl;
+    std::cout << "Copy Frag " << getName() + "_copy" << " constructed" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& other)
@@ -32,7 +32,7 @@ FragTrap& FragTrap::operator=(const FragTrap& other)
     if (this != &other)
         ClapTrap::operator=(other);  // Use base assignment operator
 
-    std::cout << "Frag " << getName() << " assigned" << std::endl;
+    std::cout << "Frag " << getName() + "_assigned" << " assigned" << std::endl;
     return *this;
 }
 
@@ -45,7 +45,7 @@ void FragTrap::attack(const std::string& target)
         std::cout << getName() << " has no energy or dead" << std::endl;
         return;
     }
-    decreaseEnergy();
+    energy--;
     std::cout << getName() << "frags " << target 
     << " brutally with " << getDmg() << " damage" << std::endl;
 }
