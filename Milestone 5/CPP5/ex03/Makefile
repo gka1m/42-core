@@ -4,9 +4,13 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC		= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRC		= main.cpp Bureaucrat.cpp AForm.cpp \
+		  ShrubberyCreationForm.cpp RobotomyRequestForm.cpp \
+		  PresidentialPardonForm.cpp Intern.cpp
 
-INCLUDES = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp 
+INCLUDES = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp \
+		   RobotomyRequestForm.hpp PresidentialPardonForm.hpp \
+		   Intern.hpp 
 		  
 OBJ		= $(SRC:.cpp=.o)
 
