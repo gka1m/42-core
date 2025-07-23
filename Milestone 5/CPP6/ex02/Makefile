@@ -1,10 +1,10 @@
-NAME = convert
+NAME = type
 
 CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC		= main.cpp Base.cpp 
+SRC		= main.cpp Base.cpp
 
 INCLUDES = Base.hpp A.hpp B.hpp C.hpp
 		  
