@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:06:38 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/29 16:26:35 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/01 10:53:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,52 @@ bool BitcoinExchange::loadData(const std::string& filename)
     return true;
 }
 
+bool BitcoinExchange::checkDate(const std::string& date)
+{
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+        return false;
+
+    int year, month, day;
+    std::istringstream ss(date);
+    char dash;
+
+    ss >> year >> dash >> month >> dash >> day;
+    if (ss.fail() || year < 0 || month < 1 || month > 12 || day < 1 || day > 31)
+        return false;
+
+    return true;
+}
+
+bool BitcoinExchange::checkValue(const std::string& valueString)
+{
+    std::istringstream ss(valueString);
+    float value;
+    ss >> value;
+
+    if (ss.fail() || !ss.eof())
+        return false;
+    
+    return value >= 0.0f && value <= 1000.0f;
+}
+
+float BitcoinExchange::toFlt(const std::string& valueString)
+{
+    std::istringstream ss(valueString);
+    float value;
+    ss >> value;
+    return value;
+}
+
+float BitcoinExchange::getRate(const std::string& date)
+{
+    std::map<std::string, float>::const_iterator it = btcPrices.lower_bound(date);
+
+    if (it != btcPrices.end() && it->first == date)
+        return it->second;
+
+    if (it == btcPrices.begin())
+        return -1.0f;
+    
+    --it;
+    return it->second;
+}
