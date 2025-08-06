@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:49:30 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 16:32:15 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:46:52 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ FragTrap& FragTrap::operator=(const FragTrap& other)
     return *this;
 }
 
-FragTrap::~FragTrap() {}
+FragTrap::~FragTrap()
+{
+    std::cout << "Frag " << getName() << " fragged" << std::endl;
+}
 
 void FragTrap::attack(const std::string& target)
 {

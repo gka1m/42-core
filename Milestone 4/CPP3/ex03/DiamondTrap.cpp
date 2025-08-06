@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:46:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 16:53:30 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:52:09 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other)
 }
 
 // Destructor
-DiamondTrap::~DiamondTrap() {}
+DiamondTrap::~DiamondTrap()
+{
+    std::cout << "Diamond " << getName() << " destroyed" << std::endl;
+}
 
 // Attack using ScavTrap's attack
 void DiamondTrap::attack(const std::string& target)

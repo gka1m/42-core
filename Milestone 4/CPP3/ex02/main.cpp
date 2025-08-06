@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 16:33:55 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:48:08 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ int main(void)
         ft.beRepaired(10);  // Should fail
         ft.attack("Zombie");  // Should fail
         printStats(ft, "After Death");
+
+        std::cout << "=== Polymorphic Deletion Test ===" << std::endl;
+        ClapTrap* polyFrag = new FragTrap("PolyFrag");
+        // printStats(*polyScav, "Polymorphic ScavTrap");
+
+        delete polyFrag; // This should call ScavTrap's and ClapTrap's destructors
+        std::cout << "=== End of Polymorphic Deletion Test ===" << std::endl;
     }
 
     std::cout << "=== End of main() - Destruction Order Above ===" << std::endl;

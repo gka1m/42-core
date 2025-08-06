@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 16:56:05 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:54:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,19 @@ int main()
     dt4 = dt1; // should invoke copy assignment
     printStats(dt4, "Assigned From Default");
 
-    std::cout << "\n=== [8] Stacked Destruction Test ===" << std::endl;
-    {
-        DiamondTrap temp1("StackA");
-        DiamondTrap temp2("StackB");
-        DiamondTrap temp3("StackC");
-        std::cout << "Exiting local scope..." << std::endl;
-    }
+    // std::cout << "\n=== [8] Stacked Destruction Test ===" << std::endl;
+    // {
+    //     DiamondTrap temp1("StackA");
+    //     DiamondTrap temp2("StackB");
+    //     DiamondTrap temp3("StackC");
+    //     std::cout << "Exiting local scope..." << std::endl;
+    // }
+
+    std::cout << "=== Polymorphic Deletion Test ===" << std::endl;
+    ClapTrap* polyDia = new DiamondTrap("PolyDia");
+    // printStats(*polyScav, "Polymorphic ScavTrap");
+
+    delete polyDia; // This should call ScavTrap's and ClapTrap's destructors
 
     std::cout << "\n=== End of main() ===" << std::endl;
     return 0;

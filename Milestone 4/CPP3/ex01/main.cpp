@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:39:39 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 15:58:11 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:41:57 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ int main(void)
         st.attack("Mutant"); // Should fail (dead)
         printStats(st, "After Death");
 
+        std::cout << "=== Polymorphic Deletion Test ===" << std::endl;
+        ClapTrap* polyScav = new ScavTrap("PolyScav");
+        // printStats(*polyScav, "Polymorphic ScavTrap");
+
+        delete polyScav; // This should call ScavTrap's and ClapTrap's destructors
+        std::cout << "=== End of Polymorphic Deletion Test ===" << std::endl;
         std::cout << "=== End of ScavTrap Test Scope ===" << std::endl;
     }
 

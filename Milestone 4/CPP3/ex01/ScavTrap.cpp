@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:05:58 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/17 15:56:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/06 15:52:55 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& other)
     {
         ClapTrap::operator=(other);
     }
-    std::cout << "Scav " << getName() + "_assigned" << " assigned" << std::endl;
+    std::cout << "Scav " << getName() << " assigned" << std::endl;
     return *this;
 }
 
 // Destructor
-ScavTrap::~ScavTrap() {}
+ScavTrap::~ScavTrap()
+{
+    std::cout << "Scav " << getName() << " brutalized" << std::endl;
+}
 
 void ScavTrap::attack(const std::string& target)
 {
@@ -52,7 +55,7 @@ void ScavTrap::attack(const std::string& target)
         return;
     }
     energy--;
-    std::cout << getName() << "attacks " << target << " brutally with " << getDmg() << " damage" << std::endl;
+    std::cout << getName() << " attacks " << target << " brutally with " << getDmg() << " damage" << std::endl;
 }
 
 void ScavTrap::guardGate()
