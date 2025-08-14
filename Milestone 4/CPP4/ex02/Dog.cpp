@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:19:37 by gkaim             #+#    #+#             */
-/*   Updated: 2025/06/20 15:53:15 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/08/12 14:41:36 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ Dog& Dog::operator=(const Dog& other)
 
 Dog::~Dog()
 {
+    std::cout << "Dog has left" << std::endl;
     delete brain;
 }
 

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:54:29 by kagoh             #+#    #+#             */
-/*   Updated: 2025/06/24 15:33:12 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/14 15:24:08 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other)
     {
         for (int i = 0; i < 4; ++i)
         {
+            delete templates[i];
+            
             if (other.templates[i])
                 templates[i] = other.templates[i]->clone();
             else
@@ -47,7 +49,10 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other)
 MateriaSource::~MateriaSource()
 {
     for (int i = 0; i < 4; ++i)
+    {
         delete templates[i];
+        templates[i] = NULL;
+    }
 }
 
 void MateriaSource::learnMateria(AMateria* mat)
@@ -58,7 +63,7 @@ void MateriaSource::learnMateria(AMateria* mat)
     {
         if (!templates[i])
         {
-            templates[i] = mat->clone();
+            templates[i] = mat;
             return;
         }
     }

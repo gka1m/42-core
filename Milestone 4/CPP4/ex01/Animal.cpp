@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:05:43 by gkaim             #+#    #+#             */
-/*   Updated: 2025/06/20 14:17:37 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/08/12 14:26:04 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ Animal::Animal() : type("Unknown")
 
 Animal::Animal(const std::string& type) : type(type) 
 {
-    std::cout << type << " created" << std::endl;
+    // std::cout << type << " created" << std::endl;
+    std::cout << "Animal of type " << type << " created" << std::endl;
 }
 
 Animal::Animal(const Animal& other) : type(other.type)
@@ -37,12 +38,12 @@ Animal& Animal::operator=(const Animal& other)
 
 Animal::~Animal()
 {
-    std::cout << "Sayonara " << type << "!" << std::endl;
+    std::cout << "Bye " << type << "!" << std::endl;
 }
 
 void Animal::makeSound() const
 {
-    std::cout << "Michael Jackson HEEHEE" << std::endl;
+    std::cout << "*generic animal sound*" << std::endl;
 }
 
 std::string Animal::getType() const

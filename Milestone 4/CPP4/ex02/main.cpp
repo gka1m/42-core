@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 14:00:24 by gkaim             #+#    #+#             */
-/*   Updated: 2025/06/20 16:54:42 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/08/14 12:17:25 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main()
 {
     const int size = 10; // total number of animals
     Animal* animals[size];
+    // Animal* testAnimal = new Animal();  //uncomment to check for abstraction of class (should not compile)
 
     std::cout << "\n--- Creating Animals ---\n";
     for (int i = 0; i < size / 2; ++i)

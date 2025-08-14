@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:58:39 by gkaim             #+#    #+#             */
-/*   Updated: 2025/06/20 16:28:37 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/08/12 14:43:01 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ Cat& Cat::operator=(const Cat& other)
 
 Cat::~Cat()
 {
+    std::cout << "Cat is going away" << std::endl;
     delete brain;
 }
 
