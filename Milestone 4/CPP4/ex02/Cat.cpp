@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:58:39 by gkaim             #+#    #+#             */
-/*   Updated: 2025/08/12 14:43:01 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/19 09:53:11 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Cat::Cat() : Animal("Cat")
 {
     type = "Cat";
     brain = new Brain();
-    // std::cout << "Cat created" << std::endl;
+    std::cout << "Cat created" << std::endl;
 }
 
 Cat::Cat(const Cat& other) : Animal(other)

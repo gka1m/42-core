@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:19:37 by gkaim             #+#    #+#             */
-/*   Updated: 2025/08/12 14:41:36 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/08/19 09:48:19 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Dog::Dog() : Animal("Dog")
 {
     type = "Dog";
     brain = new Brain();
-    // std::cout << "Dog created" << std::endl;
+    std::cout << "Dog created" << std::endl;
 }
 
 Dog::Dog(const Dog& other) : Animal(other)
