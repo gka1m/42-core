@@ -72,7 +72,9 @@ int picoshell(char **cmds[])
             prev_fd = pipefd[0];
         }
     }
-    wait(NULL);
+    int status;
+    while (wait(&status) > 0)
+        ;
     return 0;
 }
 

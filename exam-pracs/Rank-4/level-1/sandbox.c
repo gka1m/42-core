@@ -39,97 +39,96 @@ We will test your code with very bad functions. */
 #include <unistd.h>
 #include <string.h>
 
-int g_signal;
+volatile sig_atomic_t gs;
 
-void timeout_handler(int sig)
+void alarm_time(int sig)
 {
     if (SIGALRM == sig)
-        g_signal = 1;
+        gs = 1;
 }
 
-static int setup_alarm_handler(void (*handler)(int))
+int setup_handler(void (*handler)(int))
 {
-	struct sigaction sa;
-	sa.sa_handler = handler;
-	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGALRM, &sa, NULL) == -1)
-		return -1;
-	return 0;
+    struct sigaction sa;
+    sa.sa_handler = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if (sigaction(SIGALRM, &sa, NULL) == -1)
+        return -1;
+    return 0;
 }
 
-static int handle_timeout(pid_t pid, int timeout, bool verbose)
+int handle_timeout(pid_t pid, int timeout, bool verbose)
 {
-	if (g_signal)
-	{
-		if (verbose)
-			printf("Bad function: timed out after %u seconds\n", timeout);
-		kill(pid, SIGKILL);
-		int status;
-		if (waitpid(pid, &status, 0) == -1)
-			return -1;
-		return 0;
-	}
-	return -1; // Not a timeout, just some other waitpid error
+    if (verbose)
+        printf("bad function: timeout after %u seconds\n", timeout);
+    kill(pid, SIGKILL);
+    waitpid(pid, NULL, 0);
+    return 0;
 }
 
-static int analyze_child_status(int status, bool verbose)
+int analyze_child(int status, bool verbose)
 {
-	if (WIFSIGNALED(status))
-	{
-		int sig = WTERMSIG(status);
-		if (verbose)
-			printf("Bad function: %s\n", strsignal(sig));
-		return 0;
-	}
-	else if (WIFEXITED(status))
-	{
-		int code = WEXITSTATUS(status);
-		if (code != 0)
-		{
-			if (verbose)
-				printf("Bad function: exited with code %d\n", code);
-			return 0;
-		}
-		else
-		{
-			if (verbose)
-				printf("Nice function!\n");
-			return 1;
-		}
-	}
-	return -1;
+    if (WIFSIGNALED(status))
+    {
+        int sig = WTERMSIG(status);
+        if (verbose)
+            printf("bad function: %s\n", strsignal(sig));
+        return 0;
+    }
+    else if (WIFEXITED(status))
+    {
+        int code = WEXITSTATUS(status);
+        if (code != 0)
+        {
+            if (verbose)
+                printf("bad function: exit code %d\n", code);
+            return 0;
+        }
+        else
+        {
+            if (verbose)
+                printf("nice fn\n");
+            return 1;
+        }
+    }
+    return -1;
 }
 
-int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
+int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
 {
-	if (setup_alarm_handler(timeout_handler) == -1)
-		return -1;
+    gs = 0;
+    if (setup_handler(alarm_time) == -1)
+        return -1;
+    
+    pid_t pid = fork();
+    if (pid == -1)
+        return -1;
+    if (pid == 0)
+    {
+        f();
+        exit(0);
+    }
 
-	pid_t pid = fork();
-	if (pid == -1)
-		return -1;
-
-	if (pid == 0)
-	{
-		f();
-		exit(0);
-	}
-
-	alarm(timeout);
-
-	int status;
-	while (waitpid(pid, &status, 0) == -1)
-	{
-		if (errno == EINTR)
-		{
-			if (handle_timeout(pid, timeout, verbose) == 0)
-				return 0;
-			continue;
-		}
-		return -1; // Some other error
-	}
-
-	return analyze_child_status(status, verbose);
+    alarm(timeout);
+    int status;
+    while (waitpid(pid, &status, 0) == -1)
+    {
+        if (errno == EINTR)
+        {
+            if (gs) // timeout occurred
+            {
+                handle_timeout(pid, timeout, verbose);
+                alarm(0);
+                return 0;
+            }
+            continue;
+        }
+        alarm(0);
+        return -1;
+    }
+    alarm(0);
+    return analyze_child(status, verbose);
 }
 
  void good(void)
