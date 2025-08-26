@@ -74,3 +74,72 @@ int ft_popen(const char *file, const char *argv[], char type)
 	}
 	return -1;
 }
+
+void test_read()
+{
+    printf("=== TEST READ MODE ===\n");
+
+    // Using ft_popen
+    int fd = ft_popen("ls", (const char *[]){"ls", "-1", NULL}, 'r');
+    if (fd == -1)
+    {
+        perror("ft_popen (r)");
+        return;
+    }
+    printf("[ft_popen output]\n");
+    char buf[128];
+    ssize_t n;
+    while ((n = read(fd, buf, sizeof(buf) - 1)) > 0)
+    {
+        buf[n] = '\0';
+        fputs(buf, stdout);
+    }
+    close(fd);
+
+    // Using system popen
+    FILE *fp = popen("ls -1", "r");
+    if (!fp)
+    {
+        perror("popen (r)");
+        return;
+    }
+    printf("\n[popen output]\n");
+    while (fgets(buf, sizeof(buf), fp))
+        fputs(buf, stdout);
+    pclose(fp);
+}
+
+void test_write()
+{
+    printf("\n=== TEST WRITE MODE ===\n");
+
+    // Using ft_popen
+    int fd = ft_popen("wc", (const char *[]){"wc", "-l", NULL}, 'w');
+    if (fd == -1)
+    {
+        perror("ft_popen (w)");
+        return;
+    }
+    printf("[ft_popen output]\n");
+    const char *msg = "hello\nworld\nthis\nis\na\ntest\n";
+    write(fd, msg, strlen(msg));
+    close(fd);
+
+    // Using system popen
+    FILE *fp = popen("wc -l", "w");
+    if (!fp)
+    {
+        perror("popen (w)");
+        return;
+    }
+    printf("[popen output]\n");
+    fputs(msg, fp);
+    pclose(fp);
+}
+
+int main()
+{
+    test_read();
+    test_write();
+    return 0;
+}
