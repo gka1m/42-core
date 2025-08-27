@@ -85,78 +85,66 @@ void destroy_tree(node* tree)
     }
 }
 
-node	*parse_expr(char **s)
+node *parse_expr(char **s)
 {
-	node *left = parse_term(s);
-	while(accept(s, '+'))
-	{
-		node *right = parse_term(s);
-		if(!right)
-		{
-			destroy_tree(left);
-			return (NULL);
-		}
-		node n = {ADD, 0, left, right};
-		left = new_node(n);
-	}
-	return (left);
+    node *l = parse_term(s);
+    while (accept(s, '+'))
+    {
+        node *r = parse_term(s);
+        if (!r)
+            return (destroy_tree(l), NULL);
+        node n = {ADD, 0, l, r};
+        l = new_node(n);
+    }
+    return l;
 }
 
-
-node	*parse_term(char **s)
+node *parse_term(char **s)
 {
-	node *left = parse_factor(s);
-	while(accept(s, '*'))
-	{
-		node *right = parse_factor(s);
-		if(!right)
-		{
-			destroy_tree(left);
-			return (NULL);
-		}
-		node n = {MULTI, 0, left, right};
-		left = new_node(n);
-	}
-	return (left);
+    node *l = parse_factor(s);
+    while (accept(s, '*'))
+    {
+        node *r = parse_factor(s);
+        if (!r)
+            return (destroy_tree(l), NULL);
+        node n = {MULTI, 0, l, r};
+        l = new_node(n);
+    }
+    return l;
 }
 
-node	*parse_factor(char **s)
+node *parse_factor(char **s)
 {
-	if(accept(s, '('))
-	{
-		node *n = parse_expr(s);
-		if(!expect(s, ')'))
-		{
-			destroy_tree(n);
-			return (NULL);
-		}
-		return (n);
-	}
-	if(isdigit(**s))
-	{
-		node n = {VAL, **s - '0', NULL, NULL};
-		(*s)++;
-		return (new_node(n));
-	}
-	unexpected(**s);
-	return (NULL);
+    if (accept(s, '('))
+    {
+        node *n = parse_expr(s);
+        if (!expect(s, ')'))
+        {
+            destroy_tree(n);
+            return NULL;
+        }
+        return n;
+    }
+    if (isdigit(**s))
+    {
+        node n = {VAL, **s - '0', NULL, NULL};
+        (*s)++;
+        return new_node(n);
+    }
+    unexpected(**s);
+    return NULL;
 }
-			
-int	main(int ac, char **av)
+
+int main(int ac, char **av)
 {
-	if (ac != 2)
-		return 1;
-	char *input = av[1];
-	node *tree = parse_expr(&input);
-	if (!tree)
-		return 1;
-	else if(*input)
-	{
-		unexpected(*input);
-		destroy_tree(tree);
-		return (1);
-	}
-	printf("%d\n", eval_tree(tree));
-	destroy_tree(tree);
-	return (0);	
+    if (ac != 2)
+        return 1;
+    char *input = av[1];
+    node *tree = parse_expr(&input);
+    if (!tree)
+        return 1;
+    else if (*input)
+        return (unexpected(*input), destroy_tree(tree), 1);
+    printf("%d\n", eval_tree(tree));
+    
 }

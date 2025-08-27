@@ -6,28 +6,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node
-{
-    enum
-    {
-        ADD,
-        MULTIPLY,
-        VALUE
-    } type;
+typedef struct node {
+	enum {
+		ADD,
+		MULTI,
+		VAL
+	} type;
+	int		val;
+	struct node	*l;
+	struct node	*r;
+} node;
 
-    int val;
-    struct node *left;
-    struct node *right;
-}   node;
-
-node *new(node n);
-void unexpected_err(char c);
-int valid_input(char **s, char c);
-int expected(char **s, char c);
-int evaluation_tree(node *tree);
-void free_tree(node *tree);
-node *parse_add(char **s);
-node *parse_mult(char **s);
-node *parse_paren(char **s);
+node	*new_node(node n);
+void	unexpected(char c);
+int	accept(char **s, char c);
+int	expect(char **s, char c);
+int	eval_tree(node *tree);
+void destroy_tree(node* tree);
+node	*parse_expr(char **s);
+node	*parse_term(char **s);
+node	*parse_factor(char **s);
 
 #endif
