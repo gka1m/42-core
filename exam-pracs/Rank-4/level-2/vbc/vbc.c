@@ -84,6 +84,7 @@ void destroy_tree(node* tree)
         free(tree);
     }
 }
+//end of given functions (remember to edit main)
 
 node	*parse_expr(char **s)
 {
