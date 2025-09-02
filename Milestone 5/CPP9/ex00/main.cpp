@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:21:18 by kagoh             #+#    #+#             */
-/*   Updated: 2025/08/01 11:44:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/02 15:54:48 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int main(int ac, char **av)
 
     if (!btc.loadData(av[1]))
         return 1;
-    std::ifstream input(av[1]);
+    btc.convertFile(av[1], "input.txt");
+    std::ifstream input("input.txt");
     if (!input)
     {
         std::cerr << "Error: cannot open input file";

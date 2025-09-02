@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:06:38 by kagoh             #+#    #+#             */
-/*   Updated: 2025/08/01 10:53:42 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/02 15:50:56 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,43 @@ float BitcoinExchange::getRate(const std::string& date)
     
     --it;
     return it->second;
+}
+
+bool BitcoinExchange::convertFile(const std::string& csvFile, const std::string& txtFile)
+{
+    std::ifstream in(csvFile.c_str());
+    if (!in)
+    {
+        std::cerr << "Error: could not open input CSV file: " << csvFile << std::endl;
+        return false;
+    }
+
+    std::ofstream out(txtFile.c_str());
+    if (!out)
+    {
+        std::cerr << "Error: could not open output TXT file: " << txtFile << std::endl;
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(in, line))
+    {
+        if (line.empty())
+            continue;
+
+        std::istringstream ss(line);
+        std::string date, value;
+
+        if (!std::getline(ss, date, ',') || !std::getline(ss, value))
+        {
+            std::cerr << "Bad CSV line: " << line << std::endl;
+            continue;
+        }
+
+        // Write in required format: "YYYY-MM-DD | value"
+        out << date << " | " << value << std::endl;
+    }
+
+    std::cout << "Converted " << csvFile << " → " << txtFile << std::endl;
+    return true;
 }

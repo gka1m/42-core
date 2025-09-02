@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:42:31 by kagoh             #+#    #+#             */
-/*   Updated: 2025/08/01 10:49:49 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/02 15:51:06 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ class BitcoinExchange
         float toFlt(const std::string& valueString);
         
         float getRate(const std::string& date);
+        bool convertFile(const std::string& csvFile, const std::string& txtFile);
 };
 
 #endif
