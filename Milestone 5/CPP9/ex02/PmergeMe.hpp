@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:05:40 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/03 16:12:20 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/04 16:44:47 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,24 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <cstdlib>
 
 class PmergeMe
 {
     private:
         std::vector<int> v;
         std::deque<int> dq;
+        
+    public:
+    // constructors + destructor
+        PmergeMe();
+        PmergeMe(const PmergeMe& other);
+        PmergeMe& operator=(const PmergeMe& other);
+        ~PmergeMe();
 
-        // helper for parsing
+         // pre-sorting functions
+        void loadNums(int ac, char **av);      
+         // helper for parsing
         bool isPositive(const std::string& str);
         
         // vector sorting
@@ -38,15 +48,8 @@ class PmergeMe
         // sorting deque
         void sortD(std::deque<int>& cont, int left, int right);
         void mergeD(std::deque<int>& cont, int left, int right);
-        
-    public:
-    // constructors + destructor
-        PmergeMe();
-        PmergeMe(const PmergeMe& other);
-        PmergeMe& operator=(const PmergeMe& other);
-        ~PmergeMe();
 
-    // pre-sorting functions
-        void loadNums(int ac, char **av);      
+        const std::vector<int>& getVector() const;
+        const std::deque<int>& getDeque() const;
 };
 #endif

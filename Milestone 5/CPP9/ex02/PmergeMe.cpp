@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:54:56 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/03 16:11:47 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/04 16:48:02 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,14 @@ void PmergeMe::sortD(std::deque<int>& cont, int left, int right)
         sortD(cont, mid + 1, right);
         mergeD(cont, left, right);
     }
+}
+
+const std::vector<int>& PmergeMe::getVector() const
+{
+    return v;
+}
+
+const std::deque<int>& PmergeMe::getDeque() const
+{
+    return dq;
 }
