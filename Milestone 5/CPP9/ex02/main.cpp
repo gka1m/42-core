@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:57:36 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/04 16:42:25 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/09/05 10:53:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ int main(int ac, char **av)
         // --------- Vector sort + timing ---------
         std::vector<int> vec = sorter.getVector(); // copy original
         clock_t startVec = clock();
-        sorter.sortV(vec, 0, vec.size() - 1);
+        // sorter.sortV(vec, 0, vec.size() - 1);
+        sorter.sortV(vec);
         clock_t endVec = clock();
 
         // --------- Deque sort + timing ---------
         std::deque<int> deq = sorter.getDeque(); // copy original
         clock_t startDeq = clock();
-        sorter.sortD(deq, 0, deq.size() - 1);
+        // sorter.sortD(deq, 0, deq.size() - 1);
+        sorter.sortD(deq);
         clock_t endDeq = clock();
 
         // Print sorted sequence

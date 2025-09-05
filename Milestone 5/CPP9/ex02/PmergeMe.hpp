@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:05:40 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/04 16:44:47 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/09/05 10:51:38 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,18 @@ class PmergeMe
         bool isPositive(const std::string& str);
         
         // vector sorting
-        void sortV(std::vector<int>& cont, int left, int right);
-        void mergeV(std::vector<int>& cont, int left, int right);
+        // void sortV(std::vector<int>& cont, int left, int right);
+        // void mergeV(std::vector<int>& cont, int left, int right);
+
+        void sortV(std::vector<int>& cont);
+        void generateJacobsthal(std::vector<size_t>& seq, size_t n);
 
         // sorting deque
-        void sortD(std::deque<int>& cont, int left, int right);
-        void mergeD(std::deque<int>& cont, int left, int right);
+        // void sortD(std::deque<int>& cont, int left, int right);
+        // void mergeD(std::deque<int>& cont, int left, int right);
+
+        void sortD(std::deque<int>& cont);
+        void generateJacobsthal(std::deque<size_t>& seq, size_t n);
 
         const std::vector<int>& getVector() const;
         const std::deque<int>& getDeque() const;
