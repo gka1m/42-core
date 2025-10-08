@@ -1,4 +1,4 @@
-NAME = bureaucratform
+NAME = bureaucratform2
 
 CXX = c++
 

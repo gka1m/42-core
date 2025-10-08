@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/10 10:35:57 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/01 10:58:36 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main()
     try 
     {
         Form validForm("TopSecret", 50, 25);
-        std::cout << validForm << "\n";
+        std::cout << validForm << std::endl;
     } 
     catch (std::exception &e) 
     {

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:40:45 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/15 16:28:27 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/01 10:57:05 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class Bureaucrat
         void gradeUp(); // grade -1
         void gradeDown(); // grade +1
 
-        void signForm(const AForm& f);
+        void signForm(Form& f);
 
         /* exception classes */
         class GradeTooHighException : public std::exception

@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:44:55 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/10 15:50:16 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/01 11:27:03 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class AForm
         AForm(const std::string& name, int gsign, int gexec);
         AForm(const AForm& other);
         AForm& operator=(const AForm& other);
-        ~AForm();
+        virtual ~AForm();
 
         /* getter functions */
         const std::string& getName() const;

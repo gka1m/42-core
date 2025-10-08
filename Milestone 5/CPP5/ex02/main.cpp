@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/15 16:30:02 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/09/01 11:38:58 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 #include "PresidentialPardonForm.hpp"
 #include "AForm.hpp"
 
-int main() {
+int main() 
+{
+    std::srand(std::time(0)); // seed RNG for robotomy
+
     try 
     {
         Bureaucrat alice("Alice", 1);      // Very high rank
@@ -38,17 +41,15 @@ int main() {
         bob.signForm(pardon); // Should fail
 
         std::cout << "\n--- Executing forms ---\n";
-        shrub.execute(alice);    // Should succeed
-        robot.execute(charlie);  // May succeed or fail (50%)
-        pardon.execute(alice);   // Should succeed
+        // try { shrub.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { robot.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        // try { pardon.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
 
         std::cout << "\n--- Stress: Bob tries to do everything ---\n";
-        bob.signForm(shrub);
-        shrub.execute(bob);
-        robot.execute(bob);
-        pardon.execute(bob);
-
-
+        try { bob.signForm(shrub); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { shrub.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { robot.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { pardon.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
     } 
     catch (std::exception& e)
     {
@@ -57,4 +58,3 @@ int main() {
 
     return 0;
 }
-
