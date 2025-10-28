@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:40:51 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/18 14:25:09 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/10/27 14:45:30 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 
 RobotomyRequestForm::~RobotomyRequestForm()
 {
-    std::cout << "Bot has been robotomized" << std::endl;
+    std::cout << "Bot has been scrapped" << std::endl;
 }
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
@@ -47,7 +47,7 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) const
     if (executor.getGrade() > getGradeToExec())
         throw AForm::GradeTooLowException();
 
-    std::cout << "Robotomizing..." << std::endl;
+    std::cout << "*Drilling noises*..." << std::endl;
 
     if (std::rand() % 2)
         std::cout << target << " successfully robotomized!" << std::endl;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:48:37 by gkaim             #+#    #+#             */
-/*   Updated: 2025/07/18 14:11:26 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/10/27 15:04:49 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ AForm* Intern::makeForm(const std::string& name, const std::string& target)
             return formCreators[i](target);
         }
     }
-    std::cerr << "Intern couldn't find template for form " << name << std::endl;
+    std::cerr << "Intern couldn't find template for " << name << std::endl;
     return NULL;
 }

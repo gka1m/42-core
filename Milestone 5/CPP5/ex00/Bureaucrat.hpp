@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:40:45 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/09 15:33:40 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/27 12:23:14 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Bureaucrat
         ~Bureaucrat();
 
         // getter functions
+        // for use in main function
         const std::string& getName() const;
         int getGrade() const;
 
@@ -40,6 +41,8 @@ class Bureaucrat
         void gradeDown(); // grade +1
 
         /* exception classes */
+        // the throw keyword functions the same as the noexcept keyword in c++11
+        // no exceptions will be thrown
         class GradeTooHighException : public std::exception
         {
         public:
@@ -53,6 +56,7 @@ class Bureaucrat
         };
 };
 
+// overload operator for Bureaucrat defined class
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bu);
 
 #endif

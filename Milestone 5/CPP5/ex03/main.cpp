@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:18:01 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/01 11:38:58 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/27 15:04:13 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "AForm.hpp"
+#include "Intern.hpp"
 
 int main() 
 {
@@ -22,34 +23,45 @@ int main()
 
     try 
     {
+        // ----------------- Create bureaucrats -----------------
         Bureaucrat alice("Alice", 1);      // Very high rank
         Bureaucrat bob("Bob", 150);        // Lowest rank
         Bureaucrat charlie("Charlie", 70); // Mid-rank
 
-        ShrubberyCreationForm shrub("home");
-        RobotomyRequestForm robot("Bender");
-        PresidentialPardonForm pardon("Marvin");
+        // ----------------- Create an intern -----------------
+        Intern someIntern;
 
+        std::cout << "\n--- Intern creates forms ---\n";
+        AForm* shrub = someIntern.makeForm("shrub creation form", "home");
+        AForm* robot = someIntern.makeForm("robotomy request form", "Bender");
+        AForm* pardon = someIntern.makeForm("presidential pardon form", "Marvin");
+        AForm* unknown = someIntern.makeForm("unknown form", "Target"); // Should fail
+
+        // ----------------- Execute unsigned forms -----------------
         std::cout << "\n--- Trying to execute unsigned forms ---\n";
-        try { shrub.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { robot.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { pardon.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (shrub) shrub->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (robot) robot->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (pardon) pardon->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
 
+        // ----------------- Sign forms -----------------
         std::cout << "\n--- Signing forms ---\n";
-        alice.signForm(shrub);
-        charlie.signForm(robot);
-        bob.signForm(pardon); // Should fail
+        if (shrub) alice.signForm(*shrub);
+        if (robot) charlie.signForm(*robot);
+        if (pardon) bob.signForm(*pardon); // Should fail
 
+        // ----------------- Execute forms -----------------
         std::cout << "\n--- Executing forms ---\n";
-        // try { shrub.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { robot.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        // try { pardon.execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (shrub) shrub->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (robot) robot->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        try { if (pardon) pardon->execute(alice); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
 
-        std::cout << "\n--- Stress: Bob tries to do everything ---\n";
-        try { bob.signForm(shrub); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { shrub.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { robot.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
-        try { pardon.execute(bob); } catch (std::exception& e) { std::cerr << e.what() << std::endl; }
+        // ----------------- Clean up dynamically allocated forms -----------------
+        /* delete statements are necessary because Intern class just creates a new object on the heap and then 
+        allocates a pointer to it; destructors are not called after the usage, therefore delete must be called manually */
+        delete shrub;
+        delete robot;
+        delete pardon;
+        delete unknown; // safe even if NULL
     } 
     catch (std::exception& e)
     {
