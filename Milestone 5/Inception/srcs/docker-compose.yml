@@ -4,6 +4,8 @@ services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
+    env_file:
+      - ./.env
     image: nginx
     ports:
       - "443:443"
@@ -21,6 +23,13 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     image: wordpress
+    env_file:
+      - ./.env
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
     volumes:
       - wordpress_files:/var/www/html
     networks:
@@ -33,6 +42,8 @@ services:
     build: ./requirements/mariadb
     container_name: mariadb
     image: mariadb
+    env_file:
+      - ./.env
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -45,13 +56,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wordpress
+      device: /home/kagoh/data/wordpress
   db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mariadb
+      device: /home/kagoh/data/mariadb
 
 networks:
   inception:

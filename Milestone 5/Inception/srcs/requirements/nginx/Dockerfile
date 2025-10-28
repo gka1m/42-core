@@ -1,13 +1,14 @@
 FROM debian:bookworm
 
 # install the NGINX and OpenSSL
-RUN apt-get && apt-get install -y nginx openssl && apt-get clean
+RUN apt-get update && apt-get install -y nginx openssl && apt-get clean
 
 # create SSL directory
 RUN mkdir -p /etc/nginx/ssl /var/www/html
 
 # Copy config from config file
-COPY config/default.conf /etc/nginx/config.d/default.conf
+COPY config/default.conf /etc/nginx/conf.d/default.conf
+
 
 # Generate self signed SSL certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
