@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:55:33 by gkaim             #+#    #+#             */
-/*   Updated: 2025/07/21 15:33:59 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/10/30 13:45:14 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
+/* OCF constructors + destructor
+   will not appear in main (non-instantiable) as it is purely a utility class due to the presence of one static method convert */
 ScalarConverter::ScalarConverter()
 {
     std::cout << "Converter initialized" << std::endl;
@@ -35,6 +37,14 @@ ScalarConverter::~ScalarConverter()
     std::cout << "Converter decommissioned" << std::endl;
 }
 
+/* Function checks whether the given string matches one of the pseudo literals defined by C++:
+  - "nan", "nanf"
+  - "+/-inf
+  - "+/-inff" 
+  The above represents special floating point values not corresponding to real finite numbers. Used to handle
+  special cases for float/double conversion.
+  
+  Function returns true if string is a pseudo-literal, and false otherwise*/
 bool isPseudoLiteral(const std::string& literal)
 {
     return literal == "nanf" || literal == "nan" ||
@@ -42,11 +52,17 @@ bool isPseudoLiteral(const std::string& literal)
         literal == "-inf" || literal == "-inff";
 }
 
+/* Function is used to detect if the string ends with the char 'f', indicating a float literal (e.g. 2.4f).
+   Returns true if the last char  is a float literal, and false otherwise.*/
 bool isFloatSuffix(const std::string& literal)
 {
     return (!literal.empty() && literal[literal.size() - 1] == 'f');
 }
 
+/* Performs scalar type conversion on a given string and prints out the corresponding representations in the
+   4 defined scalar types according to subject: 'char', 'int', 'float', 'double'
+   Function makes use of static_cast to demonstrate explicit type conversion, which is safer than traditional C type casting
+   Conversions are checked and intentional, ensuring that precision, truncation and overflow are handled properly */
 void ScalarConverter::convert(const std::string& literal)
 {
     char charVal;
@@ -62,7 +78,7 @@ void ScalarConverter::convert(const std::string& literal)
         floatVal = static_cast<float>(charVal);
         doubleVal = static_cast<double>(charVal);
     }
-    // pseudo literals
+    // pseudo literals (to handle overflow) and for cases where conversion is not possible
     else if (isPseudoLiteral(literal))
     {
         charVal = 0;
@@ -84,7 +100,16 @@ void ScalarConverter::convert(const std::string& literal)
         }
     }
 
-    // numeric values
+   /* std::strtod() to safely parse the
+    string into a double value. It then performs several validation checks:
+ 
+    - errno is checked to detect overflow or underflow conditions.
+    - If no digits were parsed (end == literal.c_str()), the input is invalid.
+    - If extra non-'f' characters remain after parsing, the input is invalid.
+ 
+    This ensures that only valid numeric strings (e.g. "42", "4.2f", "-3.14")
+    are converted, while malformed inputs like "42abc" or "nanx" are rejected
+    with an "Invalid input" message. */
     else
     {
         char *end = NULL;
@@ -102,7 +127,7 @@ void ScalarConverter::convert(const std::string& literal)
     }
 
     // print char
-    std::cout << "Printed char: ";
+    std::cout << "char: ";
     if (isPseudoLiteral(literal) || doubleVal < 0 || doubleVal > 127 || std::isnan(doubleVal))
         std::cout << "impossible" << std::endl;
     else if (!std::isprint(charVal))
@@ -111,14 +136,14 @@ void ScalarConverter::convert(const std::string& literal)
         std::cout << "'" << charVal << "'" << std::endl;
 
     // print int
-    std::cout << "Printed int: ";
+    std::cout << "int: ";
     if (isPseudoLiteral(literal) || doubleVal > INT_MAX || doubleVal < INT_MIN || std::isnan(doubleVal))
         std::cout << "impossible" << std::endl;
     else
         std::cout << intVal << std::endl;
 
     // print float
-    std::cout << "Printed float: ";
+    std::cout << "float: ";
     std::cout << std::fixed << std::setprecision(1);
     if (isPseudoLiteral(literal))
     {
@@ -133,7 +158,7 @@ void ScalarConverter::convert(const std::string& literal)
         std::cout << floatVal << "f" << std::endl;
 
     // print double
-    std::cout << "Printed double: ";
+    std::cout << "double: ";
     if (isPseudoLiteral(literal))
     {
         if (literal == "nan" || literal == "nanf")
