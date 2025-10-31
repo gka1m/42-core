@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   whatever.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:47:04 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/23 14:51:53 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/31 13:38:14 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <iostream>
 #include <string>
 
+/* - function swaps out two variables of the same type with a temp variable
+   - since both a and b are references, changes in the fn will affect the original variables 
+   - works for any type T*/
 template <typename T>
 void swap(T& a, T& b)
 {
@@ -24,6 +27,10 @@ void swap(T& a, T& b)
     b = temp;
 }
 
+/* - function returns the greater value of the two types
+   - return value is a const to avoid unnecessary copying
+   - if both a and b are equal, return the second one 
+   - works for any typ T that supports the > operator */
 template <typename T>
 T const& max(T& a, T& b)
 {
@@ -33,6 +40,10 @@ T const& max(T& a, T& b)
         return b;
 }
 
+/* - function returns the smaller value of the two types
+   - return value is a const to avoid unnecessary copying
+   - if both a and b are equal, return the second one 
+   - works for any typ T that supports the > operator */
 template <typename T>
 T const& min(T& a, T& b)
 {

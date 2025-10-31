@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:54:42 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/23 16:14:59 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/31 13:47:28 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 #include <string>
 #include <cstddef>
 
+/* function takes in 3 parameters:
+   - address of an array of type T
+   - length of array
+   - function to be called on every element in the array 
+   and returns nothing.
+   
+   function serves to demonstrate the concept of templates with multiple type parameters and
+   passing a function as a parameter */
 template <typename T, typename F>
 void iter(T& arr, size_t len, F fn)
 {

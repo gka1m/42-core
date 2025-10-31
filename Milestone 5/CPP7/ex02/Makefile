@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC		= main.cpp
 
-INCLUDES = Array.hpp
+INCLUDES = Array.hpp Array.tpp
 		  
 OBJ		= $(SRC:.cpp=.o)
 

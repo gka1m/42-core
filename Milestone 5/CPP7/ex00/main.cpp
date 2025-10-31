@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:52:19 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/23 14:52:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/31 13:57:22 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int main( void )
 {
     int a = 2;
     int b = 3;
+    int e = 2;
+    std::cout << "max( a, e ) = " << ::max( a, e ) << std::endl;
+    std::cout << "min( a, e ) = " << ::min( a, e ) << std::endl;
     ::swap( a, b );
     std::cout << "a = " << a << ", b = " << b << std::endl;
     std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
