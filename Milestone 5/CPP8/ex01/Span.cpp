@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:04:21 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/28 16:11:40 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/10/31 14:54:14 by gkaim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int Span::shortestSpan()
     int minSpan = std::numeric_limits<int>::max();
     for (size_t i = 0; i < sorted.size() - 1; i++)
     {
-        int diff = sorted[i] - sorted[i + 1];
+        int diff = std::abs(sorted[i] - sorted[i + 1]);
         if (diff < minSpan)
             minSpan = diff;
     }

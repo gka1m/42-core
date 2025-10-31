@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC		= main.cpp
 
-INCLUDES = easyfind.hpp
+INCLUDES = easyfind.hpp easyfind.tpp
 		  
 OBJ		= $(SRC:.cpp=.o)
 
