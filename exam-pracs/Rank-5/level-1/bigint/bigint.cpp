@@ -20,3 +20,64 @@ You will find a main in this directory that must work with your class.*/
 
 #include "bigint.hpp"
 
+void bigint::trim_zeros()
+{
+    if (digits.empty())
+    {
+        digits = "0";
+        return;
+    }
+
+    size_t begin = digits.find_first_not_of('0');
+    if (begin == std::string::npos)
+        digits = '0';
+    digits.erase(0, begin);
+}
+
+std::string bigint::getVal()
+{
+    return digits;
+}
+
+std::string bigint::addstr(std::string s1, std::string s2)
+{
+    std::string res = "";
+    int s1_len = s1.length() - 1;
+    int s2_len = s2.length() - 1;
+    int carry = 0;
+
+    while (s1_len >= 0 || s2_len >= 0 || carry != 0)
+    {
+        int sum = carry;
+        if (s1_len >= 0)
+        {
+            sum += s1[s1_len] - '0';
+            s1_len--;
+        }
+        if (s2_len >= 0)
+        {
+            sum += s2[s2_len] - '0';
+            s2_len--;
+        }
+        carry = sum / 10;
+        res += char(sum % 10 + '0') + res;
+    }
+    return res;
+}
+
+bigint::bigint() : digits("0") {}
+
+bigint::bigint(std::string value) : digits(value)
+{
+    trim_zeros();
+}
+
+bigint::bigint(int value) : digits(std::to_string(value))
+{
+    trim_zeros();
+}
+
+bigint::bigint(const bigint &other) : digits(other.digits) {}
+
+bigint::~bigint() {}
+
