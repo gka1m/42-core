@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:11:22 by kagoh             #+#    #+#             */
-/*   Updated: 2025/10/30 15:18:12 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/11/05 12:31:16 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 // void identify(Base* p);
 // void identify(Base& p);
 
-
-/* randomly instantiates A, B or C and returns it as a pointer to Base
-   demonstrates polymorphism */
 Base* generate(void)
 {
     // std::srand(std::time(NULL));
@@ -33,9 +30,6 @@ Base* generate(void)
         return new C;
 }
 
-/* uses dynamic_cast with pointers to safely check if base pointer can be converted to A*, B* or C*.
-   if cast fails, return NULL, otherwise pointer is returned
-   allows for safe runtime identification of the derived type */
 void identify(Base* p)
 {
     if (dynamic_cast<A*>(p))
@@ -48,10 +42,6 @@ void identify(Base* p)
         std::cout << "Random unknown type" << std::endl;
 }
 
-/* uses dynamic_cast with references to safely check type at runtime.
-   if cast fails, throw std::bad_cast, otherwise pointer is returned
-   allows for safe runtime identification of the derived type.
-   dynamic_cast demonstrates exception handling for failed casts */
 void identify(Base& p)
 {
     try

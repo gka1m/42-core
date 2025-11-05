@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:18:31 by gkaim             #+#    #+#             */
-/*   Updated: 2025/07/21 16:18:57 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/11/05 12:49:07 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int main(void)
     // Serialize the pointer
     uintptr_t raw = Serializer::serialize(&original);
 
+    // memory address remains the same
+    std::cout << "Serialized pointer in dec: " << raw << std::endl;
+    std::cout << "Serialized pointer in hex: 0x" << std::hex << raw << std::dec << std::endl;
+
+
+    // EXAMPLE misuse of reinterpret_cast (uncomment to test)
+    // uintptr_t wrong = 12345;
+    // Data* w = reinterpret_cast<Data*>(wrong);
+    // std::cout << w->id << std::endl;
+    
     // Deserialize it back
     Data* recovered = Serializer::deserialize(raw);
 
