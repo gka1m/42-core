@@ -34,12 +34,12 @@ void bigint::trim_zeros()
     digits.erase(0, begin);
 }
 
-std::string bigint::getVal()
+std::string bigint::getVal() const
 {
     return digits;
 }
 
-std::string bigint::addstr(std::string s1, std::string s2)
+std::string bigint::addstr(std::string s1, std::string s2) const
 {
     std::string res = "";
     int s1_len = s1.length() - 1;
@@ -79,5 +79,153 @@ bigint::bigint(int value) : digits(std::to_string(value))
 
 bigint::bigint(const bigint &other) : digits(other.digits) {}
 
+bigint& bigint::operator=(const bigint &other)
+{
+    if (this != &other)
+        digits = other.digits;
+    return *this;
+}
+
 bigint::~bigint() {}
 
+bigint& bigint::operator+=(const bigint& other)
+{
+    digits = addstr(digits, other.digits);
+    return *this;
+}
+
+bigint bigint::operator+(const bigint& other) const 
+{
+    bigint temp;
+    temp.digits = addstr(digits, other.digits);
+    return temp; 
+}
+
+bigint& bigint::operator++()
+{
+    digits = addstr(digits, "1");
+    return *this;
+}
+
+bigint bigint::operator++(int)
+{
+    bigint temp(*this);
+    digits = addstr(digits, "1");
+    return temp;
+}
+
+bigint bigint::operator<<(int shift) const
+{
+    if (shift == 0)
+        return *this;
+    return bigint(digits + std::string(shift, '0'));
+}
+
+bigint bigint::operator>>(int shift) const 
+{
+    if (shift == 0)
+        return *this;
+    if (shift == digits.length())
+        return bigint();
+    return bigint(digits.substr(0, digits.length() - shift));
+}
+
+bigint& bigint::operator<<=(int shift)
+{
+    if (shift != 0)
+        digits += std::string(shift, '0');
+    return *this;
+}
+
+bigint& bigint::operator>>=(int shift)
+{
+    if (shift == 0)
+        return *this;
+    if (shift >= digits.length())
+        digits = "0";
+    else
+        digits = digits.substr(0, digits.length() - shift);
+    return *this;
+}
+
+bigint bigint::operator>>(const bigint& shift) const 
+{
+    int total = 0;
+    for (char dig : shift.digits)
+    {
+        total = total * 10 + (dig - '0'); 
+    }
+
+    return (*this) >> total;
+}
+
+bigint bigint::operator<<(const bigint& shift) const
+{
+    int total = 0;
+    for (char dig : shift.digits)
+    {
+        total = total * 10 + (dig - '0'); 
+    }
+
+    return (*this) << total;
+}
+
+bigint& bigint::operator<<=(const bigint& shift)
+{
+    int total = 0;
+    for (char dig : shift.digits)
+    {
+        total = total * 10 + (dig - '0'); 
+    }
+
+    return (*this) <<= total;
+}
+
+bigint& bigint::operator>>=(const bigint& shift)
+{
+    int total = 0;
+    for (char dig : shift.digits)
+    {
+        total = total * 10 + (dig - '0'); 
+    }
+
+    return (*this) >>= total;
+}
+
+bool bigint::operator<(const bigint &other) const
+{
+    if (digits.length() != other.digits.length())
+        return digits.length() < other.digits.length();
+    return digits < other.digits;
+}
+
+bool bigint::operator>(const bigint &other) const
+{
+    return *this > other;
+}
+
+bool bigint::operator<=(const bigint &other) const
+{
+    return !(*this > other);
+}
+
+bool bigint::operator>=(const bigint &other) const
+{
+    return !(*this < other);
+}
+
+bool bigint::operator==(const bigint &other) const
+{
+    return digits == other.digits;
+}
+
+bool bigint::operator!=(const bigint &other) const
+{
+    return !(*this == other);
+}
+
+std::ostream& operator<<(std::ostream& os, const bigint& bi)
+{
+    os << bi.getVal();
+    return os;
+}

@@ -11,7 +11,7 @@ class bigint
     private:
         std::string digits;
         void trim_zeros();
-        std::string addstr(std::string s1, std::string s2);
+        std::string addstr(std::string s1, std::string s2) const;
 
     public:
     // constructors + destructor
@@ -21,35 +21,36 @@ class bigint
         bigint(const bigint& other);
         ~bigint();
 
-        std::string getVal();
+        std::string getVal() const;
         
         // assignment
-        bigint& operator+(bigint &other);
-        bigint& operator-(bigint &other);
+        bigint& operator+=(const bigint &other);
+        bigint& operator=(const bigint &other);
 
         // mathematical
-        bigint operator+(bigint &other);
+        bigint operator+(const bigint &other) const;
         bigint& operator++();
         bigint operator++(int);
 
         // shifting
-        bigint operator<<(int shift);
-        bigint operator>>(int shift);
+        bigint operator<<(int shift) const;
+        bigint operator>>(int shift) const;
         bigint& operator<<=(int shift);
         bigint& operator>>=(int shift);
-        bigint operator>>(bigint& shift);
-        bigint operator<<(bigint& shift);
-        bigint& operator<<=(bigint& shift);
-        bigint& operator>>=(bigint& shift);
+
+        bigint operator>>(const bigint& shift) const;
+        bigint operator<<(const bigint& shift) const;
+        bigint& operator<<=(const bigint& shift);
+        bigint& operator>>=(const bigint& shift);
 
         // comparison
-        bool operator<(bigint &other);
-        bool operator>(bigint &other);
-        bool operator<=(bigint &other);
-        bool operator>=(bigint &other);
-        bool operator==(bigint &other);
-        bool operator!=(bigint &other);
+        bool operator<(const bigint &other) const;
+        bool operator>(const bigint &other) const;
+        bool operator<=(const bigint &other) const;
+        bool operator>=(const bigint &other) const;
+        bool operator==(const bigint &other) const;
+        bool operator!=(const bigint &other) const;
 };
 
-std::ostream& operator<<(std::ostream& os, bigint& bi);
+std::ostream& operator<<(std::ostream& os, const bigint& bi);
 #endif
