@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:18:31 by gkaim             #+#    #+#             */
-/*   Updated: 2025/11/05 12:49:07 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/12/04 14:58:05 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int main(void)
 
     // Check if the pointers match
     if (recovered == &original)
-        std::cout << "✅ Success: Recovered pointer matches original" << std::endl;
+        std::cout << "Recovered pointer matches original: Passed" << std::endl;
     else
-        std::cout << "❌ Failure: Recovered pointer does NOT match original" << std::endl;
+        std::cout << "Failed" << std::endl;
 
     return 0;
 }
