@@ -2,6 +2,7 @@
 #include "Array.hpp"
 
 #define MAX_VAL 750
+// main provided by project
 // int main(int, char**)
 // {
 //     Array<int> numbers(MAX_VAL);

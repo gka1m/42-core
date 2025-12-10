@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:15:43 by kagoh             #+#    #+#             */
-/*   Updated: 2025/07/23 16:16:05 by kagoh            ###   ########.fr       */
+/*   Updated: 2025/12/10 12:35:56 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,10 @@ int main()
 	std::cout << "\nString array:\n";
 	iter(strArray, 3, print<std::string>);
 
+	const int constarr[] = {10, 20, 30};
+	std::cout << "const int array: " << std::endl;
+	iter(constarr, 3, print<int>);
+	
+	// iter(constarr, 3, increment<int>);
 	return 0;
 }

@@ -1,4 +1,4 @@
-NAME = type
+NAME = whatever
 
 CXX = c++
 

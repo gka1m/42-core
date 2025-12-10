@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:52:19 by kagoh             #+#    #+#             */
-/*   Updated: 2025/10/31 13:57:22 by gkaim            ###   ########.fr       */
+/*   Updated: 2025/12/10 12:24:26 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int main( void )
     std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
     std::string c = "chaine1";
     std::string d = "chaine2";
+    std::cout << "Before swap: c = " << c << ", d = " << d << std::endl;
     ::swap(c, d);
-    std::cout << "c = " << c << ", d = " << d << std::endl;
+    std::cout << "After swap: c = " << c << ", d = " << d << std::endl;
     std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
     std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
     return 0;
