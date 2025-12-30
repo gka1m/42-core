@@ -1,69 +1,77 @@
-version: '3.8'
+version: "3.8"
+
+networks:
+  inception:
+    driver: bridge
 
 services:
   nginx:
     build: ./requirements/nginx
+    image: nginx
     container_name: nginx
     env_file:
       - ./.env
-    image: nginx
     ports:
       - "443:443"
-    env_file:
-      - .env
-    volumes:
-      - wordpress_files:/var/www/html
     networks:
       - inception
-    restart: always
+    volumes:
+      - wordpress_files:/var/www/html
     depends_on:
       - wordpress
+    restart: on-failure
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    container_name: mariadb
+    env_file:
+      - ./.env
+    secrets:
+      - db_password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception
+    restart: on-failure
 
   wordpress:
     build: ./requirements/wordpress
-    container_name: wordpress
     image: wordpress
+    container_name: wordpress
     env_file:
       - ./.env
-    environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
-      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+    secrets:
+      - db_password
+      - wp_admin_password
+      - wp_user_password
     volumes:
       - wordpress_files:/var/www/html
     networks:
       - inception
-    restart: always
     depends_on:
       - mariadb
-  
-  mariadb:
-    build: ./requirements/mariadb
-    container_name: mariadb
-    image: mariadb
-    env_file:
-      - ./.env
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - inception
-    restart: always
+    restart: on-failure
 
-volumes:
-  wordpress_files:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
+volumes: 
+  wordpress_files: 
+    driver: local 
+    driver_opts: 
+      type: none 
+      o: bind 
       device: /home/kagoh/data/wordpress
-  db_data:
+  
+  mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: /home/kagoh/data/mariadb
 
-networks:
-  inception:
-    driver: bridge
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  wp_admin_password:
+    file: ./secrets/wp_admin_password.txt
+  wp_user_password:
+    file: ./secrets/wp_user_password.txt

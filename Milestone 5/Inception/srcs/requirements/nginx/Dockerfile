@@ -1,5 +1,7 @@
 FROM debian:bookworm
 
+ARG DOMAIN_NAME
+
 # install the NGINX and OpenSSL
 RUN apt-get update && apt-get install -y nginx openssl && apt-get clean
 
@@ -7,8 +9,7 @@ RUN apt-get update && apt-get install -y nginx openssl && apt-get clean
 RUN mkdir -p /etc/nginx/ssl /var/www/html
 
 # Copy config from config file
-COPY config/default.conf /etc/nginx/conf.d/default.conf
-
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Generate self signed SSL certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
