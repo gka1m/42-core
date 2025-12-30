@@ -17,20 +17,66 @@ This document presents the prerequisites on how to set up and build the project 
 
 ### Required Software
 The following software are needed in order to get started:
-1. Docker and Docker Compose
-2. GNU Make
-3. Linux-based environment (Penultimate stable version of Debian)
+1. Docker Engine
+2. Docker Compose
+3. GNU Make
+4. Linux-based environment (Penultimate stable version of Debian at time of project commencement)
 
+### User Permissions
 The user must have permission to run Docker commands.
 
 ### Files
-The project needs to have a .env file where variables will be defined, and a secrets folder where sensitive information (e.g. passwords) will be stored.
+Create a .env file in the srcs folder to add in environment variables.
 
 Example variables in .env file:
 ```
 MARIADB_DATABASE = wordpress
 DOMAIN_NAME = login.42.fr
 ```
+### Secrets Folder
+Create the secrets directory and the password files:
+```
+mkdir -p secrets
+```
+
+Examples of files in secrets:
+1. Database password
+2. Administrator wordpress password
+3. User wordpress password
 
 ### Data Directories
-Directories for the data should exist on the host system. 
+The project requires 2 directories for data persistence:
+
+```
+mkdir -p /home/login/data/wordpress
+mkdir -p /home/login/data/mariadb
+```
+
+Remember to set the required permissions for the directories.
+```
+chmod +x <path to file>
+```
+
+## Project Structure
+```
+inception/
+├── Makefile                         
+├── srcs/
+│   ├── docker-compose.yml         
+│   ├── .env                          
+│   ├── secrets/                      
+│   │   ├── db_password.txt
+│   │   ├── wp_admin_password.txt
+│   │   └── wp_user_password.txt
+│   └── requirements/
+│       ├── nginx/
+│       │   ├── Dockerfile
+│       │   ├── default.conf      
+│       ├── wordpress/
+│       │   ├── Dockerfile
+│       │   └── wp_setup.sh           
+│       └── mariadb/
+│           ├── Dockerfile
+│           └── db_setup.sh           
+└── README.md
+```
