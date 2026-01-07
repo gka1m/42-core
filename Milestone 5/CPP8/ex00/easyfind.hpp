@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   easyfind.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:34:59 by gkaim             #+#    #+#             */
-/*   Updated: 2025/10/31 14:43:17 by gkaim            ###   ########.fr       */
+/*   Updated: 2026/01/06 12:08:42 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYTFIND_HPP
+#ifndef EASYFIND_HPP
 #define EASYFIND_HPP
 
 #include <iostream>

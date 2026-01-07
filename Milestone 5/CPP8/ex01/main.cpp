@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:03:07 by kagoh             #+#    #+#             */
-/*   Updated: 2025/10/31 14:54:42 by gkaim            ###   ########.fr       */
+/*   Updated: 2026/01/06 12:27:18 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,19 @@ int main()
         const unsigned int N = 10000;
         Span bigSpan(N);
 
+        std::vector<int> values;
+        values.reserve(N);
+
         std::srand(std::time(NULL));
-        for (unsigned int i = 0; i < N; i++) 
+        for (unsigned int i = 0; i < N; i++)
         {
-            bigSpan.addNumber(std::rand());
+            values.push_back(std::rand());
         }
 
-        std::cout << "\nLarge Span Test:" << std::endl;
+        // ONE single call instead of 10,000 addNumber() calls
+        bigSpan.rangeAdd(values.begin(), values.end());
+
+        std::cout << "\nRangeAdd Span Test:" << std::endl;
         std::cout << "Shortest span: " << bigSpan.shortestSpan() << std::endl;
         std::cout << "Longest span: " << bigSpan.longestSpan() << std::endl;
 
@@ -69,6 +75,22 @@ int main()
         std::cerr << "Unhandled exception: " << e.what() << std::endl;
     }
 
+    // === RANGE ADD OVERFLOW TEST ===
+    try
+    {
+        Span sp2(3);
+        std::vector<int> tooMany;
+        tooMany.push_back(1);
+        tooMany.push_back(2);
+        tooMany.push_back(3);
+        tooMany.push_back(4);
+
+        sp2.rangeAdd(tooMany.begin(), tooMany.end());
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << "Expected rangeAdd error: " << e.what() << std::endl;
+    }
     return 0;
 }
 

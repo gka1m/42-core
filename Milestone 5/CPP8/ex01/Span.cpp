@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:04:21 by kagoh             #+#    #+#             */
-/*   Updated: 2025/10/31 14:54:14 by gkaim            ###   ########.fr       */
+/*   Updated: 2026/01/06 12:13:21 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 Span::Span(unsigned int N) : maxSize(N)
 {
-    std::cout << "Span constructed with " << N << " numbers" << std::endl;
+    // std::cout << "Span constructed with " << N << " numbers" << std::endl;
 }
 
 Span::Span(const Span& other) : maxSize(other.maxSize), numbers(other.numbers)
 {
-    std::cout << "Copy constructor called" << std::endl;
+    // std::cout << "Copy constructor called" << std::endl;
 }
 
 Span& Span::operator=(const Span& other)
@@ -29,13 +29,13 @@ Span& Span::operator=(const Span& other)
         maxSize = other.maxSize;
         numbers = other.numbers;
     }
-    std::cout << "Span assigned" << std::endl;
+    // std::cout << "Span assigned" << std::endl;
     return *this;
 }
 
 Span::~Span()
 {
-    std::cout << "Span freed" << std::endl;
+    // std::cout << "Span freed" << std::endl;
 }
 
 void Span::addNumber(int num)
