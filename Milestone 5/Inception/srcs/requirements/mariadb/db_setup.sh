@@ -26,6 +26,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 
     echo "Creating database and user..."
     mysql <<EOF
+        DELETE FROM mysql.user WHERE user='';
         CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;
         CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
         GRANT ALL PRIVILEGES ON \`${MARIADB_DATABASE}\`.* TO '${MARIADB_USER}'@'%';

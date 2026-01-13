@@ -6,7 +6,10 @@ networks:
 
 services:
   nginx:
-    build: ./requirements/nginx
+    build: 
+      context: ./requirements/nginx
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     image: nginx
     container_name: nginx
     env_file:

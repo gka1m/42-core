@@ -191,12 +191,14 @@ Thus, wordpress can connect to mariadb via `mariadb:3306` as the hostname, makin
 | Portability | More portable across different systems | Not easily portable, as path must exist on host machine |
 | Visibililty | Hidden from host | Directly visible |
 
-Bind mounts are chosen because:
+Docker named volumes are chosen because:
 - Project requirement: project requires data to be stored in a specific directory (`home/login/data/wordpress`)
 - Accessibililty and Transparency: It is more clear where files are being stored due to the existence of absolute path, thus making it easier to view and edit data.
 - Simplicity: only standard file operations are needed for this project.
+- Management: It is managed through the docker-compose file, not through anywhere else.
+- Persistence: Data stored will survive container removals.
 
-**How bind mount is used**:
+**How docker named volume is used**:
 ```
 volumes: 
   wordpress_files: 
