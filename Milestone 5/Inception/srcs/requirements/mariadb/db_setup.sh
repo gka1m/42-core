@@ -5,10 +5,6 @@ echo "Starting MariaDB setup..."
 
 DB_PASSWORD=$(cat /run/secrets/db_password)
 
-
-echo "Checking /var/lib/mysql contents..."
-ls -la /var/lib/mysql/ || echo "Directory is empty or doesn't exist"
-
 # Initialize database if empty
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "FRESH INSTALLATION"

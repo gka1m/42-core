@@ -112,9 +112,11 @@ make down
 # full cleanup (removes everything including images and data)
 make fclean
 
-# Rebuild after cleanup
-make re
+# Rebuild after changing environment variables/secrets
 make rebuild
+
+# restart containers
+make restart
 
 # View status of all containers
 make status

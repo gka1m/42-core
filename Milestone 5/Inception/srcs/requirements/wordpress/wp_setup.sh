@@ -80,6 +80,11 @@ else
     echo "WordPress already configured, skipping setup"
 fi
 
+echo "Changing DB_HOST to current MariaDB port..."
+sed -i \
+  "s/define( *'DB_HOST'.*/define( 'DB_HOST', 'mariadb:3306' );/" \
+  wp-config.php
+
 # Set proper ownership
 chown -R www-data:www-data /var/www/html
 

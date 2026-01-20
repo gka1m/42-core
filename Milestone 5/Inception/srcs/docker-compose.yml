@@ -23,6 +23,12 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost"]
+      interval: 5s
+      timeout: 3sl
+      retries: 3
+      start_period: 10s
 
   mariadb:
     build: ./requirements/mariadb
@@ -37,6 +43,12 @@ services:
     networks:
       - inception
     restart: on-failure
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
 
   wordpress:
     build: ./requirements/wordpress
@@ -55,6 +67,12 @@ services:
     depends_on:
       - mariadb
     restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pidof php-fpm8.2 || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
 
 volumes: 
   wordpress_files: 

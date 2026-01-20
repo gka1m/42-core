@@ -3,7 +3,7 @@ FROM debian:bookworm
 ARG DOMAIN_NAME
 
 # install the NGINX and OpenSSL
-RUN apt-get update && apt-get install -y nginx openssl && apt-get clean
+RUN apt-get update && apt-get install -y nginx openssl curl && apt-get clean
 
 # create SSL directory
 RUN mkdir -p /etc/nginx/ssl /var/www/html

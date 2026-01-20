@@ -61,6 +61,7 @@ From the admin panel, you can:
 2. Approve/moderate comments posted by other users
 3. Manage users
 4. Configure site settings
+
 ### Credential locations
 Credentials are mainly stored in 2 places:
 1. Environment variables (non-sensitive configurations)
