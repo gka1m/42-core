@@ -8,7 +8,7 @@ RUN apt-get update -y && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p var/www/html
+RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 
 COPY wp_setup.sh /wp_setup.sh

@@ -26,7 +26,7 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost"]
       interval: 5s
-      timeout: 3sl
+      timeout: 3s
       retries: 3
       start_period: 10s
 
@@ -91,8 +91,8 @@ volumes:
 
 secrets:
   db_password:
-    file: ./secrets/db_password.txt
+    file: ../secrets/db_password.txt
   wp_admin_password:
-    file: ./secrets/wp_admin_password.txt
+    file: ../secrets/wp_admin_password.txt
   wp_user_password:
-    file: ./secrets/wp_user_password.txt
+    file: ../secrets/wp_user_password.txt

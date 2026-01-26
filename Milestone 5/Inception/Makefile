@@ -10,11 +10,11 @@ up: copy-secrets
 
 copy-secrets:
 	@echo "Copying secrets..."
-	@mkdir -p ./srcs/secrets
-	@cp /home/kagoh/secrets/db_password.txt ./srcs/secrets/db_password.txt
-	@cp /home/kagoh/secrets/wp_admin_password.txt ./srcs/secrets/wp_admin_password.txt
-	@cp /home/kagoh/secrets/wp_user_password.txt ./srcs/secrets/wp_user_password.txt
-	@chmod 600 ./srcs/secrets/*.txt
+	@mkdir -p ./secrets
+	@cp /home/kagoh/secrets/db_password.txt ./secrets/db_password.txt
+	@cp /home/kagoh/secrets/wp_admin_password.txt ./secrets/wp_admin_password.txt
+	@cp /home/kagoh/secrets/wp_user_password.txt ./secrets/wp_user_password.txt
+	@chmod 600 ./secrets/*.txt
 	@echo "Secrets copied successfully"
 
 down:
