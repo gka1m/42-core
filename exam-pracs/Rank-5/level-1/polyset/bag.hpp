@@ -1,5 +1,4 @@
-#ifndef EXAM_ASSIGNMENTS_BAG_HPP
-#define EXAM_ASSIGNMENTS_BAG_HPP
+#pragma once
 
 class bag
 {
