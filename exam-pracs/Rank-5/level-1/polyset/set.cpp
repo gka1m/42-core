@@ -1,27 +1,14 @@
 #include "set.hpp"
-#include <iostream>
 
 set::set(searchable_bag& b) : bag(&b) {}
 
 set::set(const set& other) : bag(other.bag) {}
 
-set::~set() = default;
+set::~set() {}
 
-void set::insert(int val)
+bool set::has(int value) const
 {
-    if (!has(val))
-        bag->insert(val);
-}
-
-void set::insert(int* array, int size)
-{
-    for (int i = 0; i < size; i++)
-        insert(array[i]);
-}
-
-bool set::has(int val) const
-{
-    return bag->has(val);
+    return bag->has(value);
 }
 
 void set::print() const
@@ -32,6 +19,18 @@ void set::print() const
 void set::clear()
 {
     return bag->clear();
+}
+
+void set::insert(int value)
+{
+    if (!has(value))
+        bag->insert(value);
+}
+
+void set::insert(int *arr, int size)
+{
+    for (int i = 0; i < size; i++)
+        insert(arr[i]);
 }
 
 searchable_bag& set::get_bag() const
