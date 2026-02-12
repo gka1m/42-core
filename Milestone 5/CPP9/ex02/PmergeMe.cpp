@@ -6,11 +6,12 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:54:56 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/09 14:25:10 by kagoh            ###   ########.fr       */
+/*   Updated: 2026/01/29 13:00:38 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+#include <algorithm>
 
 PmergeMe::PmergeMe()
 {
@@ -67,80 +68,112 @@ void PmergeMe::loadNums(int ac, char **av)
     }
 }
 
-// void PmergeMe::mergeV(std::vector<int>& cont, int left, int right)
-// {
-//     int mid = (left + right) / 2;
-//     std::vector<int> tmp;
-//     int i = left, j = mid + 1;
-
-//     while (i <= mid && j <= right)
-//     {
-//         if (cont[i] < cont[j])
-//             tmp.push_back(cont[i++]);
-//         else
-//             tmp.push_back(cont[j++]);
-//     }
-//     while (i <= mid)
-//         tmp.push_back(cont[i++]);
-//     while (j <= right)
-//         tmp.push_back(cont[j++]);
-//     for (int k = 0; k < (int)tmp.size(); k++)
-//         cont[left + k] = tmp[k];
-// }
-
-// void PmergeMe::sortV(std::vector<int>& cont, int left, int right)
-// {
-//     if (left < right)
-//     {
-//         int mid = (left + right) / 2;
-//         sortV(cont, left, mid);
-//         sortV(cont, mid + 1, right);
-//         mergeV(cont, left, right);
-//     }
-// }
-
-void PmergeMe::sortV(std::vector<int>& cont) {
+void PmergeMe::sortV(std::vector<int>& cont)
+{
     if (cont.size() <= 1)
         return;
 
-    // 1. Pair elements
     std::vector<int> smalls;
     std::vector<int> largers;
-    for (size_t i = 0; i + 1 < cont.size(); i += 2) {
-        int a = cont[i], b = cont[i+1];
-        if (a < b) {
+
+    // Used to keep pairing relationship
+    std::vector<std::pair<int, int> > pairs;
+
+    // 1. Pair elements
+    for (size_t i = 0; i + 1 < cont.size(); i += 2)
+    {
+        int a = cont[i];
+        int b = cont[i + 1];
+        if (a < b)
+        {
             smalls.push_back(a);
             largers.push_back(b);
-        } else {
+            pairs.push_back(std::make_pair(a, b));
+        }
+        else
+        {
             smalls.push_back(b);
             largers.push_back(a);
+            pairs.push_back(std::make_pair(b, a));
         }
     }
-    // Handle odd element
-    if (cont.size() % 2 != 0)
-        smalls.push_back(cont.back());
+
+    bool hasOdd = (cont.size() % 2 != 0);
+    int odd = 0;
+    if (hasOdd)
+        odd = cont.back();
 
     // 2. Recursively sort the largers
     sortV(largers);
 
-    // 3. Insert the smalls into sorted largers
+    // 2a. Reorder smalls to match sorted largers
+    std::vector<int> orderedSmalls;
+    for (size_t i = 0; i < largers.size(); i++)
+    {
+        for (size_t j = 0; j < pairs.size(); j++)
+        {
+            if (pairs[j].second == largers[i])
+            {
+                orderedSmalls.push_back(pairs[j].first);
+                pairs.erase(pairs.begin() + j);
+                break;
+            }
+        }
+    }
+    smalls = orderedSmalls;
+
+    // 3. Insert smalls into sorted largers using Jacobsthal sequence
     std::vector<int> result = largers;
 
-    // Insert first small at beginning
+    // Insert first small at the beginning
     result.insert(result.begin(), smalls[0]);
 
-    // Jacobsthal sequence generation
+    // Generate Jacobsthal sequence for remaining insertions
     std::vector<size_t> jacobSeq;
-    generateJacobsthal(jacobSeq, smalls.size() - 1);
+    generateJacobsthal(jacobSeq, smalls.size());
 
-    for (size_t idx = 1; idx < smalls.size(); ++idx) {
-        size_t pos = (idx - 1 < jacobSeq.size()) ? jacobSeq[idx - 1] : idx;
-        if (pos >= smalls.size()) pos = idx;
+    // Create insertion order based on Jacobsthal sequence
+    std::vector<bool> inserted(smalls.size(), false);
+    inserted[0] = true; // Already inserted first element
 
-        int val = smalls[pos];
-        // Binary search insert
-        std::vector<int>::iterator it = std::lower_bound(result.begin(), result.end(), val);
-        result.insert(it, val);
+    for (size_t k = 0; k < jacobSeq.size(); k++)
+    {
+        size_t jacobIdx = jacobSeq[k];
+        
+        // Insert from jacobIdx down to previous Jacobsthal number
+        size_t prevJacob = (k > 0) ? jacobSeq[k - 1] : 0;
+        
+        for (size_t i = jacobIdx; i > prevJacob && i < smalls.size(); i--)
+        {
+            if (!inserted[i])
+            {
+                int val = smalls[i];
+                std::vector<int>::iterator it =
+                    std::lower_bound(result.begin(), result.end(), val);
+                result.insert(it, val);
+                inserted[i] = true;
+            }
+        }
+    }
+
+    // Insert any remaining elements not covered by Jacobsthal
+    for (size_t i = 1; i < smalls.size(); i++)
+    {
+        if (!inserted[i])
+        {
+            int val = smalls[i];
+            std::vector<int>::iterator it =
+                std::lower_bound(result.begin(), result.end(), val);
+            result.insert(it, val);
+        }
+    }
+
+    // Insert odd element if present
+    if (hasOdd)
+    {
+        std::vector<int>::iterator it =
+            std::lower_bound(result.begin(), result.end(), odd);
+        result.insert(it, odd);
     }
 
     cont = result;
@@ -157,80 +190,111 @@ void PmergeMe::generateJacobsthal(std::vector<size_t>& seq, size_t n) {
     }
 }
 
-// void PmergeMe::mergeD(std::deque<int>& cont, int left, int right)
-// {
-//     int mid = (left + right) / 2;
-//     std::vector<int> tmp;
-//     int i = left, j = mid + 1;
-
-//     while (i <= mid && j <= right)
-//     {
-//         if (cont[i] < cont[j])
-//             tmp.push_back(cont[i++]);
-//         else
-//             tmp.push_back(cont[j++]);
-//     }
-//     while (i <= mid)
-//         tmp.push_back(cont[i++]);
-//     while (j <= right)
-//         tmp.push_back(cont[j++]);
-//     for (int k = 0; k < (int)tmp.size(); k++)
-//         cont[left + k] = tmp[k];
-// }
-
-// void PmergeMe::sortD(std::deque<int>& cont, int left, int right)
-// {
-//     if (left < right)
-//     {
-//         int mid = (left + right) / 2;
-//         sortD(cont, left, mid);
-//         sortD(cont, mid + 1, right);
-//         mergeD(cont, left, right);
-//     }
-// }
-
-void PmergeMe::sortD(std::deque<int>& cont) {
+void PmergeMe::sortD(std::deque<int>& cont)
+{
     if (cont.size() <= 1)
         return;
 
-    // 1. Pair elements
     std::deque<int> smalls;
     std::deque<int> largers;
-    for (size_t i = 0; i + 1 < cont.size(); i += 2) {
-        int a = cont[i], b = cont[i+1];
-        if (a < b) {
+    std::deque<std::pair<int, int> > pairs;
+
+    // 1. Pair elements
+    for (size_t i = 0; i + 1 < cont.size(); i += 2)
+    {
+        int a = cont[i];
+        int b = cont[i + 1];
+
+        if (a < b)
+        {
             smalls.push_back(a);
             largers.push_back(b);
-        } else {
+            pairs.push_back(std::make_pair(a, b));
+        }
+        else
+        {
             smalls.push_back(b);
             largers.push_back(a);
+            pairs.push_back(std::make_pair(b, a));
         }
     }
-    // Handle odd element
-    if (cont.size() % 2 != 0)
-        smalls.push_back(cont.back());
+
+    bool hasOdd = (cont.size() % 2 != 0);
+    int odd = 0;
+    if (hasOdd)
+        odd = cont.back();
 
     // 2. Recursively sort the largers
     sortD(largers);
 
-    // 3. Insert the smalls into sorted largers
+    // 2a. Reorder smalls to match sorted largers
+    std::deque<int> orderedSmalls;
+    for (size_t i = 0; i < largers.size(); i++)
+    {
+        for (size_t j = 0; j < pairs.size(); j++)
+        {
+            if (pairs[j].second == largers[i])
+            {
+                orderedSmalls.push_back(pairs[j].first);
+                pairs.erase(pairs.begin() + j);
+                break;
+            }
+        }
+    }
+    smalls = orderedSmalls;
+
+    // 3. Insert smalls into sorted largers using Jacobsthal sequence
     std::deque<int> result = largers;
 
-    // Insert first small at beginning
+    // Insert first small at the beginning
     result.insert(result.begin(), smalls[0]);
 
-    // Jacobsthal sequence generation
+    // Generate Jacobsthal sequence for remaining insertions
     std::deque<size_t> jacobSeq;
-    generateJacobsthal(jacobSeq, smalls.size() - 1);
+    generateJacobsthal(jacobSeq, smalls.size());
 
-    for (size_t idx = 1; idx < smalls.size(); ++idx) {
-        size_t pos = (idx - 1 < jacobSeq.size()) ? jacobSeq[idx - 1] : idx;
-        if (pos >= smalls.size()) pos = idx;
+    // Create insertion order based on Jacobsthal sequence
+    std::vector<bool> inserted(smalls.size(), false);
+    inserted[0] = true; // Already inserted first element
 
-        int val = smalls[pos];
-        // Binary search insert
-        std::deque<int>::iterator it = std::lower_bound(result.begin(), result.end(), val);
-        result.insert(it, val);
+    for (size_t k = 0; k < jacobSeq.size(); k++)
+    {
+        size_t jacobIdx = jacobSeq[k];
+        
+        // Insert from jacobIdx down to previous Jacobsthal number
+        size_t prevJacob = (k > 0) ? jacobSeq[k - 1] : 0;
+        
+        for (size_t i = jacobIdx; i > prevJacob && i < smalls.size(); i--)
+        {
+            if (!inserted[i])
+            {
+                int val = smalls[i];
+                std::deque<int>::iterator it =
+                    std::lower_bound(result.begin(), result.end(), val);
+                result.insert(it, val);
+                inserted[i] = true;
+            }
+        }
+    }
+
+    // Insert any remaining elements not covered by Jacobsthal
+    for (size_t i = 1; i < smalls.size(); i++)
+    {
+        if (!inserted[i])
+        {
+            int val = smalls[i];
+            std::deque<int>::iterator it =
+                std::lower_bound(result.begin(), result.end(), val);
+            result.insert(it, val);
+        }
+    }
+
+    // Insert odd element if present
+    if (hasOdd)
+    {
+        std::deque<int>::iterator it =
+            std::lower_bound(result.begin(), result.end(), odd);
+        result.insert(it, odd);
     }
 
     cont = result;

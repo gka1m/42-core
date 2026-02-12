@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:15:48 by gkaim             #+#    #+#             */
-/*   Updated: 2025/09/02 16:24:42 by gkaim            ###   ########.fr       */
+/*   Updated: 2026/01/27 11:03:58 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 #include <string>
 #include <sstream>
 #include <stdexcept>
+#include <list> 
 
 class RPN
 {
     private:
-        std::stack<int> stack;
+        // std::stack<int> stack;
+        std::stack<int, std::list<int> > stack;
         bool isOp(const std::string& token) const;
         void applyOp(const std::string& op);
 

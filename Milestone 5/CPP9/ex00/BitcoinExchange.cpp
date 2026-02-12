@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkaim <gkaim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:06:38 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/02 15:50:56 by gkaim            ###   ########.fr       */
+/*   Updated: 2026/02/02 16:50:09 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ BitcoinExchange::~BitcoinExchange()
 
 bool BitcoinExchange::loadData(const std::string& filename)
 {
+    // Check if file is CSV
     if (filename.substr(filename.find_last_of('.') + 1) != "csv")
-        std::cerr << "Only .csv files accepted" << std::endl;
+    {
+        std::cerr << "Error: database must be a .csv file" << std::endl;
+        return false;
+    }
+    
     std::ifstream file(filename.c_str());
     if (!file)
     {
@@ -49,7 +54,7 @@ bool BitcoinExchange::loadData(const std::string& filename)
     }
 
     std::string line;
-    std::getline(file, line);
+    std::getline(file, line); // Skip header line
     
     while (std::getline(file, line))
     {
@@ -58,16 +63,24 @@ bool BitcoinExchange::loadData(const std::string& filename)
 
         if (!std::getline(ss, date, ',') || !std::getline(ss, value))
         {
-            std::cerr << "Bad format in line: " << line << std::endl;
+            std::cerr << "Error: bad format in database line: " << line << std::endl;
+            continue;
         }
-        float val = (float)(std::atof(value.c_str()));
+        
+        // Convert value to float
+        float val = static_cast<float>(std::atof(value.c_str()));
+        
+        // Store in map (date -> exchange rate)
+        // NO VALIDATION - exchange rates can be any value!
         btcPrices[date] = val;
     }
+    
     return true;
 }
 
 bool BitcoinExchange::checkDate(const std::string& date)
 {
+    // Check format: YYYY-MM-DD (must be exactly 10 characters)
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
         return false;
 
@@ -76,9 +89,26 @@ bool BitcoinExchange::checkDate(const std::string& date)
     char dash;
 
     ss >> year >> dash >> month >> dash >> day;
-    if (ss.fail() || year < 0 || month < 1 || month > 12 || day < 1 || day > 31)
+    
+    // Check if parsing failed or values are out of range
+    if (ss.fail() || year < 0 || month < 1 || month > 12 || day < 1)
         return false;
-
+    int maxDays;
+    if (month == 2)
+    {
+        bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        maxDays = isLeapYear ? 29 : 28;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
+    {
+        maxDays = 30;
+    }
+    else
+    {
+        maxDays = 31;
+    }
+    if (day > maxDays)
+        return false;
     return true;
 }
 
@@ -88,9 +118,12 @@ bool BitcoinExchange::checkValue(const std::string& valueString)
     float value;
     ss >> value;
 
+    // Check if conversion failed or there's extra text
     if (ss.fail() || !ss.eof())
         return false;
     
+    // THIS CHECK IS FOR USER INPUT VALUES ONLY
+    // Value must be between 0 and 1000 (as per the subject)
     return value >= 0.0f && value <= 1000.0f;
 }
 
@@ -104,53 +137,18 @@ float BitcoinExchange::toFlt(const std::string& valueString)
 
 float BitcoinExchange::getRate(const std::string& date)
 {
+    // lower_bound returns iterator to first element >= date
     std::map<std::string, float>::const_iterator it = btcPrices.lower_bound(date);
 
+    // If exact match found, return it
     if (it != btcPrices.end() && it->first == date)
         return it->second;
 
+    // If no exact match and we're at the beginning, no earlier date exists
     if (it == btcPrices.begin())
         return -1.0f;
     
+    // Otherwise, go back one to get the closest earlier date
     --it;
     return it->second;
-}
-
-bool BitcoinExchange::convertFile(const std::string& csvFile, const std::string& txtFile)
-{
-    std::ifstream in(csvFile.c_str());
-    if (!in)
-    {
-        std::cerr << "Error: could not open input CSV file: " << csvFile << std::endl;
-        return false;
-    }
-
-    std::ofstream out(txtFile.c_str());
-    if (!out)
-    {
-        std::cerr << "Error: could not open output TXT file: " << txtFile << std::endl;
-        return false;
-    }
-
-    std::string line;
-    while (std::getline(in, line))
-    {
-        if (line.empty())
-            continue;
-
-        std::istringstream ss(line);
-        std::string date, value;
-
-        if (!std::getline(ss, date, ',') || !std::getline(ss, value))
-        {
-            std::cerr << "Bad CSV line: " << line << std::endl;
-            continue;
-        }
-
-        // Write in required format: "YYYY-MM-DD | value"
-        out << date << " | " << value << std::endl;
-    }
-
-    std::cout << "Converted " << csvFile << " → " << txtFile << std::endl;
-    return true;
 }

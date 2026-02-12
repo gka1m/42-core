@@ -6,7 +6,7 @@
 /*   By: kagoh <kagoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:12:29 by kagoh             #+#    #+#             */
-/*   Updated: 2025/09/03 11:00:52 by kagoh            ###   ########.fr       */
+/*   Updated: 2026/01/27 11:09:48 by kagoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool RPN::isOp(const std::string& token) const
 void RPN::applyOp(const std::string& op)
 {
     if (stack.size() < 2)
-        std::cerr << "Error: not enough operands" << std::endl;
+        throw std::runtime_error("Error: not enough operands");
 
     int rhs = stack.top();
     stack.pop();
