@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
+/* mine */
 #include <sys/select.h>
 
 static int gid[FD_SETSIZE];
@@ -13,53 +14,58 @@ static char *buffer[FD_SETSIZE];
 static int gnext = 0;
 static int gmax = 0;
 static fd_set gread, gmaster;
+/* end of mine */
 
-int getmsg(char **buffer, char **msg)
+/* note: extract_message and str_join are given in the subject, as well as main */
+int extract_message(char **buf, char **msg)
 {
-    char *b;
-    int i = 0;
+	char	*newbuf;
+	int	i;
 
-    *msg = 0;
-    if (*buffer == 0)
-        return 0;
-    while ((*buffer)[i])
-    {
-        if ((*buffer)[i] == '\n')
-        {
-            b = calloc(1, sizeof(*b) * (strlen(*buffer + i + 1) + 1));\
-            if (b == 0)
-                return -1;
-            strcpy(b, *buffer + i + 1);
-            *msg = *buffer;
-            (*msg)[i + 1] = 0;
-            *buffer = b;
-            return 1;
-        }
-        i++;
-    }
-    return 0;
+	*msg = 0;
+	if (*buf == 0)
+		return (0);
+	i = 0;
+	while ((*buf)[i])
+	{
+		if ((*buf)[i] == '\n')
+		{
+			newbuf = calloc(1, sizeof(*newbuf) * (strlen(*buf + i + 1) + 1));
+			if (newbuf == 0)
+				return (-1);
+			strcpy(newbuf, *buf + i + 1);
+			*msg = *buf;
+			(*msg)[i + 1] = 0;
+			*buf = newbuf;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-char *joinstr(char *str, char *addon)
+char *str_join(char *buf, char *add)
 {
-    char *res;
-    int len;
+	char	*newbuf;
+	int		len;
 
-    if (str == 0)
-        len = 0;
-    else
-        len = strlen(str);
-    res = malloc((len + strlen(addon) + 1) * sizeof(res));
-    if (!res)
-        return NULL;
-    res[0] = 0;
-    if (str != 0)
-        strcat(res, str);
-    free(str);
-    strcat(res, addon);
-    return res;
+	if (buf == 0)
+		len = 0;
+	else
+		len = strlen(buf);
+	newbuf = malloc(sizeof(*newbuf) * (len + strlen(add) + 1));
+	if (newbuf == 0)
+		return (0);
+	newbuf[0] = 0;
+	if (buf != 0)
+		strcat(newbuf, buf);
+	free(buf);
+	strcat(newbuf, add);
+	return (newbuf);
 }
+/* end of given functions */
 
+/* mine */
 static void fatal_err(void)
 {
     write(2, "Fatal error\n", 12);
@@ -123,12 +129,12 @@ static void exec(int fd)
         return remclient(fd);
 
     b[r] = 0;
-    buffer[fd] = joinstr(buffer[fd], b);
+    buffer[fd] = str_join(buffer[fd], b);
     if (!buffer[fd])
         fatal_err();
 
     char *msg;
-    while (getmsg(&buffer[fd], &msg) == 1)
+    while (extract_message(&buffer[fd], &msg) == 1)
     {
         char out[64];
         sprintf(out, "client %d: ", gid[fd]);
@@ -188,3 +194,46 @@ int main(int ac, char **av)
         }
     }
 }
+/* end of mine */
+
+/*this main is given*/
+
+// int main() {
+// 	int sockfd, connfd, len;
+// 	struct sockaddr_in servaddr, cli;
+
+// 	// socket create and verification
+// 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+// 	if (sockfd == -1) {
+// 		printf("socket creation failed...\n");
+// 		exit(0);
+// 	}
+// 	else
+// 		printf("Socket successfully created..\n");
+// 	bzero(&servaddr, sizeof(servaddr));
+
+// 	// assign IP, PORT
+// 	servaddr.sin_family = AF_INET;
+// 	servaddr.sin_addr.s_addr = htonl(2130706433); //127.0.0.1
+// 	servaddr.sin_port = htons(8081);
+
+// 	// Binding newly created socket to given IP and verification
+// 	if ((bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr))) != 0) {
+// 		printf("socket bind failed...\n");
+// 		exit(0);
+// 	}
+// 	else
+// 		printf("Socket successfully binded..\n");
+// 	if (listen(sockfd, 10) != 0) {
+// 		printf("cannot listen\n");
+// 		exit(0);
+// 	}
+// 	len = sizeof(cli);
+// 	connfd = accept(sockfd, (struct sockaddr *)&cli, &len);
+// 	if (connfd < 0) {
+// 		printf("server acccept failed...\n");
+// 		exit(0);
+// 	}
+// 	else
+// 		printf("server acccept the client...\n");
+// }
